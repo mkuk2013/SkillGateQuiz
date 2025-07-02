@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillGate Quiz Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-blue: #0056b3;
+            --success-green: #28a745;
+            --error-red: #dc3545;
+            --light-bg: #f8f9fa;
+            --medium-bg: #e9ecef;
+            --white: #ffffff;
+            --text-dark: #343a40;
+            --text-light: #6c757d;
+            --border-color: #dee2e6;
+            --shadow-light: 0 0.5rem 1rem rgba(0,0,0,.1);
+            --border-radius: 0.5rem;
+            --font-size-base: 1rem;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            font-size: var(--font-size-base);
+        }
+
+        .container {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            max-width: 1400px;
+            width: 100%;
+            margin-top: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-section h1 {
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+
+        .header-section p {
+            font-size: 1.1em;
+            color: var(--text-light);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            flex-direction: column;
+        }
+        .loading-spinner::after {
+            content: "";
+            width: 40px;
+            height: 40px;
+            border: 5px solid var(--primary-blue);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        #loading-message {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: var(--text-light);
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        table th, table td {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        table thead th {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+
+        table tbody tr:hover {
+            background-color: var(--medium-bg);
+            transition: background-color 0.2s ease;
+        }
+
+        .status-qualified {
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        .status-not-qualified {
+            color: var(--error-red);
+            font-weight: bold;
+        }
+
+        /* Login Form Styles */
+        #login-section {
+            background-color: var(--light-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            max-width: 450px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        #login-section h2 {
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-weight: 600;
+        }
+        #login-section p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+        #login-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-align: left;
+            color: var(--text-dark);
+            font-size: 0.95em;
+        }
+        #login-section input[type="email"],
+        #login-section input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        #login-section input[type="email"]:focus,
+        #login-section input[type="password"]:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        #login-error {
+            color: var(--error-red);
+            margin-bottom: 15px;
+            font-weight: 500;
+            display: none;
+            font-size: 0.9em;
+        }
+        .button-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+        }
+        .button-primary:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-1px);
+        }
+        .button-primary:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        #logout-button {
+            background-color: var(--error-red);
+            color: var(--white);
+            padding: 10px 20px;
+            font-size: 0.95em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+        }
+        #logout-button:hover {
+            background-color: #c82333;
+        }
+        #refresh-button {
+            background-color: var(--success-green);
+            color: var(--white);
+            padding: 10px 20px;
+            font-size: 0.95em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+        }
+        #refresh-button:hover {
+            background-color: #218838;
+        }
+        .admin-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .header-section h1 {
+                font-size: 2em;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                border: 1px solid var(--border-color);
+                margin-bottom: 15px;
+                border-radius: var(--border-radius);
+                overflow: hidden;
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid var(--medium-bg);
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+                font-size: 0.9em;
+            }
+            td:last-child {
+                border-bottom: 0;
+            }
+            td:before {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: var(--text-dark);
+            }
+            /* Label the data */
+            td:nth-of-type(1):before { content: "ID:"; }
+            td:nth-of-type(2):before { content: "Name:"; }
+            td:nth-of-type(3):before { content: "Email:"; }
+            td:nth-of-type(4):before { content: "Score:"; }
+            td:nth-of-type(5):before { content: "Status:"; }
+            td:nth-of-type(6):before { content: "Timestamp:"; }
+
+            #logout-button {
+                position: static;
+                width: 100%;
+                margin-top: 20px;
+            }
+            .admin-controls {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="login-section">
+            <h2>Admin Login</h2>
+            <p>Please log in to access the quiz results.</p>
+            <div>
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+            </div>
+            <div>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+            </div>
+            <p id="login-error"></p>
+            <button id="login-button" class="button-primary">Login</button>
+        </div>
+
+        <div id="admin-panel" style="display:none;">
+            <button id="logout-button">Logout</button>
+            <div class="header-section">
+                <h1>SkillGate Admin Panel</h1>
+                <p>Manage and view quiz results effortlessly.</p>
+            </div>
+
+            <div class="admin-controls">
+                <button id="refresh-button">Refresh Data</button>
+            </div>
+
+            <div class="loading-spinner" id="loading-spinner" style="display:none;">
+                <p id="loading-message">Loading quiz results...</p>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="results-table-body">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration (COPY FROM YOUR quiz_app.html OR FIREBASE CONSOLE)
+      const firebaseConfig = {
+        apiKey: "AIzaSyC55rgT41mwuf5y4q3P_Wi7zsLwO4RQAPQ", // Replace with YOUR_API_KEY
+        authDomain: "skillget-quiz.firebaseapp.com", // Replace with YOUR_AUTH_DOMAIN
+        projectId: "skillget-quiz", // Replace with YOUR_PROJECT_ID
+        storageBucket: "skillget-quiz.firebasestorage.app", // Replace with YOUR_STORAGE_BUCKET
+        messagingSenderId: "222675456393", // Replace with YOUR_MESSAGING_SENDER_ID
+        appId: "1:222675456393:web:931fae081fa10829d4d158", // Replace with YOUR_APP_ID
+        // measurementId: "G-MVEJJGL4FG" // Optional
+      };
+
+      // Initialize Firebase App
+      firebase.initializeApp(firebaseConfig);
+
+      // Get a reference to the Firestore service
+      const db = firebase.firestore();
+      // Get a reference to the Auth service
+      const auth = firebase.auth();
+
+      console.log("Firebase initialized for Admin Panel.");
+
+      // Function to fetch and display data
+      async function fetchAndDisplayResults() {
+          const resultsTableBody = document.getElementById('results-table-body');
+          const loadingSpinner = document.getElementById('loading-spinner');
+
+          if (!resultsTableBody || !loadingSpinner) {
+              console.error("HTML elements for results display not found.");
+              return; // Exit if elements are null
+          }
+
+          resultsTableBody.innerHTML = ''; // Clear existing data
+          loadingSpinner.style.display = 'flex'; // Show loading spinner
+          document.getElementById('loading-message').textContent = "Loading quiz results..."; // Reset message
+
+          try {
+              // Fetch all documents from the 'quiz_results' collection
+              // Order by timestamp in descending order (latest first)
+              const querySnapshot = await db.collection("quiz_results").orderBy("timestamp", "desc").get();
+
+              if (querySnapshot.empty) {
+                  document.getElementById('loading-message').textContent = "No quiz results found yet.";
+                  resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No quiz results available.</td></tr>`;
+                  return;
+              }
+
+              let counter = 1; // Initialize counter for sequential ID
+
+              querySnapshot.forEach((doc) => {
+                  const data = doc.data();
+                  const row = resultsTableBody.insertRow();
+
+                  // Format timestamp
+                  const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
+
+                  const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
+
+                  row.innerHTML = `
+                      <td>${counter}</td> <td>${data.name || 'N/A'}</td>
+                      <td>${data.email || 'N/A'}</td>
+                      <td>${data.score !== undefined ? data.score : 'N/A'}</td>
+                      <td class="${statusClass}">${data.quiz_status || 'N/A'}</td>
+                      <td>${timestamp}</td>
+                  `;
+                  counter++; // Increment counter
+              });
+              loadingSpinner.style.display = 'none'; // Hide loading spinner
+          } catch (error) {
+              console.error("Error fetching documents: ", error);
+              document.getElementById('loading-message').textContent = "Error loading data. Please check console.";
+              resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--error-red);">Failed to load results: ${error.message}</td></tr>`;
+              alert("Failed to load quiz results: " + error.message + ". Please check your Firestore rules and network connection.");
+          }
+      }
+
+      // --- Authentication Logic ---
+      document.addEventListener('DOMContentLoaded', () => {
+          const loginSection = document.getElementById('login-section');
+          const adminPanel = document.getElementById('admin-panel');
+          const loginEmailInput = document.getElementById('login-email');
+          const loginPasswordInput = document.getElementById('login-password');
+          const loginErrorDiv = document.getElementById('login-error');
+          const loginButton = document.getElementById('login-button');
+          const logoutButton = document.getElementById('logout-button');
+          const refreshButton = document.getElementById('refresh-button');
+
+          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton) {
+              console.error("One or more required HTML elements for login/admin panel were not found. Please check your admin.html file for correct IDs.");
+              alert("Fatal Error: Admin panel elements not found. Check console for details.");
+              return;
+          }
+
+          auth.onAuthStateChanged(user => {
+              if (user) {
+                  console.log("User logged in:", user.email);
+                  loginSection.style.display = 'none';
+                  adminPanel.style.display = 'block';
+                  fetchAndDisplayResults();
+              } else {
+                  console.log("User logged out.");
+                  loginSection.style.display = 'block';
+                  adminPanel.style.display = 'none';
+              }
+          });
+
+          loginButton.addEventListener('click', async () => {
+              const email = loginEmailInput.value;
+              const password = loginPasswordInput.value;
+              loginErrorDiv.style.display = 'none';
+
+              if (!email || !password) {
+                  loginErrorDiv.textContent = "Please enter both email and password.";
+                  loginErrorDiv.style.display = 'block';
+                  return;
+              }
+
+              try {
+                  loginButton.disabled = true;
+                  loginButton.textContent = "Logging in...";
+
+                  await auth.signInWithEmailAndPassword(email, password);
+              } catch (error) {
+                  console.error("Login error:", error);
+                  let errorMessage = "Login failed. Please check your credentials.";
+                  if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                      errorMessage = "Invalid email or password.";
+                  } else if (error.code === 'auth/invalid-email') {
+                      errorMessage = "Invalid email format.";
+                  } else if (error.code === 'auth/network-request-failed') {
+                      errorMessage = "Network error. Check your internet connection.";
+                  }
+                  loginErrorDiv.textContent = errorMessage;
+                  loginErrorDiv.style.display = 'block';
+              } finally {
+                  loginButton.disabled = false;
+                  loginButton.textContent = "Login";
+              }
+          });
+
+          logoutButton.addEventListener('click', async () => {
+              try {
+                  await auth.signOut();
+              } catch (error) {
+                  console.error("Logout error:", error);
+                  alert("Error logging out: " + error.message);
+              }
+          });
+
+          refreshButton.addEventListener('click', fetchAndDisplayResults);
+
+          loginPasswordInput.addEventListener('keypress', function(e) {
+              if (e.which === 13) {
+                  loginButton.click();
+              }
+          });
+      });
+    </script>
+</body>
+</html>
