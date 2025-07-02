@@ -246,6 +246,11 @@
         #logout-button:hover {
             background-color: #c82333;
         }
+        .admin-controls {
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+            margin-bottom: 20px;
+        }
         .admin-controls button {
             background-color: var(--success-green); /* Default for Refresh and Print */
             color: var(--white);
@@ -263,18 +268,24 @@
             background-color: #218838;
         }
         /* Specific hover for print button if desired */
-        #print-button { /* Adjusted to be consistent with other buttons */
+        #print-button {
             background-color: #17a2b8; /* A shade of blue-green for print */
         }
         #print-button:hover {
             background-color: #138496;
         }
-
-        .admin-controls {
-            display: flex;
-            justify-content: flex-end; /* Align to the right */
-            margin-bottom: 20px;
+        /* Style for Delete All button */
+        #delete-all-button {
+            background-color: var(--error-red); /* Red for destructive action */
+            padding: 8px 15px; /* Smaller padding */
+            font-size: 0.9em; /* Slightly smaller font size */
+            max-width: 180px; /* Explicitly set a max width for desktop */
+            box-sizing: border-box; /* Ensure padding is included in width calculation */
         }
+        #delete-all-button:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
 
         /* Responsive adjustments for mobile */
         @media (max-width: 768px) {
@@ -364,20 +375,30 @@
 
             .admin-controls {
                 flex-direction: column; /* Stack buttons vertically */
-                align-items: stretch; /* Stretch buttons to full width */
+                align-items: center; /* Center items within the flex container */
                 margin-top: 20px;
             }
             .admin-controls button {
                 margin-left: 0; /* Remove left margin for stacked buttons */
                 margin-bottom: 10px; /* Space between stacked buttons */
-                width: 100%; /* Full width for better tapping */
-                max-width: none; /* Override max-width */
+                width: 100%; /* Default to full width for general buttons */
+                max-width: none; /* Override max-width for general buttons */
                 font-size: 1em; /* Slightly larger for mobile tap */
                 padding: 12px 20px;
             }
             .admin-controls button:last-child {
                 margin-bottom: 0; /* No margin after the last button */
             }
+
+            /* Specific override for the Delete All button on mobile to match other buttons */
+            #delete-all-button {
+                width: 100% !important; /* Make it full width */
+                max-width: none !important; /* Remove max-width constraint */
+                align-self: auto !important; /* Reset align-self */
+                padding: 12px 20px !important; /* Ensure consistent padding with other buttons */
+                font-size: 1em !important; /* Ensure consistent font-size with other buttons */
+            }
+
             /* Login section adjustments for mobile */
             #login-section {
                 padding: 25px;
@@ -546,6 +567,7 @@
             <div class="admin-controls">
                 <button id="refresh-button">Refresh Data</button>
                 <button id="print-button">Print / Save As PDF</button>
+                <button id="delete-all-button" class="button-primary">Delete All Data</button>
             </div>
 
             <div class="loading-spinner" id="loading-spinner" style="display:none;">
@@ -664,6 +686,57 @@
           }
       }
 
+      // Function to delete all quiz results from Firestore
+      async function deleteAllQuizResults() {
+            if (!confirm("Are you absolutely sure you want to delete ALL quiz results? This action cannot be undone.")) {
+                return; // User cancelled
+            }
+
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const deleteButton = document.getElementById('delete-all-button');
+            const originalButtonText = deleteButton.textContent;
+            
+            loadingSpinner.style.display = 'flex';
+            document.getElementById('loading-message').textContent = "Deleting all quiz results...";
+            deleteButton.disabled = true;
+            deleteButton.textContent = "Deleting...";
+
+            const collectionRef = db.collection("quiz_results");
+            const batchSize = 500; // Max documents per batch
+
+            try {
+                let querySnapshot = await collectionRef.limit(batchSize).get();
+                let documentsDeleted = 0;
+
+                while (querySnapshot.size > 0) {
+                    const batch = db.batch();
+                    querySnapshot.docs.forEach(doc => {
+                        batch.delete(doc.ref);
+                    });
+
+                    await batch.commit();
+                    documentsDeleted += querySnapshot.size;
+                    console.log(`Deleted ${querySnapshot.size} documents in a batch. Total deleted: ${documentsDeleted}`);
+
+                    // Fetch the next batch
+                    querySnapshot = await collectionRef.limit(batchSize).get();
+                }
+
+                alert(`Successfully deleted ${documentsDeleted} quiz results.`);
+                console.log("All quiz results deleted successfully.");
+                fetchAndDisplayResults(); // Refresh table after deletion
+
+            } catch (error) {
+                console.error("Error deleting documents: ", error);
+                alert("Error deleting quiz results: " + error.message + ". Please check your Firebase security rules.");
+            } finally {
+                loadingSpinner.style.display = 'none';
+                deleteButton.disabled = false;
+                deleteButton.textContent = originalButtonText;
+            }
+        }
+
+
       // --- Authentication Logic ---
       document.addEventListener('DOMContentLoaded', () => {
           const loginSection = document.getElementById('login-section');
@@ -675,8 +748,10 @@
           const logoutButton = document.getElementById('logout-button');
           const refreshButton = document.getElementById('refresh-button');
           const printButton = document.getElementById('print-button'); // Get the new print button
+          const deleteAllButton = document.getElementById('delete-all-button'); // Get the new delete all button
 
-          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton || !printButton) {
+
+          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton || !printButton || !deleteAllButton) {
               console.error("One or more required HTML elements for login/admin panel were not found. Please check your admin.html file for correct IDs.");
               alert("Fatal Error: Admin panel elements not found. Check console for details.");
               return;
@@ -744,6 +819,9 @@
           printButton.addEventListener('click', () => {
               window.print(); // Triggers the browser's print dialog
           });
+
+          // Event listener for the new Delete All button
+          deleteAllButton.addEventListener('click', deleteAllQuizResults);
 
           loginPasswordInput.addEventListener('keypress', function(e) {
               if (e.which === 13) {
