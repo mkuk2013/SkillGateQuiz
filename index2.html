@@ -277,39 +277,23 @@
 
             <div class="info-section announcement">
                 <span class="icon">📢</span>
-                <p>نئون Batch جلد ئي اسان جي Facebook Group ۽ Shehzad Hussain ID تي اعلان ڪيو ويندو. مهرباني ڪري <a href="https://www.facebook.com/ShehzadHussainsahito" id="facebookLink">Follow ڪريو</a> ته جيئن وقت سر معلومات حاصل ڪري سگهو.</p>
+                <p>نئون Batch جلد ئي اسان جي Facebook Group ۽ Shehzad Hussain ID تي اعلان ڪيو ويندو. مهرباني ڪري <a href="https://www.facebook.com/ShehzadHussainsahito" target="_blank">Follow ڪريو</a> ته جيئن وقت سر معلومات حاصل ڪري سگهو.</p>
             </div>
         </main>
 
         <div class="additional-info">
             <p>وڌيڪ معلومات لاءِ اسان جو WhatsApp گروپ جوائن ڪريو:</p>
             <p>
-                <strong>WhatsApp Group:</strong> <a href="https://chat.whatsapp.com/FPjD5Wk4QayHHdyqRR6jkc" target="_blank">https://chat.whatsapp.com/FPjD5Wk4QayHHdyqRR6jkc</a><br>
-                <!-- <strong>Facebook Group:</strong> <a href="#" id="facebookGroupLink">جلد ئي شامل ڪيو ويندو</a> -->
+                <strong>WhatsApp Group:</strong> <a href="https://chat.whatsapp.com/FPjD5Wk4QayHHdyqRR6jkc" target="_blank">https://chat.whatsapp.com/FPjD5Wk4QayHHdyqRR6jkc</a>
             </p>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const facebookNoticeLink = document.getElementById('facebookLink'); // Link within the announcement section
-            const facebookGroupLink = document.getElementById('facebookGroupLink'); // Link in the additional info section
-
-            if (facebookNoticeLink) {
-                facebookNoticeLink.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    alert('Facebook Group link will be added here soon!');
-                    // For a real link: window.open('YOUR_FACEBOOK_GROUP_URL_HERE', '_blank');
-                });
-            }
-
-            if (facebookGroupLink) {
-                facebookGroupLink.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    alert('Facebook Group link will be added here soon!');
-                    // For a real link: window.open('YOUR_FACEBOOK_GROUP_URL_HERE', '_blank');
-                });
-            }
+            // No custom JavaScript alert needed for the Facebook link
+            // as it now directly points to the provided URL.
+            // The 'target="_blank"' attribute will open it in a new tab.
         });
     </script>
 </body>
