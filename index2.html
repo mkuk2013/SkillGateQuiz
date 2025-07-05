@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Notice: Test Window Closed</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles & Typography */
+        :root {
+            --primary-color: #007bff; /* A vibrant blue for accents */
+            --secondary-color: #28a745; /* Green for success */
+            --warning-color: #dc3545; /* Red for warnings */
+            --info-color: #ffc107; /* Yellow for announcements */
+            --text-color: #343a40; /* Dark grey for body text */
+            --light-text-color: #6c757d; /* Lighter grey for secondary text */
+            --background-light: #f8f9fa; /* Very light grey background */
+            --background-card: #ffffff; /* White for content cards */
+            --border-color: #e9ecef; /* Light grey for borders */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Arabic', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px; /* More vertical padding */
+            background-color: var(--background-light);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Container for Content */
+        .container {
+            background-color: var(--background-card);
+            padding: 50px; /* Increased padding */
+            border-radius: 16px; /* Softer rounded corners */
+            box-shadow: 0 10px 30px var(--shadow-medium); /* More prominent shadow */
+            max-width: 850px; /* Slightly wider */
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            margin-bottom: 40px; /* More space below header */
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.5em; /* Larger title */
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px; /* Tighter letter spacing */
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: var(--light-text-color);
+            margin-bottom: 0;
+        }
+
+        /* Main Content Paragraphs */
+        main p {
+            font-size: 1.15em; /* Slightly larger base text */
+            margin-bottom: 1.5em; /* More vertical spacing */
+            direction: rtl; /* For Arabic text */
+            text-align: right; /* For Arabic text */
+            color: var(--text-color);
+        }
+
+        /* Info Sections - Card-like appearance */
+        .info-section {
+            background-color: var(--background-light);
+            border-left: 6px solid; /* Border for color coding */
+            padding: 20px 25px; /* More padding */
+            margin-bottom: 25px; /* More spacing between sections */
+            border-radius: 10px; /* Slightly rounded corners */
+            display: flex;
+            align-items: flex-start; /* Align icon/text to top */
+            box-shadow: 0 4px 15px var(--shadow-light); /* Subtle shadow for depth */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth hover effect */
+        }
+
+        .info-section:hover {
+            transform: translateY(-3px); /* Lift effect on hover */
+            box-shadow: 0 6px 20px var(--shadow-medium);
+        }
+
+        .info-section p {
+            margin: 0;
+            font-size: 1.1em;
+            flex-grow: 1;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* Icons/Emojis for sections */
+        .info-section .icon {
+            font-size: 1.5em; /* Larger icons */
+            margin-left: 15px; /* Space between icon and text */
+            line-height: 1; /* Align vertically */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+        }
+
+        /* Specific Info Section Styles */
+        .info-section.success {
+            border-color: var(--secondary-color);
+            background-color: #e6f7ed; /* Lighter green background */
+        }
+        .info-section.success .icon { color: var(--secondary-color); }
+
+        .info-section.action {
+            border-color: var(--primary-color);
+            background-color: #e6f2ff; /* Lighter blue background */
+        }
+        .info-section.action .icon { color: var(--primary-color); }
+
+
+        .info-section.warning {
+            border-color: var(--warning-color);
+            background-color: #fbeded; /* Lighter red background */
+        }
+        .info-section.warning .icon { color: var(--warning-color); }
+
+
+        .info-section.announcement {
+            border-color: var(--info-color);
+            background-color: #fff9e6; /* Lighter yellow background */
+        }
+        .info-section.announcement .icon { color: var(--info-color); }
+
+
+        /* Links inside info sections */
+        .info-section a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600; /* Slightly bolder links */
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .info-section a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .container {
+                padding: 30px;
+                border-radius: 12px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            main p {
+                font-size: 1.05em;
+            }
+
+            .info-section {
+                padding: 15px 20px;
+                margin-bottom: 20px;
+            }
+
+            .info-section p {
+                font-size: 1em;
+            }
+
+            .info-section .icon {
+                font-size: 1.3em;
+                margin-left: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            header h1 {
+                font-size: 1.6em;
+            }
+
+            main p {
+                font-size: 0.95em;
+            }
+
+            .info-section {
+                flex-direction: column; /* Stack icon and text on small screens */
+                align-items: center;
+                text-align: center;
+            }
+
+            .info-section .icon {
+                margin-bottom: 10px;
+                margin-left: 0;
+            }
+
+            .info-section p {
+                text-align: center; /* Center text when stacked */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔔 Official Notice: First Batch Test Window Closed</h1>
+            <p>Important information regarding the Creative Batch 1 test results.</p>
+        </header>
+
+        <main>
+            <p>تمام ميمبرن کي آگاهه ڪيو وڃي ٿو ته Creative Batch 1 لاءِ 48 ڪلاڪن وارو ٽيسٽ جو وقت هاڻي ختم ٿي چڪو آهي.</p>
+
+            <div class="info-section success">
+                <span class="icon">✅</span>
+                <p>جيڪي اميدوار ڪاميابيءَ سان ٽيسٽ پاس ڪري چڪا آهن، انهن جي لسٽ اسان وٽ محفوظ ٿي چڪي آهي.</p>
+            </div>
+
+            <div class="info-section action">
+                <span class="icon">📤</span>
+                <p>مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ واٽس ايپ <strong><a href="https://wa.me/923454839888" target="_blank">03454839888</a></strong> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.</p>
+            </div>
+
+            <div class="info-section warning">
+                <span class="icon">❗</span>
+                <p>ياد رکو: غلط يا جعلي اسڪور موڪلڻ سان توهان جو نالو مستقل طور تي اسان جي پليٽفارم تان هٽايو ويندو.</p>
+            </div>
+
+            <div class="info-section announcement">
+                <span class="icon">📢</span>
+                <p>نئون Batch جلد ئي اسان جي Facebook Group ۽ Shehzad Hussain ID تي اعلان ڪيو ويندو. مهرباني ڪري <a href="#" id="facebookLink">Follow ڪريو</a> ته جيئن وقت سر معلومات حاصل ڪري سگهو.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const facebookLink = document.getElementById('facebookLink');
+
+            if (facebookLink) {
+                facebookLink.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    alert('Facebook Group link will be added here soon!');
+                    // In a real scenario, you would replace the alert with:
+                    // window.open('YOUR_FACEBOOK_GROUP_URL_HERE', '_blank');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
