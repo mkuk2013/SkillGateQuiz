@@ -141,7 +141,6 @@
         }
         .info-section.announcement .icon { color: var(--info-color); }
 
-
         /* Links inside info sections */
         .info-section a {
             color: var(--primary-color);
@@ -151,6 +150,29 @@
         }
 
         .info-section a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Footer / Additional Info Section */
+        .additional-info {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 1.1em;
+            color: var(--text-color);
+            direction: rtl;
+        }
+
+        .additional-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .additional-info a:hover {
             color: #0056b3;
             text-decoration: underline;
         }
@@ -221,6 +243,10 @@
             .info-section p {
                 text-align: center; /* Center text when stacked */
             }
+
+            .additional-info {
+                font-size: 0.95em;
+            }
         }
     </style>
 </head>
@@ -254,18 +280,34 @@
                 <p>نئون Batch جلد ئي اسان جي Facebook Group ۽ Shehzad Hussain ID تي اعلان ڪيو ويندو. مهرباني ڪري <a href="#" id="facebookLink">Follow ڪريو</a> ته جيئن وقت سر معلومات حاصل ڪري سگهو.</p>
             </div>
         </main>
+
+        <div class="additional-info">
+            <p>وڌيڪ معلومات لاءِ اسان جو WhatsApp گروپ جوائن ڪريو:</p>
+            <p>
+                <strong>WhatsApp Group:</strong> <a href="https://chat.whatsapp.com/FPjD5Wk4QayHHdyqRR6jkc" target="_blank">https://chat.whatsapp.com/FPjD5Wk4QayHHdyqRR6jkc</a><br>
+                <!-- <strong>Facebook Group:</strong> <a href="#" id="facebookGroupLink">جلد ئي شامل ڪيو ويندو</a> -->
+            </p>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const facebookLink = document.getElementById('facebookLink');
+            const facebookNoticeLink = document.getElementById('facebookLink'); // Link within the announcement section
+            const facebookGroupLink = document.getElementById('facebookGroupLink'); // Link in the additional info section
 
-            if (facebookLink) {
-                facebookLink.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent the default link behavior
+            if (facebookNoticeLink) {
+                facebookNoticeLink.addEventListener('click', function(event) {
+                    event.preventDefault();
                     alert('Facebook Group link will be added here soon!');
-                    // In a real scenario, you would replace the alert with:
-                    // window.open('YOUR_FACEBOOK_GROUP_URL_HERE', '_blank');
+                    // For a real link: window.open('YOUR_FACEBOOK_GROUP_URL_HERE', '_blank');
+                });
+            }
+
+            if (facebookGroupLink) {
+                facebookGroupLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    alert('Facebook Group link will be added here soon!');
+                    // For a real link: window.open('YOUR_FACEBOOK_GROUP_URL_HERE', '_blank');
                 });
             }
         });
