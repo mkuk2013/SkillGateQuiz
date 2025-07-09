@@ -249,10 +249,19 @@
         }
         .admin-controls-container {
             display: flex;
-            justify-content: space-between; /* Puts space between search and buttons */
+            justify-content: space-between; /* Puts space between search/sort and buttons */
             align-items: center;
             margin-bottom: 20px;
             flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 15px; /* Space between blocks of controls */
+        }
+
+        .admin-controls-left { /* New wrapper for search and sort */
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between search and sort */
+            flex-wrap: wrap;
+            flex-grow: 1;
         }
 
         .admin-controls {
@@ -261,29 +270,11 @@
             flex-wrap: wrap;
             justify-content: flex-end; /* Align buttons to the right */
         }
-        /* Removed custom padding/font-size for general admin-controls buttons */
-        /* .admin-controls button {
-            background-color: var(--success-green); 
-            color: var(--white);
-            padding: 10px 20px;
-            font-size: 0.95em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: 500;
-            box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
-        } */
+        
         .admin-controls button:hover {
             opacity: 0.9; /* General hover for Bootstrap buttons */
         }
-        /* Specific hover for print button if desired */
-        #print-button {
-            /* background-color: #17a2b8; /* A shade of blue-green for print - handled by btn-info */
-        }
-        #print-button:hover {
-            /* background-color: #138496; */
-        }
+        
         /* Style for Delete All button */
         #delete-all-button {
             background-color: var(--error-red); /* Red for destructive action */
@@ -300,17 +291,34 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-right: 20px; /* Space between search bar and buttons */
             flex-grow: 1; /* Allow search bar to take available space */
             max-width: 400px; /* Limit search bar width */
         }
 
-        .search-bar input[type="text"] {
-            /* Bootstrap's form-control handles most styling */
+        /* Sort controls styling */
+        .sort-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Increased spacing */
         }
-
-        /* Removed custom styling for search-bar button to let Bootstrap take over */
-
+        .sort-controls label {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95em;
+            flex-shrink: 0; /* Prevent label from shrinking */
+            white-space: nowrap; /* Keep label text on one line */
+        }
+        .sort-controls select {
+            /* Bootstrap's form-select handles most styling */
+            min-width: 200px; /* Ensure dropdown is wide enough */
+            flex-grow: 0; /* Prevent select from growing excessively */
+            /* Custom styles to match standard Bootstrap input/button height */
+            height: calc(2.25rem + 2px); /* Standard Bootstrap height for default inputs/selects */
+            padding: .375rem .200rem; /* Standard Bootstrap padding */
+            font-size: 1rem; /* Standard Bootstrap font size */
+            padding-right: 28px;
+        }
 
         /* Responsive adjustments for mobile */
         @media (max-width: 768px) {
@@ -399,15 +407,33 @@
             }
 
             .admin-controls-container {
-                flex-direction: column; /* Stack search and buttons vertically */
+                flex-direction: column; /* Stack search/sort and buttons vertically */
                 align-items: center; /* Center items */
-                gap: 15px; /* Space between search and buttons */
+                gap: 15px; /* Space between sections */
+            }
+
+            .admin-controls-left {
+                flex-direction: column; /* Stack search and sort vertically */
+                width: 100%; /* Full width */
+                gap: 15px; /* Space between search and sort */
             }
 
             .search-bar {
                 width: 100%; /* Full width search bar */
                 max-width: none; /* Remove max-width constraint */
                 margin-right: 0; /* Remove right margin */
+            }
+
+            .sort-controls {
+                width: 100%; /* Full width for dropdown on mobile */
+                margin-right: 0;
+                justify-content: center; /* Center the sort controls */
+                flex-wrap: wrap; /* Allow wrapping */
+                gap: 10px; /* Increased gap for mobile */
+            }
+            .sort-controls select {
+                width: 100%; /* Full width for dropdown on mobile */
+                max-width: none;
             }
 
             .admin-controls {
@@ -538,14 +564,6 @@
             tbody {
                 display: table-row-group !important;
             }
-            table thead th {
-                background-color: #eee;
-                color: #000;
-                font-weight: bold;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-            }
-
             table tbody tr:nth-child(even) {
                 background-color: #f9f9f9;
                 -webkit-print-color-adjust: exact;
@@ -601,9 +619,25 @@
             </div>
 
             <div class="admin-controls-container">
-                <div class="search-bar">
-                    <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
-                    <button id="search-button" class="btn btn-primary btn-md">Search</button>
+                <div class="admin-controls-left"> <div class="search-bar">
+                        <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
+                        <button id="search-button" class="btn btn-primary btn-md">Search</button>
+                    </div>
+                    <div class="sort-controls">
+                        <label for="sort-by-select" class="form-label mb-0">Sort By:</label>
+                        <select id="sort-by-select" class="form-select">
+                            <option value="timestamp-desc">Timestamp (Newest First) </option>
+                            <option value="timestamp-asc">Timestamp (Oldest First) </option>
+                            <option value="name-asc">Name (A-Z) </option>
+                            <option value="name-desc">Name (Z-A) </option>
+                            <option value="email-asc">Email (A-Z) </option>
+                            <option value="email-desc">Email (Z-A) </option>
+                            <option value="score-desc">Score (High to Low) </option>
+                            <option value="score-asc">Score (Low to High) </option>
+                            <option value="status-asc">Status (A-Z) </option>
+                            <option value="status-desc">Status (Z-A) </option>
+                        </select>
+                    </div>
                 </div>
                 <div class="admin-controls">
                     <button id="refresh-button" class="btn btn-success btn-md">Refresh Data</button>
@@ -660,7 +694,7 @@
       console.log("Firebase initialized for Admin Panel.");
 
       // Function to fetch and display data
-      async function fetchAndDisplayResults(searchTerm = '') {
+      async function fetchAndDisplayResults(searchTerm = '', sortBy = 'timestamp', sortOrder = 'desc') {
           const resultsTableBody = document.getElementById('results-table-body');
           const loadingSpinner = document.getElementById('loading-spinner');
 
@@ -674,119 +708,103 @@
           document.getElementById('loading-message').textContent = "Loading quiz results..."; // Reset message
 
           try {
-              let query = db.collection("quiz_results").orderBy("timestamp", "desc");
+              // Fetch all documents from Firestore. Client-side sorting will be applied.
+              const querySnapshot = await db.collection("quiz_results").get();
+
+              let allDocs = [];
+              querySnapshot.forEach(doc => {
+                  allDocs.push({ id: doc.id, ...doc.data() });
+              });
 
               // Apply search filter if a searchTerm is provided
-              if (searchTerm) {
-                  // Firestore does not support full-text search or 'OR' queries across different fields directly
-                  // for client-side queries without extensive indexing or Cloud Functions.
-                  // For a simple client-side filter, we can only filter by prefix on one field,
-                  // or fetch all and filter in memory (less efficient for large datasets).
-                  // For better performance, consider filtering by name OR email in two separate queries
-                  // and merging results, or using a server-side solution (Cloud Functions).
-                  // For this example, let's assume we'll search by name for simplicity
-                  // or demonstrate client-side filtering if fetching all.
+              let filteredDocs = allDocs.filter(doc => {
+                  const name = (doc.name || '').toLowerCase();
+                  const email = (doc.email || '').toLowerCase();
+                  const lowerCaseSearchTerm = searchTerm.toLowerCase();
+                  return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
+              });
 
-                  // A simple approach for client-side filtering: fetch all and then filter
-                  // (Less efficient for very large datasets, but works for smaller ones)
-                  // For more robust search, you'd need a different Firestore query or a backend search solution.
-                  const allResultsSnapshot = await query.get();
-                  const filteredDocs = allResultsSnapshot.docs.filter(doc => {
-                      const data = doc.data();
-                      const name = (data.name || '').toLowerCase();
-                      const email = (data.email || '').toLowerCase();
-                      const lowerCaseSearchTerm = searchTerm.toLowerCase();
-                      return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
-                  });
-
-                  if (filteredDocs.length === 0) {
-                      document.getElementById('loading-message').textContent = "No matching quiz results found.";
-                      resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No matching results.</td></tr>`;
-                      loadingSpinner.style.display = 'none';
-                      return;
-                  }
-
-                  let counter = 1; // Initialize counter for sequential ID
-                  const labels = ["ID", "Name", "Email", "Score", "Status", "Timestamp"];
-
-                  filteredDocs.forEach((doc) => {
-                      const data = doc.data();
-                      const row = resultsTableBody.insertRow();
-
-                      const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
-                      const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
-
-                      const cellData = [
-                          counter,
-                          data.name || 'N/A',
-                          data.email || 'N/A',
-                          data.score !== undefined ? data.score : 'N/A',
-                          data.quiz_status || 'N/A',
-                          timestamp
-                      ];
-
-                      cellData.forEach((value, index) => {
-                          const cell = row.insertCell();
-                          cell.setAttribute('data-label', labels[index] + ':');
-                          if (labels[index] === "Status") {
-                              cell.classList.add(statusClass);
-                          }
-                          cell.textContent = value;
-                      });
-                      
-                      counter++;
-                  });
-
-              } else {
-                  // Original behavior: fetch all if no search term
-                  const querySnapshot = await query.get();
-
-                  if (querySnapshot.empty) {
-                      document.getElementById('loading-message').textContent = "No quiz results found yet.";
-                      resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No quiz results available.</td></tr>`;
-                      loadingSpinner.style.display = 'none';
-                      return;
-                  }
-
-                  let counter = 1;
-                  const labels = ["ID", "Name", "Email", "Score", "Status", "Timestamp"];
-
-                  querySnapshot.forEach((doc) => {
-                      const data = doc.data();
-                      const row = resultsTableBody.insertRow();
-
-                      const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
-                      const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
-
-                      const cellData = [
-                          counter,
-                          data.name || 'N/A',
-                          data.email || 'N/A',
-                          data.score !== undefined ? data.score : 'N/A',
-                          data.quiz_status || 'N/A',
-                          timestamp
-                      ];
-
-                      cellData.forEach((value, index) => {
-                          const cell = row.insertCell();
-                          cell.setAttribute('data-label', labels[index] + ':');
-                          if (labels[index] === "Status") {
-                              cell.classList.add(statusClass);
-                          }
-                          cell.textContent = value;
-                      });
-                      
-                      counter++;
-                  });
+              if (filteredDocs.length === 0) {
+                  document.getElementById('loading-message').textContent = searchTerm ? "No matching quiz results found." : "No quiz results found yet.";
+                  resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">${searchTerm ? "No matching results." : "No quiz results available."}</td></tr>`;
+                  loadingSpinner.style.display = 'none';
+                  return;
               }
+
+              // Apply client-side sorting
+              filteredDocs.sort((a, b) => {
+                  let valA, valB;
+
+                  switch (sortBy) {
+                      case 'name':
+                      case 'email':
+                      case 'status':
+                          valA = (a[sortBy] || '').toLowerCase();
+                          valB = (b[sortBy] || '').toLowerCase();
+                          break;
+                      case 'score':
+                          valA = a.score !== undefined ? a.score : -Infinity; // Handle undefined scores
+                          valB = b.score !== undefined ? b.score : -Infinity;
+                          break;
+                      case 'timestamp':
+                          // Convert Firestore Timestamp objects to milliseconds for comparison
+                          valA = a.timestamp ? a.timestamp.toMillis() : 0;
+                          valB = b.timestamp ? b.timestamp.toMillis() : 0;
+                          break;
+                      default:
+                          // Default to timestamp descending if no valid sortBy is provided
+                          valA = a.timestamp ? a.timestamp.toMillis() : 0;
+                          valB = b.timestamp ? b.timestamp.toMillis() : 0;
+                          sortBy = 'timestamp'; // Set default for rendering
+                          sortOrder = 'desc'; // Set default for rendering
+                          break;
+                  }
+
+                  if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+                  if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+                  return 0;
+              });
+
+
+              let counter = 1; 
+              const labels = ["ID", "Name", "Email", "Score", "Status", "Timestamp"];
+
+              filteredDocs.forEach((data) => {
+                  const row = resultsTableBody.insertRow();
+
+                  const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
+                  const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
+
+                  const cellData = [
+                      counter,
+                      data.name || 'N/A',
+                      data.email || 'N' + 'A',
+                      data.score !== undefined ? data.score : 'N/A',
+                      data.quiz_status || 'N/A',
+                      timestamp
+                  ];
+
+                  cellData.forEach((value, index) => {
+                      const cell = row.insertCell();
+                      cell.setAttribute('data-label', labels[index] + ':');
+                      if (labels[index] === "Status") {
+                          cell.classList.add(statusClass);
+                      }
+                      cell.textContent = value;
+                  });
+                  
+                  counter++;
+              });
+
               loadingSpinner.style.display = 'none';
           } catch (error) {
-              console.error("Error fetching documents: ", error);
+              console.error("Error fetching or sorting documents: ", error);
               document.getElementById('loading-message').textContent = "Error loading data. Please check console.";
               resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--error-red);">Failed to load results: ${error.message}</td></tr>`;
               alert("Failed to load quiz results: " + error.message + ". Please check your Firestore rules and network connection.");
           }
       }
+
 
       // Function to delete all quiz results from Firestore
       async function deleteAllQuizResults() {
@@ -839,7 +857,7 @@
         }
 
 
-      // --- Authentication Logic ---
+      // --- Authentication Logic and Event Listeners ---
       document.addEventListener('DOMContentLoaded', () => {
           const loginSection = document.getElementById('login-section');
           const adminPanel = document.getElementById('admin-panel');
@@ -849,13 +867,13 @@
           const loginButton = document.getElementById('login-button');
           const logoutButton = document.getElementById('logout-button');
           const refreshButton = document.getElementById('refresh-button');
-          const printButton = document = document.getElementById('print-button');
+          const printButton = document.getElementById('print-button');
           const deleteAllButton = document.getElementById('delete-all-button');
-          const searchInput = document.getElementById('search-input'); // New search input
-          const searchButton = document.getElementById('search-button'); // New search button
+          const searchInput = document.getElementById('search-input');
+          const searchButton = document.getElementById('search-button');
+          const sortBySelect = document.getElementById('sort-by-select'); // Get the new select element
 
-
-          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton || !printButton || !deleteAllButton || !searchInput || !searchButton) {
+          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton || !printButton || !deleteAllButton || !searchInput || !searchButton || !sortBySelect) {
               console.error("One or more required HTML elements for login/admin panel were not found. Please check your admin.html file for correct IDs.");
               alert("Fatal Error: Admin panel elements not found. Check console for details.");
               return;
@@ -866,7 +884,9 @@
                   console.log("User logged in:", user.email);
                   loginSection.style.display = 'none';
                   adminPanel.style.display = 'block';
-                  fetchAndDisplayResults();
+                  // Fetch with default sort when admin panel is shown
+                  const [sortBy, sortOrder] = sortBySelect.value.split('-');
+                  fetchAndDisplayResults('', sortBy, sortOrder);
               } else {
                   console.log("User logged out.");
                   loginSection.style.display = 'block';
@@ -917,7 +937,11 @@
               }
           });
 
-          refreshButton.addEventListener('click', () => fetchAndDisplayResults(searchInput.value)); // Pass current search term
+          // Update refresh button to use current search and sort settings
+          refreshButton.addEventListener('click', () => {
+              const [sortBy, sortOrder] = sortBySelect.value.split('-');
+              fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
+          });
 
           printButton.addEventListener('click', () => {
               window.print();
@@ -928,21 +952,30 @@
           // Event listener for the Search button
           searchButton.addEventListener('click', () => {
               const searchTerm = searchInput.value.trim();
-              fetchAndDisplayResults(searchTerm);
+              const [sortBy, sortOrder] = sortBySelect.value.split('-');
+              fetchAndDisplayResults(searchTerm, sortBy, sortOrder);
           });
 
-          // Optional: Live search as user types
+          // Optional: Live search as user types with debounce or on Enter
           searchInput.addEventListener('keyup', (e) => {
-              // You can add a debounce here to prevent too many requests
               if (e.key === 'Enter') {
                 const searchTerm = searchInput.value.trim();
-                fetchAndDisplayResults(searchTerm);
+                const [sortBy, sortOrder] = sortBySelect.value.split('-');
+                fetchAndDisplayResults(searchTerm, sortBy, sortOrder);
               } else if (searchInput.value.trim() === '') {
-                // If search box is cleared, refresh all results
-                fetchAndDisplayResults('');
+                // If search box is cleared, refresh all results with current sort
+                const [sortBy, sortOrder] = sortBySelect.value.split('-');
+                fetchAndDisplayResults('', sortBy, sortOrder);
               }
           });
 
+          // Event listener for the Sort By dropdown
+          sortBySelect.addEventListener('change', () => {
+              const [sortBy, sortOrder] = sortBySelect.value.split('-');
+              fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
+          });
+
+          // Allow login by pressing Enter in password field
           loginPasswordInput.addEventListener('keypress', function(e) {
               if (e.which === 13) {
                   loginButton.click();
