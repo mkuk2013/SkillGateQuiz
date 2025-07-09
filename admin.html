@@ -73,6 +73,11 @@
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
+        /* Placeholder color for dark mode */
+        [data-theme="dark"] .form-control::placeholder {
+            color: var(--text-secondary); /* Use light text-secondary for visibility */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -167,6 +172,7 @@
             justify-content: center;
             width: 48px;
             height: 48px;
+            color: var(--text-primary); /* Set icon color dynamically */
         }
 
         .theme-toggle:hover {
@@ -311,6 +317,11 @@
             outline: none;
             border-color: var(--primary-dark);
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted); /* Default placeholder color for light mode */
+            opacity: 1; /* Ensure placeholder is not transparent */
         }
 
         .input-group {
