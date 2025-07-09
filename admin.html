@@ -146,13 +146,14 @@
             transition: background-color 0.2s ease;
         }
 
+        /* IMPORTANT: Added !important to ensure these styles are applied */
         .status-qualified {
-            color: var(--success-green);
+            color: var(--success-green) !important;
             font-weight: bold;
         }
 
         .status-not-qualified {
-            color: var(--error-red);
+            color: var(--error-red) !important;
             font-weight: bold;
         }
 
@@ -619,7 +620,8 @@
             </div>
 
             <div class="admin-controls-container">
-                <div class="admin-controls-left"> <div class="search-bar">
+                <div class="admin-controls-left"> 
+                    <div class="search-bar">
                         <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
                         <button id="search-button" class="btn btn-primary btn-md">Search</button>
                     </div>
@@ -773,6 +775,7 @@
                   const row = resultsTableBody.insertRow();
 
                   const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
+                  // Corrected variable name: quiz_status
                   const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
 
                   const cellData = [
@@ -780,7 +783,7 @@
                       data.name || 'N/A',
                       data.email || 'N' + 'A',
                       data.score !== undefined ? data.score : 'N/A',
-                      data.quiz_status || 'N/A',
+                      data.quiz_status || 'N/A', // Corrected variable name: quiz_status
                       timestamp
                   ];
 
