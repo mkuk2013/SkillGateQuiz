@@ -480,6 +480,47 @@
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
+        /* Pagination Controls */
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0;
+            gap: 1rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-light);
+            border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+        }
+
+        .pagination-controls button {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .pagination-controls button:hover:not(:disabled) {
+            background: var(--bg-hover);
+            border-color: var(--primary-dark);
+            color: var(--primary-dark);
+        }
+
+        .pagination-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-info {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+
         /* Loading Spinner */
         .loading-container {
             display: none;
@@ -641,6 +682,10 @@
                 margin-bottom: 1rem;
                 display: block;
             }
+
+            .pagination-controls {
+                flex-direction: column;
+            }
         }
 
         /* Animations */
@@ -679,7 +724,8 @@
             .controls-section,
             .stats-section,
             .theme-toggle,
-            .btn-modern {
+            .btn-modern,
+            .pagination-controls { /* Hide pagination for print */
                 display: none !important;
             }
 
@@ -769,8 +815,12 @@
                         <div class="stat-label">Qualified</div>
                     </div>
                     <div class="modern-card stat-card">
-                        <div class="stat-icon danger"> <i class="fas fa-times-circle"></i> </div>
-                        <div class="stat-value" id="not-qualified-users">0</div> <div class="stat-label">Not Qualified</div> </div>
+                        <div class="stat-icon danger">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-value" id="not-qualified-users">0</div>
+                        <div class="stat-label">Not Qualified</div>
+                    </div>
                     <div class="modern-card stat-card">
                         <div class="stat-icon info">
                             <i class="fas fa-chart-line"></i>
@@ -812,6 +862,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="search-group">
+                            <div class="form-group">
+                                <label for="status-filter-select" class="form-label">Filter by Status</label>
+                                <select id="status-filter-select" class="form-control">
+                                    <option value="All">All</option>
+                                    <option value="Qualified">Qualified</option>
+                                    <option value="Not Qualified">Not Qualified</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="actions-group">
                         <button id="refresh-button" class="btn-modern btn-success">
@@ -821,6 +881,10 @@
                         <button id="print-button" class="btn-modern btn-info">
                             <i class="fas fa-print"></i>
                             Print
+                        </button>
+                        <button id="export-csv-button" class="btn-modern btn-outline">
+                            <i class="fas fa-file-csv"></i>
+                            Export CSV
                         </button>
                         <button id="delete-all-button" class="btn-modern btn-danger">
                             <i class="fas fa-trash-alt"></i>
@@ -855,6 +919,17 @@
                         <tbody id="results-table-body">
                             </tbody>
                     </table>
+                </div>
+                <div class="pagination-controls">
+                    <button id="prev-page-button" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                    <span id="page-info" class="pagination-info">Page 1 of 1</span>
+                    <button id="next-page-button" disabled>Next <i class="fas fa-chevron-right"></i></button>
+                    <select id="results-per-page-select" class="form-control" style="width: auto; margin-left: 1rem;">
+                        <option value="10">10 per page</option>
+                        <option value="25">25 per page</option>
+                        <option value="50">50 per page</option>
+                        <option value="100">100 per page</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -906,146 +981,177 @@
         // Initialize theme on page load
         initTheme();
 
+        // Global variables for data and pagination
+        let allQuizResults = []; // Stores all fetched data
+        let currentFilteredData = []; // Stores data after search and status filter
+        let currentPage = 1;
+        let resultsPerPage = parseInt(document.getElementById('results-per-page-select')?.value) || 10;
+        let totalPages = 1;
+
         // Statistics Management
         function updateStatistics(data) {
             const totalUsers = data.length;
             const qualifiedUsers = data.filter(item => item.quiz_status === 'Qualified').length;
-            const notQualifiedUsers = data.filter(item => item.quiz_status !== 'Qualified').length; // Changed calculation and variable name
+            const notQualifiedUsers = data.filter(item => item.quiz_status !== 'Qualified').length;
             const avgScore = totalUsers > 0 ? 
                 Math.round(data.reduce((sum, item) => sum + (item.score || 0), 0) / totalUsers) : 0;
 
             document.getElementById('total-users').textContent = totalUsers;
             document.getElementById('qualified-users').textContent = qualifiedUsers;
-            document.getElementById('not-qualified-users').textContent = notQualifiedUsers; // Changed ID
+            document.getElementById('not-qualified-users').textContent = notQualifiedUsers;
             document.getElementById('avg-score').textContent = avgScore + '%';
         }
 
-        // Enhanced fetch and display function
-        async function fetchAndDisplayResults(searchTerm = '', sortBy = 'timestamp', sortOrder = 'desc') {
+        // Function to render table rows for the current page
+        function renderTablePage() {
             const resultsTableBody = document.getElementById('results-table-body');
-            const loadingSpinner = document.getElementById('loading-spinner');
             const totalRecordsCountElement = document.getElementById('total-records-count');
+            const pageInfoElement = document.getElementById('page-info');
+            const prevPageButton = document.getElementById('prev-page-button');
+            const nextPageButton = document.getElementById('next-page-button');
 
-            if (!resultsTableBody || !loadingSpinner || !totalRecordsCountElement) {
-                console.error("HTML elements for results display not found.");
+            if (!resultsTableBody || !totalRecordsCountElement || !pageInfoElement || !prevPageButton || !nextPageButton) {
+                console.error("HTML elements for table rendering not found.");
                 return;
             }
 
             resultsTableBody.innerHTML = '';
-            totalRecordsCountElement.textContent = '0 records';
+            
+            const startIndex = (currentPage - 1) * resultsPerPage;
+            const endIndex = startIndex + resultsPerPage;
+            const paginatedData = currentFilteredData.slice(startIndex, endIndex);
+
+            totalPages = Math.ceil(currentFilteredData.length / resultsPerPage);
+            pageInfoElement.textContent = `Page ${currentPage} of ${totalPages}`;
+            totalRecordsCountElement.textContent = `${currentFilteredData.length} records`;
+
+            prevPageButton.disabled = currentPage === 1;
+            nextPageButton.disabled = currentPage === totalPages || totalPages === 0;
+
+            if (paginatedData.length === 0) {
+                resultsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center; padding: 3rem; color: var(--text-secondary);">
+                            <i class="fas fa-inbox fa-3x mb-3" style="display: block; opacity: 0.3;"></i>
+                            ${currentFilteredData.length === 0 ? "No matching results found." : "No results on this page."}
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            let counter = startIndex + 1; // Start ID counter from the correct index
+            const labels = ["ID", "Name", "Email", "Score", "Status", "Date"];
+
+            paginatedData.forEach((data) => {
+                const row = resultsTableBody.insertRow();
+                row.className = 'fade-in-up';
+
+                const timestamp = data.timestamp ? 
+                    new Date(data.timestamp.toDate()).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }) : 'N/A';
+
+                const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
+
+                const cellData = [
+                    counter,
+                    data.name || 'N/A',
+                    data.email || 'N/A',
+                    data.score !== undefined ? data.score + '%' : 'N/A',
+                    data.quiz_status || 'N/A',
+                    timestamp
+                ];
+
+                cellData.forEach((value, index) => {
+                    const cell = row.insertCell();
+                    cell.setAttribute('data-label', labels[index]);
+                    
+                    if (labels[index] === "Status") {
+                        cell.innerHTML = `<span class="status-badge ${statusClass}">${value}</span>`;
+                    } else {
+                        cell.textContent = value;
+                    }
+                });
+
+                counter++;
+            });
+        }
+
+        // Enhanced fetch, filter, sort, and display function
+        async function fetchAndProcessResults(searchTerm = '', sortBy = 'timestamp', sortOrder = 'desc', statusFilter = 'All') {
+            const loadingSpinner = document.getElementById('loading-spinner');
+            if (!loadingSpinner) {
+                console.error("Loading spinner element not found.");
+                return;
+            }
+
             loadingSpinner.style.display = 'flex';
-
+            loadingSpinner.querySelector('.loading-text').textContent = "Loading quiz results...";
+            
             try {
-                const querySnapshot = await db.collection("quiz_results").get();
+                // Fetch all data if not already fetched or if a refresh is forced
+                if (allQuizResults.length === 0) {
+                    const querySnapshot = await db.collection("quiz_results").get();
+                    allQuizResults = [];
+                    querySnapshot.forEach(doc => {
+                        allQuizResults.push({ id: doc.id, ...doc.data() });
+                    });
+                }
 
-                let allDocs = [];
-                querySnapshot.forEach(doc => {
-                    allDocs.push({ id: doc.id, ...doc.data() });
-                });
+                let processedDocs = [...allQuizResults]; // Start with all data
 
-                let filteredDocs = allDocs.filter(doc => {
-                    const name = (doc.name || '').toLowerCase();
-                    const email = (doc.email || '').toLowerCase();
+                // Apply Search Filter
+                if (searchTerm) {
                     const lowerCaseSearchTerm = searchTerm.toLowerCase();
-                    return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
-                });
+                    processedDocs = processedDocs.filter(doc => {
+                        const name = (doc.name || '').toLowerCase();
+                        const email = (doc.email || '').toLowerCase();
+                        return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
+                    });
+                }
 
-                // Update statistics
-                updateStatistics(filteredDocs);
-
-                totalRecordsCountElement.textContent = `${filteredDocs.length} records`;
-
-                if (filteredDocs.length === 0) {
-                    resultsTableBody.innerHTML = `
-                        <tr>
-                            <td colspan="6" style="text-align:center; padding: 3rem; color: var(--text-secondary);">
-                                <i class="fas fa-inbox fa-3x mb-3" style="display: block; opacity: 0.3;"></i>
-                                ${searchTerm ? "No matching results found." : "No quiz results available yet."}
-                            </td>
-                        </tr>`;
-                    loadingSpinner.style.display = 'none';
-                    return;
+                // Apply Status Filter
+                if (statusFilter !== 'All') {
+                    processedDocs = processedDocs.filter(doc => doc.quiz_status === statusFilter);
                 }
 
                 // Sort data
-                filteredDocs.sort((a, b) => {
+                processedDocs.sort((a, b) => {
                     let valA, valB;
 
-                    switch (sortBy) {
-                        case 'name':
-                        case 'email':
-                        case 'status':
-                            valA = (a[sortBy] || '').toLowerCase();
-                            valB = (b[sortBy] || '').toLowerCase();
-                            break;
-                        case 'score':
-                            valA = a.score !== undefined ? a.score : -Infinity;
-                            valB = b.score !== undefined ? b.score : -Infinity;
-                            break;
-                        case 'timestamp':
-                            valA = a.timestamp ? a.timestamp.toMillis() : 0;
-                            valB = b.timestamp ? b.timestamp.toMillis() : 0;
-                            break;
-                        default:
-                            valA = a.timestamp ? a.timestamp.toMillis() : 0;
-                            valB = b.timestamp ? b.timestamp.toMillis() : 0;
-                            sortBy = 'timestamp';
-                            sortOrder = 'desc';
-                            break;
-                    }
+                    const getSortValue = (item, key) => {
+                        if (key.includes('timestamp')) {
+                            return item.timestamp ? item.timestamp.toMillis() : 0;
+                        } else if (key.includes('score')) {
+                            return item.score !== undefined ? item.score : -Infinity;
+                        }
+                        return (item[key.split('-')[0]] || '').toLowerCase();
+                    };
+
+                    valA = getSortValue(a, sortBy);
+                    valB = getSortValue(b, sortBy);
 
                     if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
                     if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
                     return 0;
                 });
 
-                // Populate table
-                let counter = 1;
-                const labels = ["ID", "Name", "Email", "Score", "Status", "Date"];
+                currentFilteredData = processedDocs; // Store filtered and sorted data
+                updateStatistics(currentFilteredData); // Update stats based on filtered data
 
-                filteredDocs.forEach((data) => {
-                    const row = resultsTableBody.insertRow(); // Corrected: use insertRow() on tbody
-                    row.className = 'fade-in-up';
-
-                    const timestamp = data.timestamp ? 
-                        new Date(data.timestamp.toDate()).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        }) : 'N/A';
-
-                    const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
-
-                    const cellData = [
-                        counter,
-                        data.name || 'N/A',
-                        data.email || 'N/A',
-                        data.score !== undefined ? data.score + '%' : 'N/A',
-                        data.quiz_status || 'N/A',
-                        timestamp
-                    ];
-
-                    cellData.forEach((value, index) => {
-                        const cell = row.insertCell(); // Correct: insertCell() on the row
-                        cell.setAttribute('data-label', labels[index]);
-                        
-                        if (labels[index] === "Status") {
-                            cell.innerHTML = `<span class="status-badge ${statusClass}">${value}</span>`;
-                        } else {
-                            cell.textContent = value;
-                        }
-                    });
-
-                    counter++;
-                });
+                currentPage = 1; // Reset to first page on new search/filter/sort
+                renderTablePage(); // Render the first page of results
 
                 loadingSpinner.style.display = 'none';
+
             } catch (error) {
-                console.error("Error fetching documents: ", error);
+                console.error("Error fetching or processing documents: ", error);
                 loadingSpinner.querySelector('.loading-text').textContent = "Error loading data. Please try again.";
-                resultsTableBody.innerHTML = `
+                document.getElementById('results-table-body').innerHTML = `
                     <tr>
                         <td colspan="6" style="text-align:center; color: var(--accent-red); padding: 3rem;">
                             <i class="fas fa-exclamation-triangle fa-2x mb-2" style="display: block;"></i>
@@ -1053,7 +1159,7 @@
                         </td>
                     </tr>`;
                 alert("Failed to load quiz results: " + error.message);
-                totalRecordsCountElement.textContent = `Error loading records`;
+                document.getElementById('total-records-count').textContent = `Error loading records`;
             }
         }
 
@@ -1093,7 +1199,8 @@
                 }
 
                 alert(`Successfully deleted ${documentsDeleted} quiz results.`);
-                fetchAndDisplayResults();
+                allQuizResults = []; // Clear all data after deletion
+                fetchAndProcessResults(); // Re-fetch to update dashboard
 
             } catch (error) {
                 console.error("Error deleting documents: ", error);
@@ -1103,6 +1210,56 @@
                 deleteButton.disabled = false;
                 deleteButton.innerHTML = originalButtonContent;
             }
+        }
+
+        // Export to CSV function
+        function exportToCsv(data) {
+            if (data.length === 0) {
+                alert("No data to export.");
+                return;
+            }
+
+            const headers = ["ID", "Name", "Email", "Score", "Status", "Date"];
+            
+            const rows = data.map((item, index) => {
+                const timestamp = item.timestamp ? 
+                    new Date(item.timestamp.toDate()).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }) : 'N/A';
+
+                return [
+                    index + 1,
+                    `"${(item.name || 'N/A').replace(/"/g, '""')}"`,
+                    `"${(item.email || 'N/A').replace(/"/g, '""')}"`,
+                    (item.score !== undefined ? item.score : 'N/A'),
+                    `"${(item.quiz_status || 'N/A').replace(/"/g, '""')}"`,
+                    `"${timestamp.replace(/"/g, '""')}"`
+                ].join(',');
+            });
+
+            const csvContent = "data:text/csv;charset=utf-8," 
+                                + headers.join(',') + "\n" 
+                                + rows.join('\n');
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "quiz_results.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Helper to get current filter/sort parameters
+        function getCurrentParams() {
+            const searchTerm = document.getElementById('search-input').value.trim();
+            const [sortBy, sortOrder] = document.getElementById('sort-by-select').value.split('-');
+            const statusFilter = document.getElementById('status-filter-select').value;
+            return { searchTerm, sortBy, sortOrder, statusFilter };
         }
 
         // Event Listeners
@@ -1116,10 +1273,16 @@
             const logoutButton = document.getElementById('logout-button');
             const refreshButton = document.getElementById('refresh-button');
             const printButton = document.getElementById('print-button');
+            const exportCsvButton = document.getElementById('export-csv-button');
             const deleteAllButton = document.getElementById('delete-all-button');
             const searchInput = document.getElementById('search-input');
             const searchButton = document.getElementById('search-button');
             const sortBySelect = document.getElementById('sort-by-select');
+            const statusFilterSelect = document.getElementById('status-filter-select'); // New filter
+            const prevPageButton = document.getElementById('prev-page-button');
+            const nextPageButton = document.getElementById('next-page-button');
+            const resultsPerPageSelect = document.getElementById('results-per-page-select');
+
 
             // Authentication state observer
             auth.onAuthStateChanged(user => {
@@ -1127,8 +1290,9 @@
                     console.log("User logged in:", user.email);
                     loginSection.style.display = 'none';
                     adminPanel.style.display = 'block';
-                    const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                    fetchAndDisplayResults('', sortBy, sortOrder);
+                    // Initial load with current params
+                    const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
+                    fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
                 } else {
                     console.log("User logged out.");
                     loginSection.style.display = 'flex';
@@ -1182,6 +1346,8 @@
             logoutButton.addEventListener('click', async () => {
                 try {
                     await auth.signOut();
+                    allQuizResults = []; // Clear data on logout
+                    currentFilteredData = [];
                 } catch (error) {
                     console.error("Logout error:", error);
                     alert("Error logging out: " + error.message);
@@ -1190,38 +1356,70 @@
 
             // Other event listeners
             refreshButton.addEventListener('click', () => {
-                const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
+                allQuizResults = []; // Force re-fetch on refresh
+                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
+                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
             });
 
             printButton.addEventListener('click', () => {
                 window.print();
             });
 
+            exportCsvButton.addEventListener('click', () => {
+                exportToCsv(currentFilteredData);
+            });
+            
             deleteAllButton.addEventListener('click', deleteAllQuizResults);
 
+            // Search, Sort, and Filter by Status events
             searchButton.addEventListener('click', () => {
-                const searchTerm = searchInput.value.trim();
-                const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                fetchAndDisplayResults(searchTerm, sortBy, sortOrder);
+                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
+                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
             });
 
             searchInput.addEventListener('keyup', (e) => {
                 if (e.key === 'Enter') {
-                    const searchTerm = searchInput.value.trim();
-                    const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                    fetchAndDisplayResults(searchTerm, sortBy, sortOrder);
-                } else if (searchInput.value.trim() === '') {
-                    const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                    fetchAndDisplayResults('', sortBy, sortOrder);
+                    const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
+                    fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
+                } else if (searchInput.value.trim() === '' && currentFilteredData.length !== allQuizResults.length) {
+                    // If search input is cleared, re-apply filters and sort
+                    const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
+                    fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
                 }
             });
 
             sortBySelect.addEventListener('change', () => {
-                const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
+                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
+                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
             });
 
+            statusFilterSelect.addEventListener('change', () => { // New event listener for status filter
+                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
+                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
+            });
+
+            // Pagination event listeners
+            prevPageButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTablePage();
+                }
+            });
+
+            nextPageButton.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTablePage();
+                }
+            });
+
+            resultsPerPageSelect.addEventListener('change', () => {
+                resultsPerPage = parseInt(resultsPerPageSelect.value);
+                currentPage = 1; // Reset to first page
+                renderTablePage(); // Re-render with new items per page
+            });
+
+            // Handle Enter key for login
             loginPasswordInput.addEventListener('keypress', function(e) {
                 if (e.which === 13) {
                     loginButton.click();
