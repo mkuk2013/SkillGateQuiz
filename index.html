@@ -462,6 +462,21 @@
             text-align: center;
         }
 
+        /* Timer specific styling */
+        #redirect-timer {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #d63031; /* A clear error/alert color */
+            background-color: #ffebee; /* Light background for visibility */
+            border: 1px solid #ef5350; /* Matching border */
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-top: 20px;
+            text-align: center;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         #question-text {
             font-size: 1.25rem;
             margin-bottom: var(--spacing-xl);
@@ -758,7 +773,6 @@
         }
     </style>
     
-    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
@@ -767,6 +781,7 @@
         <header>
             <h1>Shehzad Hussain Premium-Level Skills Consultant</h1>
             <p>Welcome to Your Gateway to Digital Mastery</p>
+            <div id="redirect-timer">Time Left To Close This Test: Loading...</div>
         </header>
 
         <div id="welcome-section">
@@ -1626,6 +1641,15 @@
         let userEmail = "";
         const correctEntryPass = "SkillGate";
 
+        // Define the target date for redirection
+        const targetDate = new Date("July 11, 2025 17:30:00 GMT+0500"); // Friday, July 11, 2025, 5:30 PM PKT (GMT+5)
+
+        // IMMEDIATE REDIRECTION CHECK ON PAGE LOAD
+        // This ensures index.html always redirects to index2.html if the time is past the deadline
+        if (new Date() >= targetDate) {
+            window.location.replace("index2.html"); // Using replace to prevent back button
+        }
+
         $(document).ready(function() {
             // Initialize form state
             $('#userName').prop('disabled', true);
@@ -1639,7 +1663,32 @@
             });
             $('#startButton').on('click', startQuizHandler);
             $('#submitAnswerButton').on('click', handleAnswerSubmission);
+
+            // Update countdown timer for display
+            updateRedirectCountdown();
+            setInterval(updateRedirectCountdown, 1000);
         });
+
+        function updateRedirectCountdown() {
+            const now = new Date();
+            const timeLeft = targetDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            const redirectTimerElement = document.getElementById('redirect-timer');
+
+            if (timeLeft <= 0) {
+                redirectTimerElement.textContent = "Test window closed. Redirecting...";
+                window.location.replace("index2.html"); // Redirect to index2.html
+                return;
+            }
+
+            // Updated text as per user's request
+            redirectTimerElement.textContent = `Time Left To Close This Test: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
 
         function checkEntryPass() {
             const enteredPass = $('#entryPass').val().trim();
@@ -1819,4 +1868,3 @@
     </script>
 </body>
 </html>
-
