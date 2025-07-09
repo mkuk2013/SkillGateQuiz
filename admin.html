@@ -3,669 +3,860 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillGate Quiz Admin Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>SkillGate Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #007bff;
-            --dark-blue: #0056b3;
-            --success-green: #28a745;
-            --error-red: #dc3545;
-            --light-bg: #f8f9fa;
-            --medium-bg: #e9ecef;
-            --white: #ffffff;
-            --text-dark: #343a40;
-            --text-light: #6c757d;
-            --border-color: #dee2e6;
-            --shadow-light: 0 0.5rem 1rem rgba(0,0,0,.1);
-            --border-radius: 0.5rem;
-            --font-size-base: 1rem;
+            /* Light Theme Colors */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-dark: #4c63d2;
+            --primary-light: #8b9cf7;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-hover: #f8fafc;
+            
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --spacing: 1rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Colors */
+            --primary-gradient: linear-gradient(135deg, #4c63d2 0%, #6366f1 100%);
+            --primary-dark: #6366f1;
+            --primary-light: #8b9cf7;
+            
+            --text-primary: #e0e7ff; /* Changed for better visibility */
+            --text-secondary: #a8b4e0; /* Changed for better visibility */
+            --text-muted: #9ca3af;
+            
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #2d3a4b; /* Changed for slightly better contrast */
+            --bg-hover: #475569;
+            
+            --border-light: #475569;
+            --border-medium: #64748b;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text-dark);
+            font-family: var(--font-family);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            font-size: var(--font-size-base);
+            transition: var(--transition);
+            overflow-x: hidden;
         }
 
         .container {
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-light);
             max-width: 1400px;
-            width: 100%;
-            margin-top: 20px;
-            box-sizing: border-box;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Modern Card Design */
+        .modern-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            overflow: hidden;
             position: relative;
         }
 
-        .header-section {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            position: relative; /* Needed for absolute positioning of child elements */
+        .modern-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
-        .header-section h1 {
-            color: var(--dark-blue);
-            margin-bottom: 10px;
-            font-size: 2.8em;
-            font-weight: 700;
-        }
-
-        .header-section p {
-            font-size: 1.1em;
-            color: var(--text-light);
-        }
-
-        /* Top right controls for welcome message and logout button */
-        .top-right-controls {
+        .modern-card::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px; /* Space between text and button */
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
         }
 
-        .welcome-text {
-            font-size: 1em;
-            color: var(--text-dark);
+        /* Header Styles */
+        .admin-header {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-left h1 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
             font-weight: 500;
         }
 
-        /* Loading Spinner */
-        .loading-spinner {
+        .header-right {
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin: 20px 0;
-            flex-direction: column;
-        }
-        .loading-spinner::after {
-            content: "";
-            width: 40px;
-            height: 40px;
-            border: 5px solid var(--primary-blue);
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        #loading-message {
-            margin-top: 10px;
-            font-size: 1.2em;
-            color: var(--text-light);
+            gap: 1rem;
         }
 
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 50px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-hover);
+            transform: scale(1.05);
+        }
+
+        .welcome-badge {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+        }
+
+        /* Modern Button Styles */
+        .btn-modern {
+            border: none;
+            padding: 0.875rem 1.75rem;
             border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            position: relative;
             overflow: hidden;
         }
 
-        table th, table td {
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            text-align: left;
-            font-size: 0.95em;
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
 
-        table thead th {
-            background-color: var(--primary-blue);
-            color: var(--white);
+        .btn-modern:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--accent-green), #059669);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--accent-orange), #d97706);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--accent-red), #dc2626);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border-medium);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-hover);
+            border-color: var(--primary-dark);
+            color: var(--primary-dark);
+        }
+
+        /* Controls Section */
+        .controls-section {
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: end;
+        }
+
+        .search-section {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
             font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        table tbody tr:nth-child(even) {
-            background-color: var(--light-bg);
-        }
-
-        table tbody tr:hover {
-            background-color: var(--medium-bg);
-            transition: background-color 0.2s ease;
-        }
-
-        /* IMPORTANT: Added !important to ensure these styles are applied */
-        .status-qualified {
-            color: var(--success-green) !important;
-            font-weight: bold;
-        }
-
-        .status-not-qualified {
-            color: var(--error-red) !important;
-            font-weight: bold;
-        }
-
-        /* Login Form Styles */
-        #login-section {
-            background-color: var(--light-bg);
-            padding: 40px;
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-light);
             border-radius: var(--border-radius);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            max-width: 450px;
-            margin: 50px auto;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+        }
+
+        .input-group .form-control {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        .input-group .btn-modern {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .actions-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* Stats Cards */
+        .stats-section {
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .stat-icon.primary { background: var(--primary-gradient); }
+        .stat-icon.success { background: linear-gradient(135deg, var(--accent-green), #059669); }
+        .stat-icon.warning { background: linear-gradient(135deg, var(--accent-orange), #d97706); }
+        .stat-icon.info { background: linear-gradient(135deg, var(--accent-blue), #2563eb); }
+        .stat-icon.danger { background: linear-gradient(135deg, var(--accent-red), #dc2626); } /* Added for Not Qualified */
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+        }
+
+        /* Modern Table */
+        .table-section {
+            padding: 0;
+        }
+
+        .table-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .modern-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .modern-table thead th {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modern-table tbody td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-primary);
+            vertical-align: middle;
+        }
+
+        .modern-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .modern-table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .modern-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-qualified {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-not-qualified { /* Changed from status-not-qualified */
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Loading Spinner */
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
             text-align: center;
         }
-        #login-section h2 {
-            color: var(--dark-blue);
-            margin-bottom: 25px;
-            font-size: 2em;
-            font-weight: 600;
+
+        .modern-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border-light);
+            border-top: 4px solid var(--primary-dark);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
         }
-        #login-section p {
-            margin-bottom: 20px;
-            color: var(--text-light);
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        #login-section label {
-            display: block;
-            margin-bottom: 8px;
+
+        .loading-text {
+            color: var(--text-secondary);
             font-weight: 500;
-            text-align: left;
-            color: var(--text-dark);
-            font-size: 0.95em;
         }
-        #login-section input[type="email"],
-        #login-section input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 12px;
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-        #login-section input[type="email"]:focus,
-        #login-section input[type="password"]:focus {
-            border-color: var(--primary-blue);
-            outline: none;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-        #login-error {
-            color: var(--error-red);
-            margin-bottom: 15px;
-            font-weight: 500;
+
+        /* Login Section */
+        .login-container {
             display: none;
-            font-size: 0.9em;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
         }
-        .button-primary {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+
+        .login-card {
             width: 100%;
-            font-weight: 500;
-            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
-        }
-        .button-primary:hover {
-            background-color: var(--dark-blue);
-            transform: translateY(-1px);
-        }
-        .button-primary:active {
-            transform: translateY(0);
-            box-shadow: none;
+            max-width: 400px;
+            padding: 3rem;
+            margin: 2rem;
         }
 
-        #logout-button {
-            background-color: var(--error-red);
-            color: var(--white);
-            padding: 10px 15px; /* Adjust padding for icon */
-            font-size: 0.95em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: 500;
-            box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
-            display: flex; /* Make button a flex container for icon and text */
-            align-items: center;
-            gap: 5px; /* Space between icon and text */
-        }
-        #logout-button:hover {
-            background-color: #c82333;
-        }
-        .admin-controls-container {
-            display: flex;
-            justify-content: space-between; /* Puts space between search/sort and buttons */
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            gap: 15px; /* Space between blocks of controls */
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .admin-controls-left { /* New wrapper for search and sort */
-            display: flex;
-            align-items: center;
-            gap: 15px; /* Space between search and sort */
-            flex-wrap: wrap;
-            flex-grow: 1;
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
         }
 
-        .admin-controls {
-            display: flex;
-            gap: 10px; /* Space between buttons */
-            flex-wrap: wrap;
-            justify-content: flex-end; /* Align buttons to the right */
-        }
-        
-        .admin-controls button:hover {
-            opacity: 0.9; /* General hover for Bootstrap buttons */
-        }
-        
-        /* Style for Delete All button */
-        #delete-all-button {
-            background-color: var(--error-red); /* Red for destructive action */
-            padding: 8px 15px; /* Smaller padding */
-            font-size: 0.9em; /* Slightly smaller font size */
-            max-width: 180px; /* Explicitly set a max width for desktop */
-            box-sizing: border-box; /* Ensure padding is included in width calculation */
-        }
-        #delete-all-button:hover {
-            background-color: #c82333; /* Darker red on hover */
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-grow: 1; /* Allow search bar to take available space */
-            max-width: 400px; /* Limit search bar width */
+        .login-form {
+            space-y: 1.5rem;
         }
 
-        /* Sort controls styling */
-        .sort-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px; /* Increased spacing */
-        }
-        .sort-controls label {
-            margin-bottom: 0;
-            font-weight: 500;
-            color: var(--text-dark);
-            font-size: 0.95em;
-            flex-shrink: 0; /* Prevent label from shrinking */
-            white-space: nowrap; /* Keep label text on one line */
-        }
-        .sort-controls select {
-            /* Bootstrap's form-select handles most styling */
-            min-width: 200px; /* Ensure dropdown is wide enough */
-            flex-grow: 0; /* Prevent select from growing excessively */
-            /* Custom styles to match standard Bootstrap input/button height */
-            height: calc(2.25rem + 2px); /* Standard Bootstrap height for default inputs/selects */
-            padding: .375rem .200rem; /* Standard Bootstrap padding */
-            font-size: 1rem; /* Standard Bootstrap font size */
-            padding-right: 28px;
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        /* Responsive adjustments for mobile */
+        .login-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            font-size: 0.875rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            body {
-                padding: 10px; /* Smaller padding on body for mobile */
-            }
             .container {
-                padding: 20px 15px; /* Adjust container padding */
-                margin-top: 10px;
-            }
-            .header-section {
-                margin-bottom: 20px;
-                padding-bottom: 10px; /* Smaller padding for mobile */
-            }
-            .header-section h1 {
-                font-size: 1.8em; /* Slightly smaller heading */
-            }
-            .header-section p {
-                font-size: 1em;
+                padding: 1rem;
             }
 
-            /* Make table rows behave like blocks on small screens */
-            table, thead, tbody, th, td, tr {
-                display: block; /* Ensure all parts stack */
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
             }
-            /* Hide table headers (but not display: none;, or the table headers won't be available for screen readers) */
-            thead tr {
+
+            .header-left h1 {
+                font-size: 2rem;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .search-section {
+                flex-direction: column;
+            }
+
+            .actions-group {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modern-table {
+                font-size: 0.875rem;
+            }
+
+            .modern-table thead {
+                display: none;
+            }
+
+            .modern-table tbody td {
+                display: block;
+                text-align: right;
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid var(--border-light);
+                position: relative;
+                padding-left: 50%;
+            }
+
+            .modern-table tbody td::before {
+                content: attr(data-label);
                 position: absolute;
-                top: -9999px;
-                left: -9999px;
+                left: 1rem;
+                width: 45%;
+                text-align: left;
+                font-weight: 600;
+                color: var(--text-secondary);
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
             }
-            tr {
-                border: 1px solid var(--border-color);
-                margin-bottom: 15px; /* Space between stacked rows (cards) */
+
+            .modern-table tbody tr {
+                border: 1px solid var(--border-light);
                 border-radius: var(--border-radius);
-                overflow: hidden; /* Ensures border-radius applies nicely */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow for cards */
-            }
-            td {
-                border: none; /* Remove individual cell borders */
-                border-bottom: 1px solid var(--medium-bg); /* Add separator between data fields */
-                padding: 10px 15px; /* Consistent padding inside the cell */
-                font-size: 0.9em;
-                display: flex; /* Make TD a flex container */
-                align-items: flex-start; /* Vertically align items at the start */
-                box-sizing: border-box;
-                text-align: left; /* Ensure the actual data is left-aligned */
-            }
-            td:last-child {
-                border-bottom: 0; /* No border for the last item in a row */
-            }
-            td:before {
-                content: attr(data-label); /* Use a data-label attribute on the TD */
-                font-weight: bold;
-                color: var(--text-dark);
-                width: 90px; /* Fixed width for the label part */
-                flex-shrink: 0; /* Prevent label from shrinking */
-                text-align: left; /* Ensure label is left-aligned */
-                margin-right: 10px; /* Space between label and value */
-                position: static; /* Ensure it behaves as a flex item */
-                top: auto;
-                left: auto;
-                padding-right: 0;
-                white-space: normal; /* Allow label to wrap if needed */
-            }
-            
-            /* Mobile adjustments for top-right-controls */
-            .top-right-controls {
-                position: static; /* Remove absolute positioning on mobile */
-                flex-direction: column; /* Stack welcome text and logout button vertically */
-                align-items: center; /* Center them horizontally */
-                width: 100%;
-                margin-top: 15px; /* Add space below main header content */
-                gap: 5px; /* Smaller gap for stacked items */
-            }
-            .welcome-text {
-                margin-bottom: 5px; /* Space between welcome text and button */
-                font-size: 1em;
-            }
-            #logout-button {
-                width: 100%; /* Full width button on mobile */
-                max-width: 200px; /* Optional: limit max width for better appearance */
-                font-size: 1em; /* Slightly larger for mobile tap */
-                padding: 12px 20px;
-                justify-content: center; /* Center icon and text within button */
-            }
-
-            .admin-controls-container {
-                flex-direction: column; /* Stack search/sort and buttons vertically */
-                align-items: center; /* Center items */
-                gap: 15px; /* Space between sections */
-            }
-
-            .admin-controls-left {
-                flex-direction: column; /* Stack search and sort vertically */
-                width: 100%; /* Full width */
-                gap: 15px; /* Space between search and sort */
-            }
-
-            .search-bar {
-                width: 100%; /* Full width search bar */
-                max-width: none; /* Remove max-width constraint */
-                margin-right: 0; /* Remove right margin */
-            }
-
-            .sort-controls {
-                width: 100%; /* Full width for dropdown on mobile */
-                margin-right: 0;
-                justify-content: center; /* Center the sort controls */
-                flex-wrap: wrap; /* Allow wrapping */
-                gap: 10px; /* Increased gap for mobile */
-            }
-            .sort-controls select {
-                width: 100%; /* Full width for dropdown on mobile */
-                max-width: none;
-            }
-
-            .admin-controls {
-                flex-direction: column; /* Stack buttons vertically */
-                width: 100%; /* Full width for buttons container */
-                align-items: center; /* Center buttons within their container */
-                gap: 10px; /* Space between stacked buttons */
-            }
-            .admin-controls button {
-                width: 100%; /* Full width button on mobile */
-                max-width: none; /* Override max-width for general buttons */
-                font-size: 1em; /* Slightly larger for mobile tap */
-                padding: 12px 20px;
-            }
-            .admin-controls button:last-child {
-                margin-bottom: 0; /* No margin after the last button */
-            }
-
-            /* Specific override for the Delete All button on mobile to match other buttons */
-            #delete-all-button {
-                width: 100% !important; /* Make it full width */
-                max-width: none !important; /* Remove max-width constraint */
-                align-self: auto !important; /* Reset align-self */
-                padding: 12px 20px !important; /* Ensure consistent padding with other buttons */
-                font-size: 1em !important; /* Ensure consistent font-size with other buttons */
-            }
-
-            /* Login section adjustments for mobile */
-            #login-section {
-                padding: 25px;
-                margin: 20px auto;
-                max-width: 90%; /* Adjust max-width for smaller screens */
-            }
-            #login-section h2 {
-                font-size: 1.8em;
-            }
-            #login-section p {
-                font-size: 0.9em;
-            }
-            #login-section input[type="email"],
-            #login-section input[type="password"] {
-                width: 100%; /* Full width input fields */
-                padding: 10px;
-                font-size: 0.95em;
-            }
-            .button-primary {
-                padding: 10px 20px;
-                font-size: 1em;
+                margin-bottom: 1rem;
+                display: block;
             }
         }
 
-        /* Print Specific Styles - ENSURING TABLE FORMAT IS CORRECT */
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Print Styles */
         @media print {
+            @page {
+                size: landscape; /* Suggest landscape orientation for printing */
+            }
+
             body {
-                background-color: #fff;
-                padding: 0;
-                margin: 0;
-                font-size: 10pt; /* Adjusted for better print density */
-                color: #000; /* Ensure all text is black for printing */
+                background: white !important;
+                color: black !important;
             }
-            .container {
-                box-shadow: none;
-                margin-top: 0;
-                padding: 20px;
-                width: auto;
-                max-width: 100%;
+
+            .modern-card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
             }
-            #login-section,
-            .admin-controls-container, /* Hide the entire controls container */
-            .loading-spinner {
-                display: none !important; /* Hide UI elements */
-            }
-            /* Hide logout button and welcome text on print */
-            .top-right-controls {
+
+            .admin-header,
+            .controls-section,
+            .stats-section,
+            .theme-toggle,
+            .btn-modern {
                 display: none !important;
             }
 
-            .header-section {
-                text-align: center;
-                margin-bottom: 20px;
-                padding-bottom: 10px;
-                border-bottom: 1px solid #ccc;
-            }
-            .header-section h1 {
-                font-size: 1.8em;
-                color: #000;
-                margin-bottom: 5px;
-            }
-            .header-section p {
-                font-size: 0.9em;
-                color: #555;
+            .modern-table thead {
+                display: table-header-group !important;
             }
 
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-                box-shadow: none;
-                border-radius: 0;
-                page-break-inside: auto; /* Allows table to break across pages if needed */
+            .modern-table tbody td::before {
+                display: none !important;
             }
 
-            /* FORCE TABLE DISPLAY FOR ALL TABLE ELEMENTS */
-            table, thead, tbody {
-                display: table !important; /* Force table display */
-            }
-            tr {
-                display: table-row !important;
-                /* Reset positions and paddings specific to mobile view */
-                position: static !important;
-                margin-bottom: 0 !important; /* Remove mobile margin */
-            }
-            th, td {
+            .modern-table tbody td {
                 display: table-cell !important;
-                border: 1px solid #ddd;
-                padding: 8px 6px; /* Optimized padding for print */
-                text-align: left !important; /* Ensure left alignment for print */
-                vertical-align: top !important; /* Consistent vertical alignment */
-                font-size: 0.8em; /* Fine-tuned font size for print */
-                word-wrap: break-word !important; /* Allow text wrapping */
-                white-space: normal !important; /* Override nowrap if any */
-                padding-left: initial !important; /* Remove mobile-specific left padding */
+                text-align: left !important;
+                padding: 0.5rem !important;
             }
 
-            thead {
-                display: table-header-group !important; /* Ensures header repeats on new pages */
-            }
-            tbody {
-                display: table-row-group !important;
-            }
-            table tbody tr:nth-child(even) {
-                background-color: #f9f9f9;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-            }
-            /* Explicitly hide pseudo-element labels used for mobile display */
-            td:before {
-                display: none !important;
-            }
-
-            /* Ensure .status-qualified and .status-not-qualified colors print correctly */
-            .status-qualified {
-                color: #006400 !important; /* Dark green for print */
-                font-weight: bold;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-            }
-            .status-not-qualified {
-                color: #8B0000 !important; /* Dark red for print */
-                font-weight: bold;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
+            .modern-table tbody tr {
+                display: table-row !important;
+                border: none !important;
+                margin: 0 !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="login-section">
-            <h2>Admin Login</h2>
-            <p>Please log in to access the quiz results.</p>
-            <div>
-                <label for="login-email">Email:</label>
-                <input type="email" id="login-email" placeholder="Enter your email" required>
+    <div id="login-section" class="login-container">
+        <div class="modern-card login-card">
+            <div class="login-header">
+                <h2 class="login-title">Welcome Back</h2>
+                <p class="login-subtitle">Sign in to access your dashboard</p>
             </div>
-            <div>
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" placeholder="Enter your password" required>
-            </div>
-            <p id="login-error"></p>
-            <button id="login-button" class="button-primary">Login</button>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="login-email" class="form-label">Email Address</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <div id="login-error" class="login-error"></div>
+                <button type="button" id="login-button" class="btn-modern btn-primary login-button">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+            </form>
         </div>
+    </div>
 
-        <div id="admin-panel" style="display:none;">
-           
-            <div class="header-section">
-                <h1>SkillGate Admin Panel</h1>
-                <p>Manage and view quiz results effortlessly.</p>
-                <div class="top-right-controls">
-                    <span class="welcome-text">Welcome Admin</span>
-                    <button id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+    <div id="admin-panel" style="display: none;">
+        <div class="container">
+            <div class="modern-card admin-header fade-in-up">
+                <div class="header-left">
+                    <h1>SkillGate Dashboard</h1>
+                    <p class="header-subtitle">Manage quiz results and analytics</p>
                 </div>
-            </div>
-
-            <div class="admin-controls-container">
-                <div class="admin-controls-left"> 
-                    <div class="search-bar">
-                        <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
-                        <button id="search-button" class="btn btn-primary btn-md">Search</button>
+                <div class="header-right">
+                    <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="welcome-badge">
+                        <i class="fas fa-user-circle me-2"></i>
+                        Welcome, Admin
                     </div>
-                    <div class="sort-controls">
-                        <label for="sort-by-select" class="form-label mb-0">Sort By:</label>
-                        <select id="sort-by-select" class="form-select">
-                            <option value="timestamp-desc">Timestamp (Newest First) </option>
-                            <option value="timestamp-asc">Timestamp (Oldest First) </option>
-                            <option value="name-asc">Name (A-Z) </option>
-                            <option value="name-desc">Name (Z-A) </option>
-                            <option value="email-asc">Email (A-Z) </option>
-                            <option value="email-desc">Email (Z-A) </option>
-                            <option value="score-desc">Score (High to Low) </option>
-                            <option value="score-asc">Score (Low to High) </option>
-                            <option value="status-asc">Status (A-Z) </option>
-                            <option value="status-desc">Status (Z-A) </option>
-                        </select>
+                    <button id="logout-button" class="btn-modern btn-danger">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-section fade-in-up">
+                <div class="stats-grid">
+                    <div class="modern-card stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value" id="total-users">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="modern-card stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-value" id="qualified-users">0</div>
+                        <div class="stat-label">Qualified</div>
+                    </div>
+                    <div class="modern-card stat-card">
+                        <div class="stat-icon danger"> <i class="fas fa-times-circle"></i> </div>
+                        <div class="stat-value" id="not-qualified-users">0</div> <div class="stat-label">Not Qualified</div> </div>
+                    <div class="modern-card stat-card">
+                        <div class="stat-icon info">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-value" id="avg-score">0%</div>
+                        <div class="stat-label">Avg Score</div>
                     </div>
                 </div>
-                <div class="admin-controls">
-                    <button id="refresh-button" class="btn btn-success btn-md">Refresh Data</button>
-                    <button id="print-button" class="btn btn-info btn-md">Print / Save As PDF</button>
-                    <button id="delete-all-button" class="btn btn-danger">Delete All Data</button>
+            </div>
+
+            <div class="modern-card controls-section fade-in-up">
+                <div class="controls-grid">
+                    <div class="search-section">
+                        <div class="search-group">
+                            <div class="form-group">
+                                <label for="search-input" class="form-label">Search</label>
+                                <div class="input-group">
+                                    <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
+                                    <button id="search-button" class="btn-modern btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-group">
+                            <div class="form-group">
+                                <label for="sort-by-select" class="form-label">Sort By</label>
+                                <select id="sort-by-select" class="form-control">
+                                    <option value="timestamp-desc">Newest First</option>
+                                    <option value="timestamp-asc">Oldest First</option>
+                                    <option value="name-asc">Name (A-Z)</option>
+                                    <option value="name-desc">Name (Z-A)</option>
+                                    <option value="email-asc">Email (A-Z)</option>
+                                    <option value="email-desc">Email (Z-A)</option>
+                                    <option value="score-desc">Score (High to Low)</option>
+                                    <option value="score-asc">Score (Low to High)</option>
+                                    <option value="status-asc">Status (A-Z)</option>
+                                    <option value="status-desc">Status (Z-A)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions-group">
+                        <button id="refresh-button" class="btn-modern btn-success">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                        <button id="print-button" class="btn-modern btn-info">
+                            <i class="fas fa-print"></i>
+                            Print
+                        </button>
+                        <button id="delete-all-button" class="btn-modern btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                            Delete All
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="loading-spinner" id="loading-spinner" style="display:none;">
-                <p id="loading-message">Loading quiz results...</p>
+            <div class="modern-card loading-container" id="loading-spinner">
+                <div class="modern-spinner"></div>
+                <p class="loading-text">Loading quiz results...</p>
             </div>
 
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Score</th>
-                        <th>Status</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody id="results-table-body">
-                    </tbody>
-            </table>
+            <div class="modern-card table-section fade-in-up">
+                <div class="table-header">
+                    <h3 class="table-title">Quiz Results</h3>
+                    <span id="total-records-count" class="text-muted">0 records</span>
+                </div>
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Score</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -674,158 +865,215 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
     <script>
-      // Your web app's Firebase configuration (COPY FROM YOUR quiz_app.html OR FIREBASE CONSOLE)
-      const firebaseConfig = {
-        apiKey: "AIzaSyC55rgT41mwuf5y4q3P_Wi7zsLwO4RQAPQ", // Replace with YOUR_API_KEY
-        authDomain: "skillget-quiz.firebaseapp.com", // Replace with YOUR_AUTH_DOMAIN
-        projectId: "skillget-quiz", // Replace with YOUR_PROJECT_ID
-        storageBucket: "skillget-quiz.firebasestorage.app", // Replace with YOUR_STORAGE_BUCKET
-        messagingSenderId: "222675456393", // Replace with YOUR_MESSAGING_SENDER_ID
-        appId: "1:222675456393:web:931fae081fa10829d4d158", // Replace with YOUR_APP_ID
-        // measurementId: "G-MVEJJGL4FG" // Optional
-      };
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC55rgT41mwuf5y4q3P_Wi7zsLwO4RQAPQ",
+            authDomain: "skillget-quiz.firebaseapp.com",
+            projectId: "skillget-quiz",
+            storageBucket: "skillget-quiz.firebasestorage.app",
+            messagingSenderId: "222675456393",
+            appId: "1:222675456393:web:931fae081fa10829d4d158"
+        };
 
-      // Initialize Firebase App
-      firebase.initializeApp(firebaseConfig);
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
 
-      // Get a reference to the Firestore service
-      const db = firebase.firestore();
-      // Get a reference to the Auth service
-      const auth = firebase.auth();
+        // Theme Management
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
 
-      console.log("Firebase initialized for Admin Panel.");
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
 
-      // Function to fetch and display data
-      async function fetchAndDisplayResults(searchTerm = '', sortBy = 'timestamp', sortOrder = 'desc') {
-          const resultsTableBody = document.getElementById('results-table-body');
-          const loadingSpinner = document.getElementById('loading-spinner');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
 
-          if (!resultsTableBody || !loadingSpinner) {
-              console.error("HTML elements for results display not found.");
-              return; // Exit if elements are null
-          }
+        // Initialize theme on page load
+        initTheme();
 
-          resultsTableBody.innerHTML = ''; // Clear existing data
-          loadingSpinner.style.display = 'flex'; // Show loading spinner
-          document.getElementById('loading-message').textContent = "Loading quiz results..."; // Reset message
+        // Statistics Management
+        function updateStatistics(data) {
+            const totalUsers = data.length;
+            const qualifiedUsers = data.filter(item => item.quiz_status === 'Qualified').length;
+            const notQualifiedUsers = data.filter(item => item.quiz_status !== 'Qualified').length; // Changed calculation and variable name
+            const avgScore = totalUsers > 0 ? 
+                Math.round(data.reduce((sum, item) => sum + (item.score || 0), 0) / totalUsers) : 0;
 
-          try {
-              // Fetch all documents from Firestore. Client-side sorting will be applied.
-              const querySnapshot = await db.collection("quiz_results").get();
+            document.getElementById('total-users').textContent = totalUsers;
+            document.getElementById('qualified-users').textContent = qualifiedUsers;
+            document.getElementById('not-qualified-users').textContent = notQualifiedUsers; // Changed ID
+            document.getElementById('avg-score').textContent = avgScore + '%';
+        }
 
-              let allDocs = [];
-              querySnapshot.forEach(doc => {
-                  allDocs.push({ id: doc.id, ...doc.data() });
-              });
+        // Enhanced fetch and display function
+        async function fetchAndDisplayResults(searchTerm = '', sortBy = 'timestamp', sortOrder = 'desc') {
+            const resultsTableBody = document.getElementById('results-table-body');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const totalRecordsCountElement = document.getElementById('total-records-count');
 
-              // Apply search filter if a searchTerm is provided
-              let filteredDocs = allDocs.filter(doc => {
-                  const name = (doc.name || '').toLowerCase();
-                  const email = (doc.email || '').toLowerCase();
-                  const lowerCaseSearchTerm = searchTerm.toLowerCase();
-                  return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
-              });
+            if (!resultsTableBody || !loadingSpinner || !totalRecordsCountElement) {
+                console.error("HTML elements for results display not found.");
+                return;
+            }
 
-              if (filteredDocs.length === 0) {
-                  document.getElementById('loading-message').textContent = searchTerm ? "No matching quiz results found." : "No quiz results found yet.";
-                  resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">${searchTerm ? "No matching results." : "No quiz results available."}</td></tr>`;
-                  loadingSpinner.style.display = 'none';
-                  return;
-              }
+            resultsTableBody.innerHTML = '';
+            totalRecordsCountElement.textContent = '0 records';
+            loadingSpinner.style.display = 'flex';
 
-              // Apply client-side sorting
-              filteredDocs.sort((a, b) => {
-                  let valA, valB;
+            try {
+                const querySnapshot = await db.collection("quiz_results").get();
 
-                  switch (sortBy) {
-                      case 'name':
-                      case 'email':
-                      case 'status':
-                          valA = (a[sortBy] || '').toLowerCase();
-                          valB = (b[sortBy] || '').toLowerCase();
-                          break;
-                      case 'score':
-                          valA = a.score !== undefined ? a.score : -Infinity; // Handle undefined scores
-                          valB = b.score !== undefined ? b.score : -Infinity;
-                          break;
-                      case 'timestamp':
-                          // Convert Firestore Timestamp objects to milliseconds for comparison
-                          valA = a.timestamp ? a.timestamp.toMillis() : 0;
-                          valB = b.timestamp ? b.timestamp.toMillis() : 0;
-                          break;
-                      default:
-                          // Default to timestamp descending if no valid sortBy is provided
-                          valA = a.timestamp ? a.timestamp.toMillis() : 0;
-                          valB = b.timestamp ? b.timestamp.toMillis() : 0;
-                          sortBy = 'timestamp'; // Set default for rendering
-                          sortOrder = 'desc'; // Set default for rendering
-                          break;
-                  }
+                let allDocs = [];
+                querySnapshot.forEach(doc => {
+                    allDocs.push({ id: doc.id, ...doc.data() });
+                });
 
-                  if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
-                  if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
-                  return 0;
-              });
+                let filteredDocs = allDocs.filter(doc => {
+                    const name = (doc.name || '').toLowerCase();
+                    const email = (doc.email || '').toLowerCase();
+                    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+                    return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
+                });
 
+                // Update statistics
+                updateStatistics(filteredDocs);
 
-              let counter = 1; 
-              const labels = ["ID", "Name", "Email", "Score", "Status", "Timestamp"];
+                totalRecordsCountElement.textContent = `${filteredDocs.length} records`;
 
-              filteredDocs.forEach((data) => {
-                  const row = resultsTableBody.insertRow();
+                if (filteredDocs.length === 0) {
+                    resultsTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align:center; padding: 3rem; color: var(--text-secondary);">
+                                <i class="fas fa-inbox fa-3x mb-3" style="display: block; opacity: 0.3;"></i>
+                                ${searchTerm ? "No matching results found." : "No quiz results available yet."}
+                            </td>
+                        </tr>`;
+                    loadingSpinner.style.display = 'none';
+                    return;
+                }
 
-                  const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
-                  // Corrected variable name: quiz_status
-                  const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
+                // Sort data
+                filteredDocs.sort((a, b) => {
+                    let valA, valB;
 
-                  const cellData = [
-                      counter,
-                      data.name || 'N/A',
-                      data.email || 'N' + 'A',
-                      data.score !== undefined ? data.score : 'N/A',
-                      data.quiz_status || 'N/A', // Corrected variable name: quiz_status
-                      timestamp
-                  ];
+                    switch (sortBy) {
+                        case 'name':
+                        case 'email':
+                        case 'status':
+                            valA = (a[sortBy] || '').toLowerCase();
+                            valB = (b[sortBy] || '').toLowerCase();
+                            break;
+                        case 'score':
+                            valA = a.score !== undefined ? a.score : -Infinity;
+                            valB = b.score !== undefined ? b.score : -Infinity;
+                            break;
+                        case 'timestamp':
+                            valA = a.timestamp ? a.timestamp.toMillis() : 0;
+                            valB = b.timestamp ? b.timestamp.toMillis() : 0;
+                            break;
+                        default:
+                            valA = a.timestamp ? a.timestamp.toMillis() : 0;
+                            valB = b.timestamp ? b.timestamp.toMillis() : 0;
+                            sortBy = 'timestamp';
+                            sortOrder = 'desc';
+                            break;
+                    }
 
-                  cellData.forEach((value, index) => {
-                      const cell = row.insertCell();
-                      cell.setAttribute('data-label', labels[index] + ':');
-                      if (labels[index] === "Status") {
-                          cell.classList.add(statusClass);
-                      }
-                      cell.textContent = value;
-                  });
-                  
-                  counter++;
-              });
+                    if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+                    if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
 
-              loadingSpinner.style.display = 'none';
-          } catch (error) {
-              console.error("Error fetching or sorting documents: ", error);
-              document.getElementById('loading-message').textContent = "Error loading data. Please check console.";
-              resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--error-red);">Failed to load results: ${error.message}</td></tr>`;
-              alert("Failed to load quiz results: " + error.message + ". Please check your Firestore rules and network connection.");
-          }
-      }
+                // Populate table
+                let counter = 1;
+                const labels = ["ID", "Name", "Email", "Score", "Status", "Date"];
 
+                filteredDocs.forEach((data) => {
+                    const row = resultsTableBody.insertRow(); // Corrected: use insertRow() on tbody
+                    row.className = 'fade-in-up';
 
-      // Function to delete all quiz results from Firestore
-      async function deleteAllQuizResults() {
+                    const timestamp = data.timestamp ? 
+                        new Date(data.timestamp.toDate()).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }) : 'N/A';
+
+                    const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
+
+                    const cellData = [
+                        counter,
+                        data.name || 'N/A',
+                        data.email || 'N/A',
+                        data.score !== undefined ? data.score + '%' : 'N/A',
+                        data.quiz_status || 'N/A',
+                        timestamp
+                    ];
+
+                    cellData.forEach((value, index) => {
+                        const cell = row.insertCell(); // Correct: insertCell() on the row
+                        cell.setAttribute('data-label', labels[index]);
+                        
+                        if (labels[index] === "Status") {
+                            cell.innerHTML = `<span class="status-badge ${statusClass}">${value}</span>`;
+                        } else {
+                            cell.textContent = value;
+                        }
+                    });
+
+                    counter++;
+                });
+
+                loadingSpinner.style.display = 'none';
+            } catch (error) {
+                console.error("Error fetching documents: ", error);
+                loadingSpinner.querySelector('.loading-text').textContent = "Error loading data. Please try again.";
+                resultsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center; color: var(--accent-red); padding: 3rem;">
+                            <i class="fas fa-exclamation-triangle fa-2x mb-2" style="display: block;"></i>
+                            Failed to load results: ${error.message}
+                        </td>
+                    </tr>`;
+                alert("Failed to load quiz results: " + error.message);
+                totalRecordsCountElement.textContent = `Error loading records`;
+            }
+        }
+
+        // Enhanced delete all function
+        async function deleteAllQuizResults() {
             if (!confirm("Are you absolutely sure you want to delete ALL quiz results? This action cannot be undone.")) {
-                return; // User cancelled
+                return;
             }
 
             const loadingSpinner = document.getElementById('loading-spinner');
             const deleteButton = document.getElementById('delete-all-button');
-            const originalButtonText = deleteButton.textContent;
-            
+            const originalButtonContent = deleteButton.innerHTML;
+
             loadingSpinner.style.display = 'flex';
-            document.getElementById('loading-message').textContent = "Deleting all quiz results...";
+            loadingSpinner.querySelector('.loading-text').textContent = "Deleting all quiz results...";
             deleteButton.disabled = true;
-            deleteButton.textContent = "Deleting...";
+            deleteButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
 
             const collectionRef = db.collection("quiz_results");
-            const batchSize = 500; // Max documents per batch
+            const batchSize = 500;
 
             try {
                 let querySnapshot = await collectionRef.limit(batchSize).get();
@@ -839,152 +1087,147 @@
 
                     await batch.commit();
                     documentsDeleted += querySnapshot.size;
-                    console.log(`Deleted ${querySnapshot.size} documents in a batch. Total deleted: ${documentsDeleted}`);
+                    console.log(`Deleted ${querySnapshot.size} documents. Total: ${documentsDeleted}`);
 
-                    // Fetch the next batch
                     querySnapshot = await collectionRef.limit(batchSize).get();
                 }
 
                 alert(`Successfully deleted ${documentsDeleted} quiz results.`);
-                console.log("All quiz results deleted successfully.");
-                fetchAndDisplayResults(); // Refresh table after deletion
+                fetchAndDisplayResults();
 
             } catch (error) {
                 console.error("Error deleting documents: ", error);
-                alert("Error deleting quiz results: " + error.message + ". Please check your Firebase security rules.");
+                alert("Error deleting quiz results: " + error.message);
             } finally {
                 loadingSpinner.style.display = 'none';
                 deleteButton.disabled = false;
-                deleteButton.textContent = originalButtonText;
+                deleteButton.innerHTML = originalButtonContent;
             }
         }
 
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginSection = document.getElementById('login-section');
+            const adminPanel = document.getElementById('admin-panel');
+            const loginEmailInput = document.getElementById('login-email');
+            const loginPasswordInput = document.getElementById('login-password');
+            const loginErrorDiv = document.getElementById('login-error');
+            const loginButton = document.getElementById('login-button');
+            const logoutButton = document.getElementById('logout-button');
+            const refreshButton = document.getElementById('refresh-button');
+            const printButton = document.getElementById('print-button');
+            const deleteAllButton = document.getElementById('delete-all-button');
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const sortBySelect = document.getElementById('sort-by-select');
 
-      // --- Authentication Logic and Event Listeners ---
-      document.addEventListener('DOMContentLoaded', () => {
-          const loginSection = document.getElementById('login-section');
-          const adminPanel = document.getElementById('admin-panel');
-          const loginEmailInput = document.getElementById('login-email');
-          const loginPasswordInput = document.getElementById('login-password');
-          const loginErrorDiv = document.getElementById('login-error');
-          const loginButton = document.getElementById('login-button');
-          const logoutButton = document.getElementById('logout-button');
-          const refreshButton = document.getElementById('refresh-button');
-          const printButton = document.getElementById('print-button');
-          const deleteAllButton = document.getElementById('delete-all-button');
-          const searchInput = document.getElementById('search-input');
-          const searchButton = document.getElementById('search-button');
-          const sortBySelect = document.getElementById('sort-by-select'); // Get the new select element
+            // Authentication state observer
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    console.log("User logged in:", user.email);
+                    loginSection.style.display = 'none';
+                    adminPanel.style.display = 'block';
+                    const [sortBy, sortOrder] = sortBySelect.value.split('-');
+                    fetchAndDisplayResults('', sortBy, sortOrder);
+                } else {
+                    console.log("User logged out.");
+                    loginSection.style.display = 'flex';
+                    adminPanel.style.display = 'none';
+                }
+            });
 
-          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton || !printButton || !deleteAllButton || !searchInput || !searchButton || !sortBySelect) {
-              console.error("One or more required HTML elements for login/admin panel were not found. Please check your admin.html file for correct IDs.");
-              alert("Fatal Error: Admin panel elements not found. Check console for details.");
-              return;
-          }
+            // Login functionality
+            loginButton.addEventListener('click', async () => {
+                const email = loginEmailInput.value.trim();
+                const password = loginPasswordInput.value.trim();
+                loginErrorDiv.style.display = 'none';
 
-          auth.onAuthStateChanged(user => {
-              if (user) {
-                  console.log("User logged in:", user.email);
-                  loginSection.style.display = 'none';
-                  adminPanel.style.display = 'block';
-                  // Fetch with default sort when admin panel is shown
-                  const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                  fetchAndDisplayResults('', sortBy, sortOrder);
-              } else {
-                  console.log("User logged out.");
-                  loginSection.style.display = 'block';
-                  adminPanel.style.display = 'none';
-              }
-          });
+                if (!email || !password) {
+                    loginErrorDiv.textContent = "Please enter both email and password.";
+                    loginErrorDiv.style.display = 'block';
+                    return;
+                }
 
-          loginButton.addEventListener('click', async () => {
-              const email = loginEmailInput.value;
-              const password = loginPasswordInput.value;
-              loginErrorDiv.style.display = 'none';
+                try {
+                    loginButton.disabled = true;
+                    loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
 
-              if (!email || !password) {
-                  loginErrorDiv.textContent = "Please enter both email and password.";
-                  loginErrorDiv.style.display = 'block';
-                  return;
-              }
+                    await auth.signInWithEmailAndPassword(email, password);
+                } catch (error) {
+                    console.error("Login error:", error);
+                    let errorMessage = "Login failed. Please check your credentials.";
+                    
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                        case 'auth/wrong-password':
+                            errorMessage = "Invalid email or password.";
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = "Invalid email format.";
+                            break;
+                        case 'auth/network-request-failed':
+                            errorMessage = "Network error. Check your internet connection.";
+                            break;
+                    }
+                    
+                    loginErrorDiv.textContent = errorMessage;
+                    loginErrorDiv.style.display = 'block';
+                } finally {
+                    loginButton.disabled = false;
+                    loginButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                }
+            });
 
-              try {
-                  loginButton.disabled = true;
-                  loginButton.textContent = "Logging in...";
+            // Logout functionality
+            logoutButton.addEventListener('click', async () => {
+                try {
+                    await auth.signOut();
+                } catch (error) {
+                    console.error("Logout error:", error);
+                    alert("Error logging out: " + error.message);
+                }
+            });
 
-                  await auth.signInWithEmailAndPassword(email, password);
-              } catch (error) {
-                  console.error("Login error:", error);
-                  let errorMessage = "Login failed. Please check your credentials.";
-                  if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                      errorMessage = "Invalid email or password.";
-                  } else if (error.code === 'auth/invalid-email') {
-                      errorMessage = "Invalid email format.";
-                  } else if (error.code === 'auth/network-request-failed') {
-                      errorMessage = "Network error. Check your internet connection.";
-                  }
-                  loginErrorDiv.textContent = errorMessage;
-                  loginErrorDiv.style.display = 'block';
-              } finally {
-                  loginButton.disabled = false;
-                  loginButton.textContent = "Login";
-              }
-          });
+            // Other event listeners
+            refreshButton.addEventListener('click', () => {
+                const [sortBy, sortOrder] = sortBySelect.value.split('-');
+                fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
+            });
 
-          logoutButton.addEventListener('click', async () => {
-              try {
-                  await auth.signOut();
-              } catch (error) {
-                  console.error("Logout error:", error);
-                  alert("Error logging out: " + error.message);
-              }
-          });
+            printButton.addEventListener('click', () => {
+                window.print();
+            });
 
-          // Update refresh button to use current search and sort settings
-          refreshButton.addEventListener('click', () => {
-              const [sortBy, sortOrder] = sortBySelect.value.split('-');
-              fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
-          });
+            deleteAllButton.addEventListener('click', deleteAllQuizResults);
 
-          printButton.addEventListener('click', () => {
-              window.print();
-          });
-
-          deleteAllButton.addEventListener('click', deleteAllQuizResults);
-
-          // Event listener for the Search button
-          searchButton.addEventListener('click', () => {
-              const searchTerm = searchInput.value.trim();
-              const [sortBy, sortOrder] = sortBySelect.value.split('-');
-              fetchAndDisplayResults(searchTerm, sortBy, sortOrder);
-          });
-
-          // Optional: Live search as user types with debounce or on Enter
-          searchInput.addEventListener('keyup', (e) => {
-              if (e.key === 'Enter') {
+            searchButton.addEventListener('click', () => {
                 const searchTerm = searchInput.value.trim();
                 const [sortBy, sortOrder] = sortBySelect.value.split('-');
                 fetchAndDisplayResults(searchTerm, sortBy, sortOrder);
-              } else if (searchInput.value.trim() === '') {
-                // If search box is cleared, refresh all results with current sort
+            });
+
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    const searchTerm = searchInput.value.trim();
+                    const [sortBy, sortOrder] = sortBySelect.value.split('-');
+                    fetchAndDisplayResults(searchTerm, sortBy, sortOrder);
+                } else if (searchInput.value.trim() === '') {
+                    const [sortBy, sortOrder] = sortBySelect.value.split('-');
+                    fetchAndDisplayResults('', sortBy, sortOrder);
+                }
+            });
+
+            sortBySelect.addEventListener('change', () => {
                 const [sortBy, sortOrder] = sortBySelect.value.split('-');
-                fetchAndDisplayResults('', sortBy, sortOrder);
-              }
-          });
+                fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
+            });
 
-          // Event listener for the Sort By dropdown
-          sortBySelect.addEventListener('change', () => {
-              const [sortBy, sortOrder] = sortBySelect.value.split('-');
-              fetchAndDisplayResults(searchInput.value.trim(), sortBy, sortOrder);
-          });
-
-          // Allow login by pressing Enter in password field
-          loginPasswordInput.addEventListener('keypress', function(e) {
-              if (e.which === 13) {
-                  loginButton.click();
-              }
-          });
-      });
+            loginPasswordInput.addEventListener('keypress', function(e) {
+                if (e.which === 13) {
+                    loginButton.click();
+                }
+            });
+        });
     </script>
 </body>
 </html>
