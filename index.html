@@ -387,6 +387,74 @@
             color: #00798c; /* Keep link color consistent */
             text-decoration: underline;
         }
+
+        /* New styles for the congratulations message */
+        .congratulations-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .congratulations-card h2 {
+            color: #0056b3;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .congratulations-card h2 img {
+            margin-right: 10px;
+            width: 40px; /* Adjust size as needed */
+            height: 40px; /* Adjust size as needed */
+        }
+
+        .congratulations-card p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .congratulations-card .lock-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #28a745;
+            margin-top: 25px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .congratulations-card .lock-message img {
+            margin-right: 10px;
+            width: 24px; /* Adjust size as needed */
+            height: 24px; /* Adjust size as needed */
+        }
+
+        .congratulations-card .join-button {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* For the anchor tag */
+            display: inline-block; /* For the anchor tag */
+            margin-top: 20px;
+        }
+
+        .congratulations-card .join-button:hover {
+            background-color: #218838;
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
@@ -502,13 +570,7 @@
         </div>
 
         <div id="results-section" style="display:none;">
-            <h2>Test Completed!</h2>
-            <p id="score-display">Your Score: <span id="final-score">0</span> / 100</p>
-            <p id="qualification-status"></p>
-            <p class="important-notice">
-                مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
-            </p>
-        </div>
+            </div>
 
     </div>
 
@@ -1439,15 +1501,40 @@
 
         function showResults() {
             $('#quiz-section').hide();
-            $('#results-section').show();
+            const resultsSection = $('#results-section');
+            resultsSection.show();
 
-            $('#final-score').text(score);
+            const quizStatus = score >= passingScore ? 'Qualified' : 'Not Qualified';
 
-            const statusElement = $('#qualification-status');
-            const quizStatus = score >= passingScore ? 'Qualified' : 'Not Qualified'; // Determine SkillGate status
-
-            statusElement.text(quizStatus === 'Qualified' ? 'Congratulations! You Qualified!' : 'Unfortunately, you did not qualify.');
-            statusElement.removeClass('pass fail').addClass(quizStatus === 'Qualified' ? 'pass' : 'fail');
+            if (quizStatus === 'Qualified') {
+                resultsSection.html(`
+                    <div class="congratulations-card">
+                        <h2>
+                            <img src="https://em-content.zobj.net/source/microsoft-teams/337/party-popper_1f389.png" alt="Party Popper Icon">
+                            Congratulations!
+                        </h2>
+                        <p>You have successfully passed the test.</p>
+                        <div class="lock-message">
+                            <img src="https://www.iconpacks.net/icons/free-lock-icon-1768-thumb.png" alt="Lock Icon" style="width: 24px; height: 24px;">
+                            You are now eligible to join our
+                        </div>
+                        <p style="font-size: 1.2em; color: #28a745; margin-top: -15px; margin-bottom: 25px; font-weight: bold;">Premium-Level-Skills WhatsApp Group.</p>
+                        <a href="https://chat.whatsapp.com/Il9CC2RtLoI1ZJEQozxbuP" class="join-button">
+                            <img src="https://em-content.zobj.net/source/microsoft-teams/337/backhand-index-pointing-left_1f448.png" alt="Finger Pointing Left" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;">
+                            Join the Group
+                        </a>
+                    </div>
+                `);
+            } else {
+                resultsSection.html(`
+                    <h2>Test Completed!</h2>
+                    <p id="score-display">Your Score: <span id="final-score">${score}</span> / 100</p>
+                    <p id="qualification-status" class="fail">Unfortunately, you did not qualify.</p>
+                    <p class="important-notice">
+                        مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
+                    </p>
+                `);
+            }
 
             // Send data to Firebase Firestore using the collected userName and userEmail
             db.collection("quiz_results").add({
