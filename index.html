@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shehzad Hussain Premium-Level Skills Consultant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif; /* Apply Noto Sans Arabic as the primary font */
             background-color: #f4f7f6;
             color: #333;
             line-height: 1.6;
@@ -366,6 +367,26 @@
                 padding: 12px 25px;
             }
         }
+        .important-notice {
+            background-color: #e0f7fa; /* Light blue */
+            border-left: none; /* Remove left border */
+            border-right: 5px solid #00acc1; /* Add right border */
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #00798c; /* Dark text color */
+            font-weight: bold;
+            text-align: right; /* Align text to the right for RTL */
+            direction: rtl; /* Set text direction to right-to-left */
+            margin-top: -20px; /* Adjust to move it slightly higher if needed */
+        }
+        .top-notice {
+            margin-bottom: 20px; /* Add some space below it */
+        }
+        .important-notice a {
+            color: #00798c; /* Keep link color consistent */
+            text-decoration: underline;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
@@ -399,6 +420,7 @@
 <body>
     <div class="container">
         <div id="welcome-section">
+            
             <header>
                 <h1>Shehzad Hussain Premium-Level Skills Consultant</h1>
                 <p>Welcome to Your Gateway to Digital Mastery</p>
@@ -409,6 +431,10 @@
                 <p>This isn’t just a simple test; this is your first step toward mastering global skills like YouTube Automation, Freelancing, AI Integration, Website Creation, and much more.</p>
                 <p>Here, your journey will be guided by real-world insights, expert mentorship, and hands-on practical training, all in a step-by-step format tailored for your growth.</p>
             </section>
+            <div class="important-notice top-notice">
+                مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
+            </div>
+
 
             <section class="instructions">
                 <h2>Test Name: SkillGate – Pass To Get Entry</h2>
@@ -431,7 +457,7 @@
                     <li>Complete the entire test. At the end, make sure to Submit your test fully.</li>
                     <li>The test is timed. Stay focused and choose your answers carefully.</li>
                     <li>Only those who pass will be provided with a training schedule and added to the private premium training group.</li>
-                </ol>
+                    </ol>
             </section>
 
             <div class="auth-form">
@@ -479,6 +505,9 @@
             <h2>Test Completed!</h2>
             <p id="score-display">Your Score: <span id="final-score">0</span> / 100</p>
             <p id="qualification-status"></p>
+            <p class="important-notice">
+                مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
+            </p>
         </div>
 
     </div>
@@ -1393,7 +1422,6 @@
             const selectedOption = $('input[name="answer"]:checked').val();
             const currentQuestion = questions[currentQuestionIndex];
 
-            // Check if an answer was selected and if it's correct
             // If no option is selected (e.g., timer runs out), selectedOption will be undefined
             if (selectedOption !== undefined && parseInt(selectedOption) === currentQuestion.answer) {
                 score++;

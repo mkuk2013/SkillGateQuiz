@@ -6,6 +6,7 @@
     <title>SkillGate Quiz Admin Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-blue: #007bff;
@@ -246,13 +247,23 @@
         #logout-button:hover {
             background-color: #c82333;
         }
+        .admin-controls-container {
+            display: flex;
+            justify-content: space-between; /* Puts space between search and buttons */
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
         .admin-controls {
             display: flex;
-            justify-content: flex-end; /* Align to the right */
-            margin-bottom: 20px;
+            gap: 10px; /* Space between buttons */
+            flex-wrap: wrap;
+            justify-content: flex-end; /* Align buttons to the right */
         }
-        .admin-controls button {
-            background-color: var(--success-green); /* Default for Refresh and Print */
+        /* Removed custom padding/font-size for general admin-controls buttons */
+        /* .admin-controls button {
+            background-color: var(--success-green); 
             color: var(--white);
             padding: 10px 20px;
             font-size: 0.95em;
@@ -261,18 +272,17 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-weight: 500;
-            margin-left: 10px; /* Space between buttons */
             box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
-        }
+        } */
         .admin-controls button:hover {
-            background-color: #218838;
+            opacity: 0.9; /* General hover for Bootstrap buttons */
         }
         /* Specific hover for print button if desired */
         #print-button {
-            background-color: #17a2b8; /* A shade of blue-green for print */
+            /* background-color: #17a2b8; /* A shade of blue-green for print - handled by btn-info */
         }
         #print-button:hover {
-            background-color: #138496;
+            /* background-color: #138496; */
         }
         /* Style for Delete All button */
         #delete-all-button {
@@ -285,6 +295,21 @@
         #delete-all-button:hover {
             background-color: #c82333; /* Darker red on hover */
         }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 20px; /* Space between search bar and buttons */
+            flex-grow: 1; /* Allow search bar to take available space */
+            max-width: 400px; /* Limit search bar width */
+        }
+
+        .search-bar input[type="text"] {
+            /* Bootstrap's form-control handles most styling */
+        }
+
+        /* Removed custom styling for search-bar button to let Bootstrap take over */
 
 
         /* Responsive adjustments for mobile */
@@ -373,15 +398,26 @@
                 justify-content: center; /* Center icon and text within button */
             }
 
+            .admin-controls-container {
+                flex-direction: column; /* Stack search and buttons vertically */
+                align-items: center; /* Center items */
+                gap: 15px; /* Space between search and buttons */
+            }
+
+            .search-bar {
+                width: 100%; /* Full width search bar */
+                max-width: none; /* Remove max-width constraint */
+                margin-right: 0; /* Remove right margin */
+            }
+
             .admin-controls {
                 flex-direction: column; /* Stack buttons vertically */
-                align-items: center; /* Center items within the flex container */
-                margin-top: 20px;
+                width: 100%; /* Full width for buttons container */
+                align-items: center; /* Center buttons within their container */
+                gap: 10px; /* Space between stacked buttons */
             }
             .admin-controls button {
-                margin-left: 0; /* Remove left margin for stacked buttons */
-                margin-bottom: 10px; /* Space between stacked buttons */
-                width: 100%; /* Default to full width for general buttons */
+                width: 100%; /* Full width button on mobile */
                 max-width: none; /* Override max-width for general buttons */
                 font-size: 1em; /* Slightly larger for mobile tap */
                 padding: 12px 20px;
@@ -440,7 +476,7 @@
                 max-width: 100%;
             }
             #login-section,
-            .admin-controls,
+            .admin-controls-container, /* Hide the entire controls container */
             .loading-spinner {
                 display: none !important; /* Hide UI elements */
             }
@@ -564,17 +600,23 @@
                 </div>
             </div>
 
-            <div class="admin-controls">
-                <button id="refresh-button">Refresh Data</button>
-                <button id="print-button">Print / Save As PDF</button>
-                <button id="delete-all-button" class="button-primary">Delete All Data</button>
+            <div class="admin-controls-container">
+                <div class="search-bar">
+                    <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
+                    <button id="search-button" class="btn btn-primary btn-md">Search</button>
+                </div>
+                <div class="admin-controls">
+                    <button id="refresh-button" class="btn btn-success btn-md">Refresh Data</button>
+                    <button id="print-button" class="btn btn-info btn-md">Print / Save As PDF</button>
+                    <button id="delete-all-button" class="btn btn-danger">Delete All Data</button>
+                </div>
             </div>
 
             <div class="loading-spinner" id="loading-spinner" style="display:none;">
                 <p id="loading-message">Loading quiz results...</p>
             </div>
 
-            <table>
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -618,7 +660,7 @@
       console.log("Firebase initialized for Admin Panel.");
 
       // Function to fetch and display data
-      async function fetchAndDisplayResults() {
+      async function fetchAndDisplayResults(searchTerm = '') {
           const resultsTableBody = document.getElementById('results-table-body');
           const loadingSpinner = document.getElementById('loading-spinner');
 
@@ -632,52 +674,112 @@
           document.getElementById('loading-message').textContent = "Loading quiz results..."; // Reset message
 
           try {
-              // Fetch all documents from the 'quiz_results' collection
-              // Order by timestamp in descending order (latest first)
-              const querySnapshot = await db.collection("quiz_results").orderBy("timestamp", "desc").get();
+              let query = db.collection("quiz_results").orderBy("timestamp", "desc");
 
-              if (querySnapshot.empty) {
-                  document.getElementById('loading-message').textContent = "No quiz results found yet.";
-                  resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No quiz results available.</td></tr>`;
-                  return;
-              }
+              // Apply search filter if a searchTerm is provided
+              if (searchTerm) {
+                  // Firestore does not support full-text search or 'OR' queries across different fields directly
+                  // for client-side queries without extensive indexing or Cloud Functions.
+                  // For a simple client-side filter, we can only filter by prefix on one field,
+                  // or fetch all and filter in memory (less efficient for large datasets).
+                  // For better performance, consider filtering by name OR email in two separate queries
+                  // and merging results, or using a server-side solution (Cloud Functions).
+                  // For this example, let's assume we'll search by name for simplicity
+                  // or demonstrate client-side filtering if fetching all.
 
-              let counter = 1; // Initialize counter for sequential ID
-
-              // Define labels for each column to use with data-label
-              const labels = ["ID", "Name", "Email", "Score", "Status", "Timestamp"];
-
-              querySnapshot.forEach((doc) => {
-                  const data = doc.data();
-                  const row = resultsTableBody.insertRow();
-
-                  // Format timestamp
-                  const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
-
-                  const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
-
-                  // Data for each cell in order
-                  const cellData = [
-                      counter,
-                      data.name || 'N/A',
-                      data.email || 'N/A',
-                      data.score !== undefined ? data.score : 'N/A',
-                      data.quiz_status || 'N/A',
-                      timestamp
-                  ];
-
-                  cellData.forEach((value, index) => {
-                      const cell = row.insertCell();
-                      cell.setAttribute('data-label', labels[index] + ':'); // Set the data-label
-                      if (labels[index] === "Status") { // Apply status class if it's the status column
-                          cell.classList.add(statusClass);
-                      }
-                      cell.textContent = value; // Set the actual cell content
+                  // A simple approach for client-side filtering: fetch all and then filter
+                  // (Less efficient for very large datasets, but works for smaller ones)
+                  // For more robust search, you'd need a different Firestore query or a backend search solution.
+                  const allResultsSnapshot = await query.get();
+                  const filteredDocs = allResultsSnapshot.docs.filter(doc => {
+                      const data = doc.data();
+                      const name = (data.name || '').toLowerCase();
+                      const email = (data.email || '').toLowerCase();
+                      const lowerCaseSearchTerm = searchTerm.toLowerCase();
+                      return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
                   });
-                  
-                  counter++; // Increment counter
-              });
-              loadingSpinner.style.display = 'none'; // Hide loading spinner
+
+                  if (filteredDocs.length === 0) {
+                      document.getElementById('loading-message').textContent = "No matching quiz results found.";
+                      resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No matching results.</td></tr>`;
+                      loadingSpinner.style.display = 'none';
+                      return;
+                  }
+
+                  let counter = 1; // Initialize counter for sequential ID
+                  const labels = ["ID", "Name", "Email", "Score", "Status", "Timestamp"];
+
+                  filteredDocs.forEach((doc) => {
+                      const data = doc.data();
+                      const row = resultsTableBody.insertRow();
+
+                      const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
+                      const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
+
+                      const cellData = [
+                          counter,
+                          data.name || 'N/A',
+                          data.email || 'N/A',
+                          data.score !== undefined ? data.score : 'N/A',
+                          data.quiz_status || 'N/A',
+                          timestamp
+                      ];
+
+                      cellData.forEach((value, index) => {
+                          const cell = row.insertCell();
+                          cell.setAttribute('data-label', labels[index] + ':');
+                          if (labels[index] === "Status") {
+                              cell.classList.add(statusClass);
+                          }
+                          cell.textContent = value;
+                      });
+                      
+                      counter++;
+                  });
+
+              } else {
+                  // Original behavior: fetch all if no search term
+                  const querySnapshot = await query.get();
+
+                  if (querySnapshot.empty) {
+                      document.getElementById('loading-message').textContent = "No quiz results found yet.";
+                      resultsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No quiz results available.</td></tr>`;
+                      loadingSpinner.style.display = 'none';
+                      return;
+                  }
+
+                  let counter = 1;
+                  const labels = ["ID", "Name", "Email", "Score", "Status", "Timestamp"];
+
+                  querySnapshot.forEach((doc) => {
+                      const data = doc.data();
+                      const row = resultsTableBody.insertRow();
+
+                      const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
+                      const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
+
+                      const cellData = [
+                          counter,
+                          data.name || 'N/A',
+                          data.email || 'N/A',
+                          data.score !== undefined ? data.score : 'N/A',
+                          data.quiz_status || 'N/A',
+                          timestamp
+                      ];
+
+                      cellData.forEach((value, index) => {
+                          const cell = row.insertCell();
+                          cell.setAttribute('data-label', labels[index] + ':');
+                          if (labels[index] === "Status") {
+                              cell.classList.add(statusClass);
+                          }
+                          cell.textContent = value;
+                      });
+                      
+                      counter++;
+                  });
+              }
+              loadingSpinner.style.display = 'none';
           } catch (error) {
               console.error("Error fetching documents: ", error);
               document.getElementById('loading-message').textContent = "Error loading data. Please check console.";
@@ -747,11 +849,13 @@
           const loginButton = document.getElementById('login-button');
           const logoutButton = document.getElementById('logout-button');
           const refreshButton = document.getElementById('refresh-button');
-          const printButton = document.getElementById('print-button'); // Get the new print button
-          const deleteAllButton = document.getElementById('delete-all-button'); // Get the new delete all button
+          const printButton = document = document.getElementById('print-button');
+          const deleteAllButton = document.getElementById('delete-all-button');
+          const searchInput = document.getElementById('search-input'); // New search input
+          const searchButton = document.getElementById('search-button'); // New search button
 
 
-          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton || !printButton || !deleteAllButton) {
+          if (!loginSection || !adminPanel || !loginEmailInput || !loginPasswordInput || !loginErrorDiv || !loginButton || !logoutButton || !refreshButton || !printButton || !deleteAllButton || !searchInput || !searchButton) {
               console.error("One or more required HTML elements for login/admin panel were not found. Please check your admin.html file for correct IDs.");
               alert("Fatal Error: Admin panel elements not found. Check console for details.");
               return;
@@ -813,15 +917,31 @@
               }
           });
 
-          refreshButton.addEventListener('click', fetchAndDisplayResults);
+          refreshButton.addEventListener('click', () => fetchAndDisplayResults(searchInput.value)); // Pass current search term
 
-          // Event listener for the new Print button
           printButton.addEventListener('click', () => {
-              window.print(); // Triggers the browser's print dialog
+              window.print();
           });
 
-          // Event listener for the new Delete All button
           deleteAllButton.addEventListener('click', deleteAllQuizResults);
+
+          // Event listener for the Search button
+          searchButton.addEventListener('click', () => {
+              const searchTerm = searchInput.value.trim();
+              fetchAndDisplayResults(searchTerm);
+          });
+
+          // Optional: Live search as user types
+          searchInput.addEventListener('keyup', (e) => {
+              // You can add a debounce here to prevent too many requests
+              if (e.key === 'Enter') {
+                const searchTerm = searchInput.value.trim();
+                fetchAndDisplayResults(searchTerm);
+              } else if (searchInput.value.trim() === '') {
+                // If search box is cleared, refresh all results
+                fetchAndDisplayResults('');
+              }
+          });
 
           loginPasswordInput.addEventListener('keypress', function(e) {
               if (e.which === 13) {
