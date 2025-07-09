@@ -4,505 +4,781 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shehzad Hussain Premium-Level Skills Consultant</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Noto Sans Arabic', sans-serif; /* Apply Noto Sans Arabic as the primary font */
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
+        /* CSS Reset and Base Styles */
+        * {
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            width: 100%;
-            margin-top: 20px;
+            padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            /* Color Palette */
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --accent-dark: #059669;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            /* Transitions */
+            --transition-fast: 150ms ease-in-out;
+            --transition-normal: 250ms ease-in-out;
+            --transition-slow: 350ms ease-in-out;
+        }
+
+        /* Base Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: var(--spacing-md);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        /* Header */
         header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
             text-align: center;
-            margin-bottom: 30px;
+            padding: var(--spacing-3xl) var(--spacing-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         header h1 {
-            color: #0056b3;
-            font-size: 2.2em;
-            margin-bottom: 10px;
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
         }
 
         header p {
-            font-size: 1.1em;
-            color: #555;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Welcome Section */
+        #welcome-section {
+            padding: var(--spacing-2xl);
         }
 
         .welcome-message {
-            background-color: #e9f7ef;
-            border-left: 5px solid #28a745;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 5px;
-            color: #218838;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 1px solid #a7f3d0;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+        }
+
+        .welcome-message::before {
+            content: '🎯';
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            font-size: 1.5rem;
         }
 
         .welcome-message p {
-            margin-bottom: 10px;
+            margin-bottom: var(--spacing-md);
+            color: #065f46;
+            font-weight: 500;
+        }
+
+        .welcome-message p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Important Notice */
+        .important-notice {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border-right: 4px solid #00acc1;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            color: #00695c;
+            font-weight: 600;
+            text-align: right;
+            direction: rtl;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .important-notice a {
+            color: #004d40;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color var(--transition-fast);
+        }
+
+        .important-notice a:hover {
+            border-bottom-color: #004d40;
+        }
+
+        /* Instructions Section */
+        .instructions {
+            margin-bottom: var(--spacing-xl);
         }
 
         .instructions h2 {
-            color: #0056b3;
-            font-size: 1.8em;
-            margin-top: 30px;
-            margin-bottom: 15px;
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .instructions h2::before {
+            content: '📋';
+            font-size: 1.2em;
         }
 
         .instructions h3 {
-            color: #0056b3;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
         }
 
         .instructions h4 {
-            color: #0056b3;
-            font-size: 1.3em;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            margin: var(--spacing-lg) 0 var(--spacing-md) 0;
         }
 
         .highlight-fee {
-            background-color: #ffeeba;
-            color: #856404;
-            padding: 10px 15px;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
             display: inline-block;
-            margin-bottom: 20px;
-            font-size: 1.1em;
+            margin-bottom: var(--spacing-lg);
+            font-weight: 600;
+            border: 1px solid #fbbf24;
+            box-shadow: var(--shadow-sm);
         }
 
+        /* Lists */
         ul, ol {
-            margin-bottom: 20px;
-            padding-left: 25px;
+            margin-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-xl);
         }
 
         ul li, ol li {
-            margin-bottom: 10px;
-            color: #444;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
 
         ol li strong {
-            color: #0056b3;
+            color: var(--primary);
+            font-weight: 600;
         }
 
-        .start-section {
-            text-align: center;
-            margin-top: 40px;
+        /* Authentication Form */
+        .auth-form {
+            background: var(--secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
         }
 
-        .start-section p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #333;
+        .form-group {
+            margin-bottom: var(--spacing-lg);
         }
 
-        /* User Info Form & Entry Pass Section Combined Styles */
-        .auth-form { /* New class for the combined authentication and user info part */
-            text-align: left;
-            margin-bottom: 30px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
         .auth-form label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
+
         .auth-form input[type="text"],
         .auth-form input[type="email"],
         .auth-form input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            transition: all var(--transition-normal);
+            background: var(--white);
         }
-        .auth-form input[type="text"]:focus,
-        .auth-form input[type="email"]:focus,
-        .auth-form input[type="password"]:focus {
-            border-color: #007bff;
+
+        .auth-form input:focus {
             outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
         }
-        #password-entry-error {
-            color: #dc3545;
-            margin-top: -10px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 0.9em;
-            display: none; /* Hidden by default */
-        }
-        #email-duplicate-error { /* New style for email duplicate error */
-            color: #dc3545;
-            margin-top: -10px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 0.9em;
-            display: none; /* Hidden by default */
-        }
-        .auth-form button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 25px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-        .auth-form button:hover {
-            background-color: #0056b3;
-        }
-        .auth-form input:disabled, .auth-form button:disabled {
-            background-color: #cccccc;
+
+        .auth-form input:disabled {
+            background: #f1f5f9;
+            color: var(--text-light);
             cursor: not-allowed;
         }
 
+        /* Error Messages */
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: var(--spacing-sm);
+            display: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-sm);
+        }
 
-        #startButton {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.3em;
+        .error-message.show {
+            display: block;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font-primary);
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        #startButton:hover {
-            background-color: #0056b3;
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
-        #startButton:active {
+        .btn-primary:active {
             transform: translateY(0);
-            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn-primary:disabled {
+            background: var(--border-medium);
+            color: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-large {
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            font-size: 1.125rem;
+        }
+
+        /* Start Section */
+        .start-section {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            padding: var(--spacing-xl);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+        }
+
+        .start-section p {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
         .good-luck {
-            margin-top: 20px;
-            font-size: 1.1em;
+            margin-top: var(--spacing-lg);
+            font-size: 1rem;
             font-style: italic;
-            color: #666;
+            color: var(--text-secondary);
         }
 
-        /* --- Quiz Specific CSS --- */
+        /* Quiz Section */
         #quiz-section {
-            display: none; /* Initially hidden */
-            padding: 20px;
-            text-align: left;
+            padding: var(--spacing-xl);
+            display: none;
         }
 
         #quiz-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border-light);
         }
 
         #question-counter {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #0056b3;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
         }
 
         #timer {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #dc3545;
-            background-color: #f8d7da;
-            padding: 5px 15px;
-            border-radius: 5px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--error);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border: 2px solid #fecaca;
+            min-width: 140px;
+            text-align: center;
         }
 
         #question-text {
-            font-size: 1.4em;
-            margin-bottom: 25px;
-            color: #333;
-            line-height: 1.5;
-            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xl);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 500;
+            padding: var(--spacing-lg);
+            background: var(--secondary);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary);
         }
 
+        /* Options */
         .options-container {
-            margin-bottom: 30px;
+            margin-bottom: var(--spacing-xl);
         }
 
         .option {
-            background-color: #f0f8ff;
-            border: 1px solid #b0d8ff;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            padding: 15px;
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-lg);
             cursor: pointer;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
+            transition: all var(--transition-normal);
             display: flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent);
+            transition: left var(--transition-slow);
         }
 
         .option:hover {
-            background-color: #e0f2ff;
-            border-color: #87c3f7;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .option:hover::before {
+            left: 100%;
         }
 
         .option input[type="radio"] {
-            margin-right: 15px;
-            transform: scale(1.3);
+            margin-right: var(--spacing-md);
+            transform: scale(1.2);
             cursor: pointer;
+            accent-color: var(--primary);
         }
 
         .option label {
-            font-size: 1.1em;
+            font-size: 1rem;
             cursor: pointer;
             flex-grow: 1;
+            font-weight: 500;
+            color: var(--text-primary);
         }
 
-        #submitAnswerButton {
-            background-color: #28a745;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
-            display: block;
-            margin-top: 20px;
-        }
-
-        #submitAnswerButton:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-        }
-
-        #submitAnswerButton:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 5px rgba(40, 167, 69, 0.5);
-        }
-
+        /* Results Section */
         #results-section {
-            display: none; /* Initially hidden */
+            display: none;
             text-align: center;
-            padding: 40px 20px;
+            padding: var(--spacing-3xl) var(--spacing-xl);
         }
 
-        #results-section h2 {
-            color: #0056b3;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        #score-display {
-            font-size: 1.8em;
-            color: #28a745;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        #qualification-status {
-            font-size: 1.5em;
-            margin-top: 20px;
-            padding: 10px 20px;
-            border-radius: 8px;
-            display: inline-block;
-            font-weight: bold;
-        }
-
-        #qualification-status.pass {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        #qualification-status.fail {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            header h1 {
-                font-size: 1.8em;
-            }
-            .instructions h2 {
-                font-size: 1.5em;
-            }
-            #question-text {
-                font-size: 1.2em;
-            }
-            .option label {
-                font-size: 1em;
-            }
-            #startButton, #submitAnswerButton {
-                font-size: 1.1em;
-                padding: 12px 25px;
-            }
-        }
-        .important-notice {
-            background-color: #e0f7fa; /* Light blue */
-            border-left: none; /* Remove left border */
-            border-right: 5px solid #00acc1; /* Add right border */
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            color: #00798c; /* Dark text color */
-            font-weight: bold;
-            text-align: right; /* Align text to the right for RTL */
-            direction: rtl; /* Set text direction to right-to-left */
-            margin-top: -20px; /* Adjust to move it slightly higher if needed */
-        }
-        .top-notice {
-            margin-bottom: 20px; /* Add some space below it */
-        }
-        .important-notice a {
-            color: #00798c; /* Keep link color consistent */
-            text-decoration: underline;
-        }
-
-        /* New styles for the congratulations message */
         .congratulations-card {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            padding: var(--spacing-3xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
             max-width: 500px;
-            margin: 50px auto;
-            text-align: center;
+            margin: 0 auto;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .congratulations-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            animation: celebrate 3s ease-in-out infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
         }
 
         .congratulations-card h2 {
-            color: #0056b3;
-            font-size: 2.2em;
-            margin-bottom: 15px;
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: var(--spacing-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .congratulations-card h2 img {
-            margin-right: 10px;
-            width: 40px; /* Adjust size as needed */
-            height: 40px; /* Adjust size as needed */
+            gap: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
         }
 
         .congratulations-card p {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 20px;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
         }
 
-        .congratulations-card .lock-message {
+        #score-display {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lock-message {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2em;
-            color: #28a745;
-            margin-top: 25px;
-            margin-bottom: 30px;
-            font-weight: bold;
+            font-size: 1.125rem;
+            color: var(--accent);
+            margin: var(--spacing-xl) 0;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
-        .congratulations-card .lock-message img {
-            margin-right: 10px;
-            width: 24px; /* Adjust size as needed */
-            height: 24px; /* Adjust size as needed */
-        }
-
-        .congratulations-card .join-button {
-            background-color: #28a745;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
+        .join-button {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            font-size: 1.125rem;
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none; /* For the anchor tag */
-            display: inline-block; /* For the anchor tag */
-            margin-top: 20px;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            z-index: 1;
         }
 
-        .congratulations-card .join-button:hover {
-            background-color: #218838;
+        .join-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--spacing-sm);
+            }
+            
+            .container {
+                border-radius: var(--radius-lg);
+            }
+            
+            header {
+                padding: var(--spacing-xl) var(--spacing-lg);
+            }
+            
+            #welcome-section {
+                padding: var(--spacing-lg);
+            }
+            
+            .auth-form {
+                padding: var(--spacing-lg);
+            }
+            
+            #quiz-header {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                text-align: center;
+            }
+            
+            #timer {
+                font-size: 1.25rem;
+                min-width: auto;
+            }
+            
+            #question-text {
+                font-size: 1.125rem;
+                padding: var(--spacing-md);
+            }
+            
+            .option {
+                padding: var(--spacing-md);
+            }
+            
+            .option label {
+                font-size: 0.9375rem;
+            }
+            
+            .btn-large {
+                padding: var(--spacing-md) var(--spacing-lg);
+                font-size: 1rem;
+            }
+            
+            .congratulations-card {
+                padding: var(--spacing-xl);
+            }
+            
+            .congratulations-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            #score-display {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-form input[type="text"],
+            .auth-form input[type="email"],
+            .auth-form input[type="password"] {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+            
+            .btn {
+                padding: var(--spacing-sm) var(--spacing-lg);
+                font-size: 0.9375rem;
+            }
+            
+            .option {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+            
+            .option input[type="radio"] {
+                transform: scale(1);
+                margin-right: var(--spacing-sm);
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 {
+            margin-bottom: 0 !important;
+        }
+
+        .mt-lg {
+            margin-top: var(--spacing-lg);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+    
+    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-    <script>
-      // Your web app's Firebase configuration (using your actual values from Firebase Console)
-      // Replace with your actual project details
-      const firebaseConfig = {
-        apiKey: "AIzaSyC55rgT41mwuf5y4q3P_Wi7zsLwO4RQAPQ", // YOUR_API_KEY
-        authDomain: "skillget-quiz.firebaseapp.com", // YOUR_AUTH_DOMAIN
-        projectId: "skillget-quiz", // YOUR_PROJECT_ID
-        storageBucket: "skillget-quiz.firebasestorage.app", // YOUR_STORAGE_BUCKET
-        messagingSenderId: "222675456393", // YOUR_MESSAGING_SENDER_ID
-        appId: "1:222675456393:web:931fae081fa10829d4d158", // YOUR_APP_ID
-        // measurementId: "G-MVEJJGL4FG" // Optional, if you're not using Analytics or running from file://
-      };
-
-      // Initialize Firebase App
-      firebase.initializeApp(firebaseConfig);
-
-      // Get a reference to the Firestore service (this defines 'db' globally)
-      const db = firebase.firestore();
-
-      // Console log to confirm initialization (optional, for debugging)
-      console.log("Firebase App and Firestore initialized successfully.");
-    </script>
-
 </head>
 <body>
     <div class="container">
-        <div id="welcome-section">
-            
-            <header>
-                <h1>Shehzad Hussain Premium-Level Skills Consultant</h1>
-                <p>Welcome to Your Gateway to Digital Mastery</p>
-            </header>
+        <header>
+            <h1>Shehzad Hussain Premium-Level Skills Consultant</h1>
+            <p>Welcome to Your Gateway to Digital Mastery</p>
+        </header>
 
-            <section class="welcome-message">
+        <div id="welcome-section">
+            <section class="welcome-message fade-in">
                 <p>We're excited to welcome you to a platform built exclusively for forward-thinkers and future creators.</p>
-                <p>This isn’t just a simple test; this is your first step toward mastering global skills like YouTube Automation, Freelancing, AI Integration, Website Creation, and much more.</p>
+                <p>This isn't just a simple test; this is your first step toward mastering global skills like YouTube Automation, Freelancing, AI Integration, Website Creation, and much more.</p>
                 <p>Here, your journey will be guided by real-world insights, expert mentorship, and hands-on practical training, all in a step-by-step format tailored for your growth.</p>
             </section>
+
             <div class="important-notice top-notice">
                 مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
             </div>
-
 
             <section class="instructions">
                 <h2>Test Name: SkillGate – Pass To Get Entry</h2>
@@ -524,912 +800,902 @@
                     <li>Complete the entire test. At the end, make sure to Submit your test fully.</li>
                     <li>The test is timed. Stay focused and choose your answers carefully.</li>
                     <li>Only those who pass will be provided with a training schedule and added to the private premium training group.</li>
-                    </ol>
+                </ol>
             </section>
 
             <div class="auth-form">
-    
-                <div>
+                <div class="form-group">
                     <label for="entryPass">Entry Pass:</label>
                     <input type="password" id="entryPass" placeholder="Enter your pass here" required>
+                    <div id="password-entry-error" class="error-message">Incorrect Entry Pass. Please try again.</div>
                 </div>
-                <button id="submitEntryPass">Submit Entry Pass</button>
-                <p id="password-entry-error">Incorrect Entry Pass. Please try again.</p>
+                <button id="submitEntryPass" class="btn btn-primary">Submit Entry Pass</button>
 
                 <div id="user-details-section">
-                    <p>Now, please provide your details:</p>
-                    <div>
+                    <p style="margin: 2rem 0 1rem 0; font-weight: 600; color: var(--text-primary);">Now, please provide your details:</p>
+                    <div class="form-group">
                         <label for="userName">Your Full Name:</label>
                         <input type="text" id="userName" placeholder="e.g., Ali Khan" required disabled>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label for="userEmail">Your Email:</label>
                         <input type="email" id="userEmail" placeholder="e.g., yourname@example.com" required disabled>
+                        <div id="email-duplicate-error" class="error-message">This email has already been used for a quiz attempt. Please use a different email.</div>
                     </div>
-                    <p id="email-duplicate-error">This email has already been used for a quiz attempt. Please use a different email.</p>
                 </div>
             </div>
 
             <div class="start-section">
                 <p>Ready to Start?</p>
-                <button id="startButton" disabled>Start Qualification Round</button>
+                <button id="startButton" class="btn btn-primary btn-large" disabled>
+                    <span>Start Qualification Round</span>
+                </button>
                 <p class="good-luck">Best of luck — your skills future starts now!</p>
             </div>
         </div>
 
-        <div id="quiz-section" style="display:none;">
+        <div id="quiz-section">
             <div id="quiz-header">
                 <div id="question-counter">Question 1 / 100</div>
-                <div id="timer"></div>
+                <div id="timer">Time Left: 40</div>
             </div>
             <h3 id="question-text"></h3>
-            <div class="options-container" id="options-container">
-                </div>
-            <button id="submitAnswerButton">Submit Answer</button>
+            <div class="options-container" id="options-container"></div>
+            <button id="submitAnswerButton" class="btn btn-success btn-large">Submit Answer</button>
         </div>
 
-        <div id="results-section" style="display:none;">
-            </div>
-
+        <div id="results-section"></div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-       const questions = [
-  {
-    question: "Which platform allows you to buy and sell pre-built scripts or templates for websites and apps?",
-    options: ["Fiverr", "Canva", "CodeCanyon", "TikTok"],
-    answer: 2
-  },
-  {
-    question: "In YouTube Automation, what is typically outsourced?",
-    options: ["Only video uploading", "Scripting, voice-over, video editing, and thumbnails", "Liking and commenting", "Just watching videos"],
-    answer: 1
-  },
-  {
-    question: "What is the purpose of 'AI Voice Tools' in content creation?",
-    options: ["To create thumbnails", "To generate voice-overs without recording your own voice", "To write descriptions only", "To upload files"],
-    answer: 1
-  },
-  {
-    question: "What is the use of platforms like Pictory or HeyGen in YouTube Automation?",
-    options: ["Making logos", "Watching movies", "Creating AI-generated videos from text", "Selling products"],
-    answer: 2
-  },
-  {
-    question: "Why do many freelancers use platforms like Upwork or Fiverr?",
-    options: ["To watch courses", "To invest money", "To offer services and earn online", "To play games"],
-    answer: 2
-  },
-  {
-    question: "In Social Media Marketing (SMM), what does a 'Facebook Ad Campaign' help with?",
-    options: ["Increasing followers only", "Promoting products/services to targeted audience", "Creating memes", "Sending emails"],
-    answer: 1
-  },
-  {
-    question: "Which of the following is commonly used to create websites without coding?",
-    options: ["MS Word", "Facebook", "WordPress or CodeCanyon templates", "CapCut"],
-    answer: 2
-  },
-  {
-    question: "What is the purpose of 'Monetization' in YouTube?",
-    options: ["Getting views", "Subscribing to other channels", "Earning money through ads and views", "Creating playlists"],
-    answer: 2
-  },
-  {
-    question: "What does a YouTube Thumbnail do?",
-    options: ["Add background music", "Attract viewers to click the video", "Increase subscribers", "None of the above"],
-    answer: 1
-  },
-  {
-    question: "What is the benefit of using AI tools like ChatGPT in digital content creation?",
-    options: ["Editing raw footage", "Posting directly to YouTube", "Writing scripts, generating ideas, and content", "Playing videos"],
-    answer: 2
-  },
-  {
-    question: "What is required for a YouTube channel to apply for monetization via AdSense?",
-    options: ["500 subscribers & 500 views", "1000 subscribers & 4000 watch hours", "10000 subscribers only", "Just a Gmail account"],
-    answer: 1
-  },
-  {
-    question: "Which of these tools can help automate video editing for faceless YouTube channels?",
-    options: ["Adobe Illustrator", "CapCut", "Pictory", "Canva"],
-    answer: 2
-  },
-  {
-    question: "What does 'RPM' stand for in YouTube Analytics?",
-    options: ["Revenue Per Month", "Revenue Per Mille", "Rate Per Monetization", "Reach Performance Measure"],
-    answer: 1
-  },
-  {
-    question: "Which platform is best for finding stock footage for YouTube videos?",
-    options: ["Upwork", "Pixabay", "Fiverr", "Facebook"],
-    answer: 1
-  },
-  {
-    question: "Which one is a good method for earning on YouTube without showing your face?",
-    options: ["Vlogging", "Faceless automation videos", "Daily live streaming", "Reaction videos"],
-    answer: 1
-  },
-  {
-    question: "What is the function of 'YouTube Studio'?",
-    options: ["Upload movies", "Manage video content & analytics", "Edit thumbnails only", "Live video only"],
-    answer: 1
-  },
-  {
-    question: "YouTube Shorts can also be monetized after completing how many views in 90 days?",
-    options: ["10K", "100K", "1M", "5M"],
-    answer: 2
-  },
-  {
-    question: "Which AI tool is helpful for converting text to realistic voiceovers?",
-    options: ["Grammarly", "ElevenLabs", "Zoom", "MetaMask"],
-    answer: 1
-  },
-  {
-    question: "What type of content violates YouTube’s monetization policy?",
-    options: ["Educational content", "Duplicate or reused content without commentary", "Original animations", "Gaming videos"],
-    answer: 1
-  },
-  {
-    question: "What should every monetized YouTube channel connect to receive earnings?",
-    options: ["Instagram", "AdSense account", "PayPal", "Google Docs"],
-    answer: 1
-  },
-  {
-    question: "What is WordPress commonly used for?",
-    options: ["Watching movies", "Coding websites", "Building websites without coding", "Designing logos"],
-    answer: 2
-  },
-  {
-    question: "In freelancing, which platform is best known for gigs and services?",
-    options: ["Codecanyon", "Fiverr", "Google", "Behance"],
-    answer: 1
-  },
-  {
-    question: "What is the primary function of ChatGPT?",
-    options: ["Creating animations", "Answering questions and generating content", "Playing music", "Editing videos"],
-    answer: 1
-  },
-  {
-    question: "What kind of websites can you buy from Codecanyon?",
-    options: ["Blogging tools", "Business card templates", "Ready-made script-based websites", "Hosting platforms"],
-    answer: 2
-  },
-  {
-    question: "What does SEO help improve?",
-    options: ["Image quality", "Website loading speed", "Search engine ranking", "Color contrast"],
-    answer: 2
-  }
-,
-  {
-    question: "What is a ‘niche’ in online business or YouTube?",
-    options: ["A camera setting", "A topic-focused category", "A type of product", "A video filter"],
-    answer: 1
-  },
-  {
-    question: "Which tool helps you design without needing graphic design skills?",
-    options: ["Adobe Premiere", "Canva", "YouTube Studio", "Blender"],
-    answer: 1
-  },
-  {
-    question: "What is the benefit of using a premade script from Codecanyon?",
-    options: ["Saves time & no need to code", "Slows down performance", "Increases errors", "Only for mobile"],
-    answer: 0
-  },
-  {
-    question: "What feature does YouTube Studio provide to check video performance?",
-    options: ["Analytics", "Live comments", "Likes", "Sharing tools"],
-    answer: 0
-  },
-  {
-    question: "What is the purpose of the YouTube Content ID system?",
-    options: ["Promote channels", "Detect copyrighted content", "Create subtitles", "Automate uploads"],
-    answer: 1
-  },
-  {
-    question: "Which of the following is best for making AI-generated story videos?",
-    options: ["MS Word", "Pictory", "VLC Player", "Zoom"],
-    answer: 1
-  },
-  {
-    question: "In YouTube monetization, what is the minimum watch time required in the last 12 months?",
-    options: ["1,000 hours", "2,000 hours", "4,000 hours", "10,000 hours"],
-    answer: 2
-  },
-  {
-    question: "What’s the use of the tool ‘Tome’ or ‘Beautiful.ai’?",
-    options: ["Video editing", "Presentation creation using AI", "Logo design", "Translation"],
-    answer: 1
-  },
-  {
-    question: "What is the first step when building a no-code website?",
-    options: ["Hire a developer", "Buy a domain", "Write PHP code", "Use Adobe Photoshop"],
-    answer: 1
-  },
-  {
-    question: "In freelancing, why is Upwork famous?",
-    options: ["Free blogging", "Selling videos", "Offering project-based jobs", "Buying software"],
-    answer: 2
-  },
-  {
-    question: "Which monetization method is commonly used with blog websites?",
-    options: ["YouTube Ads", "Google AdSense", "Facebook Pages", "Fiverr"],
-    answer: 1
-  },
-  {
-    question: "What kind of app can you easily launch using Codecanyon scripts?",
-    options: ["E-commerce app", "WhatsApp", "Gmail", "Snapchat"],
-    answer: 0
-  },
-  {
-    question: "What is 'Keyword Research' mainly used for?",
-    options: ["Choosing font styles", "Editing images", "Finding trending search terms", "Compressing files"],
-    answer: 2
-  },
-  {
-    question: "In YouTube Automation, what is used for voiceovers if you don’t record your own voice?",
-    options: ["Manual typing", "AI voice generator", "Adobe Reader", "Google Drive"],
-    answer: 1
-  },
-  {
-    question: "What does an Affiliate Link do?",
-    options: ["Redirects to Google", "Gives commission on product sales", "Downloads images", "Uploads videos"],
-    answer: 1
-  },
-  {
-    question: "What is the main purpose of YouTube Shorts?",
-    options: ["Long videos", "Quick entertainment or information in under 60 seconds", "File sharing", "Video downloads"],
-    answer: 1
-  },
-  {
-    question: "What helps improve video ranking on YouTube?",
-    options: ["Uploading without title", "Ignoring thumbnails", "Using relevant titles, descriptions, and tags", "Posting once a year"],
-    answer: 2
-  },
-  {
-    question: "What is the role of 'Watch Time' on YouTube?",
-    options: ["It helps increase mobile data", "It helps boost channel monetization eligibility", "It slows video speed", "It adds subtitles"],
-    answer: 1
-  },
-  {
-    question: "What is passive income?",
-    options: ["Income from daily job", "Income that stops when you sleep", "Income that continues even when you're not working", "Cash in hand"],
-    answer: 2
-  },
-  {
-    question: "What is the benefit of digital skills in 2025?",
-    options: ["Only for fun", "Global income opportunities", "Only for developers", "It replaces books"],
-    answer: 1
-  },
-  {
-    question: "Which is more valuable in freelancing?",
-    options: ["Personal interest only", "Strong digital skills and communication", "Timepass work", "Ignoring client needs"],
-    answer: 1
-  },
-  {
-    question: "What do you need to create an online business?",
-    options: ["Just friends", "Strategy, product, and platform", "A land plot", "A smartphone only"],
-    answer: 1
-  },
-  {
-    question: "What’s the benefit of learning no-code development?",
-    options: ["You can create apps without programming knowledge", "Only coders can do it", "It’s only for students", "It’s outdated"],
-    answer: 0
-  },
-  {
-    question: "Why do people use email marketing?",
-    options: ["For spam", "To sell unused items", "To build customer relationships and grow business", "To reset passwords"],
-    answer: 2
-  },
-  {
-    question: "What is the benefit of uploading consistent content online?",
-    options: ["It confuses the audience", "It helps grow trust and visibility", "It reduces views", "It hides your channel"],
-    answer: 1
-  }
-,
-  {
-    question: "What is the main benefit of learning YouTube Automation?",
-    options: [
-      "Avoid learning anything",
-      "Earn without showing your face",
-      "Just for watching videos",
-      "Build a private channel"
-    ],
-    answer: 1
-  },
-  {
-    question: "What does 'Monetization' mean on YouTube?",
-    options: [
-      "Deleting old videos",
-      "Getting paid for your video content",
-      "Making playlists only",
-      "Posting stories"
-    ],
-    answer: 1
-  },
-  {
-    question: "Why is niche selection important in content creation?",
-    options: [
-      "Helps target the right audience",
-      "Makes your name popular",
-      "Reduces workload",
-      "Increases editing"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is a 'thumbnail' in a YouTube video?",
-    options: [
-      "A short description",
-      "A clickable image preview",
-      "A type of ad",
-      "A comment section"
-    ],
-    answer: 1
-  },
-  {
-    question: "What increases trust in a freelancing profile?",
-    options: [
-      "Copying others’ work",
-      "Irregular responses",
-      "Good reviews and project samples",
-      "Long paragraphs"
-    ],
-    answer: 2
-  },
-  {
-    question: "What is one major benefit of working online?",
-    options: [
-      "High fuel cost",
-      "Freedom to work from anywhere",
-      "Need to relocate",
-      "Daily office commute"
-    ],
-    answer: 1
-  },
-  {
-    question: "What do most successful online earners focus on?",
-    options: [
-      "Watching random content",
-      "Learning and applying skills",
-      "Playing games only",
-      "Chatting online"
-    ],
-    answer: 1
-  },
-  {
-    question: "What should you do before starting a YouTube channel?",
-    options: [
-      "Buy ads",
-      "Pick a clear content topic/niche",
-      "Post 10 videos blindly",
-      "Avoid descriptions"
-    ],
-    answer: 1
-  },
-  {
-    question: "What is the importance of consistency in online work?",
-    options: [
-      "Builds long-term growth",
-      "Confuses the algorithm",
-      "Stops monetization",
-      "Lowers confidence"
-    ],
-    answer: 0
-  },
-  {
-    question: "How do digital skills affect your career?",
-    options: [
-      "No effect",
-      "Delay job search",
-      "Open more income opportunities",
-      "Make studying harder"
-    ],
-    answer: 2
-  },
-  {
-    question: "What is the most important element of building an online income stream?",
-    options: [
-      "Waiting for luck",
-      "Learning valuable skills",
-      "Just watching videos",
-      "Sharing memes"
-    ],
-    answer: 1
-  },
-  {
-    question: "Which type of video is more likely to get monetized on YouTube?",
-    options: [
-      "Copied content",
-      "Original content with good watch time",
-      "Private videos only",
-      "Silent slideshows"
-    ],
-    answer: 1
-  },
-  {
-    question: "What should be your first step before freelancing?",
-    options: [
-      "Create a strong profile",
-      "Post memes",
-      "Comment on others’ gigs",
-      "Buy expensive tools"
-    ],
-    answer: 0
-  },
-  {
-    question: "What does 'engagement' mean in social media marketing?",
-    options: [
-      "Sending emails",
-      "Posting once a month",
-      "Interaction through likes, shares, and comments",
-      "Watching videos"
-    ],
-    answer: 2
-  },
-  {
-    question: "Which statement is true about online skills?",
-    options: [
-      "They are only for IT professionals",
-      "Anyone with basic learning ability can learn them",
-      "Only experts benefit from them",
-      "Too difficult to start"
-    ],
-    answer: 1
-  },
-  {
-    question: "What is an online portfolio used for?",
-    options: [
-      "Playing music",
-      "Showcasing your work samples",
-      "Posting quotes",
-      "Watching ads"
-    ],
-    answer: 1
-  },
-  {
-    question: "Why is it important to write a clear video title on YouTube?",
-    options: [
-      "It improves visibility and searchability",
-      "It helps confuse viewers",
-      "It hides the content",
-      "It’s not important"
-    ],
-    answer: 0
-  },
-  {
-    question: "What makes a client trust you more on freelancing platforms?",
-    options: [
-      "Fast replies, clear communication, and honesty",
-      "Ignoring messages",
-      "Copy-paste proposals",
-      "No display picture"
-    ],
-    answer: 0
-  },
-  {
-    question: "How does online learning benefit your long-term career?",
-    options: [
-      "It adds flexible income options",
-      "It replaces all books",
-      "It ends studies",
-      "No real benefit"
-    ],
-    answer: 0
-  },
-  {
-    question: "What’s a smart way to stay ahead in the digital world?",
-    options: [
-      "Rely only on social media",
-      "Keep learning new tools and strategies",
-      "Avoid change",
-      "Use old methods forever"
-    ],
-    answer: 1
-  },
-  {
-    question: "What makes your content grow on any platform?",
-    options: [
-      "Consistency and quality",
-      "Posting once a year",
-      "Buying likes",
-      "Ignoring feedback"
-    ],
-    answer: 0
-  },
-  {
-    question: "What’s the purpose of a call-to-action (CTA) in a video or post?",
-    options: [
-      "To tell users what to do next",
-      "To confuse the audience",
-      "To remove interest",
-      "To waste time"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is the benefit of learning digital business skills early?",
-    options: [
-      "Early start means faster growth",
-      "It slows down progress",
-      "It wastes effort",
-      "It requires no learning"
-    ],
-    answer: 0
-  },
-  {
-    question: "Which is more valuable when working online?",
-    options: [
-      "Having 100 tools",
-      "Mastering one useful skill",
-      "Copying others",
-      "Changing paths daily"
-    ],
-    answer: 1
-  },
-  {
-    question: "What is the benefit of storytelling in videos?",
-    options: [
-      "It builds connection and keeps attention",
-      "It makes people leave",
-      "It’s useless",
-      "It only works in books"
-    ],
-    answer: 0
-  }
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC55rgT41mwuf5y4q3P_Wi7zsLwO4RQAPQ",
+            authDomain: "skillget-quiz.firebaseapp.com",
+            projectId: "skillget-quiz",
+            storageBucket: "skillget-quiz.firebasestorage.app",
+            messagingSenderId: "222675456393",
+            appId: "1:222675456393:web:931fae081fa10829d4d158"
+        };
 
-,
-  {
-    question: "Why do many people fail in freelancing?",
-    options: [
-      "Lack of skills and patience",
-      "Too much effort",
-      "Sites don’t work",
-      "Luck issues"
-    ],
-    answer: 0
-  },
-  {
-    question: "Which mindset is most helpful in the digital world?",
-    options: [
-      "Open to learn and test",
-      "Afraid to fail",
-      "Waiting for help",
-      "Blaming others"
-    ],
-    answer: 0
-  },
-  {
-    question: "How can you make your digital service stand out?",
-    options: [
-      "Offer quality with clarity",
-      "Use random titles",
-      "Avoid communication",
-      "Say ‘yes’ to everything"
-    ],
-    answer: 0
-  },
-  {
-    question: "What does 'watch time' mean on YouTube?",
-    options: [
-      "How long people watch your videos",
-      "How many times you check YouTube",
-      "Your upload time",
-      "Video length only"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is one benefit of learning skills through structured training?",
-    options: [
-      "Step-by-step clarity and faster results",
-      "Confusion",
-      "Delayed learning",
-      "Free trials only"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is the first step before starting a YouTube channel?",
-    options: [
-      "Identifying niche and audience",
-      "Uploading random videos",
-      "Copying trending creators",
-      "Ignoring branding"
-    ],
-    answer: 0
-  },
-  {
-    question: "What does a good video thumbnail do?",
-    options: [
-      "Attracts viewers to click",
-      "Hides the real topic",
-      "Makes video boring",
-      "Replaces video editing"
-    ],
-    answer: 0
-  },
-  {
-    question: "Why is content planning important in online work?",
-    options: [
-      "It saves time and keeps strategy focused",
-      "It wastes effort",
-      "It slows growth",
-      "It’s optional only for experts"
-    ],
-    answer: 0
-  },
-  {
-    question: "In freelancing, what does ‘niche clarity’ mean?",
-    options: [
-      "Knowing your specific skill and target market",
-      "Trying every type of work",
-      "Avoiding specialization",
-      "Leaving profile empty"
-    ],
-    answer: 0
-  },
-  {
-    question: "Which is better for growth in digital business?",
-    options: [
-      "Learning one skill deeply",
-      "Watching random tutorials",
-      "Switching platforms daily",
-      "No action"
-    ],
-    answer: 0
-  },
-  {
-    question: "What builds client trust online?",
-    options: [
-      "Quality, communication & delivery",
-      "Fake reviews",
-      "Ignoring feedback",
-      "Asking for money first"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is YouTube monetization?",
-    options: [
-      "Earning money from your video content",
-      "Watching other videos",
-      "Subscribing to channels",
-      "Sharing links only"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is an online portfolio used for?",
-    options: [
-      "Showcasing your work to clients",
-      "Hiding your skills",
-      "Wasting time",
-      "Only for big companies"
-    ],
-    answer: 0
-  },
-  {
-    question: "What makes digital skills powerful?",
-    options: [
-      "Can be used globally with low cost",
-      "Only work offline",
-      "Need big investment",
-      "Take years to learn"
-    ],
-    answer: 0
-  },
-  {
-    question: "What does consistency mean in digital growth?",
-    options: [
-      "Showing up regularly with effort",
-      "Posting once a month",
-      "Depending on luck",
-      "Ignoring feedback"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is the key to building a strong personal brand online?",
-    options: [
-      "Trust, consistency, and authenticity",
-      "Posting without strategy",
-      "Copying others",
-      "Avoiding interaction"
-    ],
-    answer: 0
-  },
-  {
-    question: "How can you attract long-term freelance clients?",
-    options: [
-      "Deliver quality work on time",
-      "Offer lowest prices always",
-      "Delay responses",
-      "Use copied samples"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is the benefit of story-based videos on YouTube?",
-    options: [
-      "Increase retention and viewer engagement",
-      "They waste time",
-      "They confuse audience",
-      "Only work for movies"
-    ],
-    answer: 0
-  },
-  {
-    question: "Why is learning automation important today?",
-    options: [
-      "Saves time and increases output",
-      "Makes work harder",
-      "Has no future",
-      "Only for coders"
-    ],
-    answer: 0
-  },
-  {
-    question: "What mindset helps you succeed in digital business?",
-    options: [
-      "Growth, patience & practice",
-      "Fear and quick results",
-      "Complaining",
-      "Waiting for others"
-    ],
-    answer: 0
-  },
-  {
-    question: "What does real skill-building require?",
-    options: [
-      "Focus, regular practice, and right guidance",
-      "Just watching YouTube",
-      "Changing tools daily",
-      "Skipping basics"
-    ],
-    answer: 0
-  },
-  {
-    question: "Why is English understanding helpful in tech learning?",
-    options: [
-      "Most tools and resources are in English",
-      "Not useful at all",
-      "Only for grammar",
-      "Avoided in freelancing"
-    ],
-    answer: 0
-  },
-  {
-    question: "What is the biggest mistake in freelancing?",
-    options: [
-      "Starting without clarity or skill",
-      "Learning before working",
-      "Updating profile",
-      "Using samples"
-    ],
-    answer: 0
-  },
-  {
-    question: "What makes your YouTube channel grow faster?",
-    options: [
-      "Quality content and consistent uploads",
-      "Sub4Sub",
-      "Random titles",
-      "No niche"
-    ],
-    answer: 0
-  },
-  {
-    question: "Why are global skills necessary in today’s economy?",
-    options: [
-      "They help you earn from anywhere",
-      "Only for students",
-      "Need local offices",
-      "Limited to one field"
-    ],
-    answer: 0
-  }
-];
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        console.log("Firebase App and Firestore initialized successfully.");
+
+        const questions = [
+            {
+                question: "Which platform allows you to buy and sell pre-built scripts or templates for websites and apps?",
+                options: ["Fiverr", "Canva", "CodeCanyon", "TikTok"],
+                answer: 2
+            },
+            {
+                question: "In YouTube Automation, what is typically outsourced?",
+                options: ["Only video uploading", "Scripting, voice-over, video editing, and thumbnails", "Liking and commenting", "Just watching videos"],
+                answer: 1
+            },
+            {
+                question: "What is the purpose of 'AI Voice Tools' in content creation?",
+                options: ["To create thumbnails", "To generate voice-overs without recording your own voice", "To write descriptions only", "To upload files"],
+                answer: 1
+            },
+            {
+                question: "What is the use of platforms like Pictory or HeyGen in YouTube Automation?",
+                options: ["Making logos", "Watching movies", "Creating AI-generated videos from text", "Selling products"],
+                answer: 2
+            },
+            {
+                question: "Why do many freelancers use platforms like Upwork or Fiverr?",
+                options: ["To watch courses", "To invest money", "To offer services and earn online", "To play games"],
+                answer: 2
+            },
+            {
+                question: "In Social Media Marketing (SMM), what does a 'Facebook Ad Campaign' help with?",
+                options: ["Increasing followers only", "Promoting products/services to targeted audience", "Creating memes", "Sending emails"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is commonly used to create websites without coding?",
+                options: ["MS Word", "Facebook", "WordPress or CodeCanyon templates", "CapCut"],
+                answer: 2
+            },
+            {
+                question: "What is the purpose of 'Monetization' in YouTube?",
+                options: ["Getting views", "Subscribing to other channels", "Earning money through ads and views", "Creating playlists"],
+                answer: 2
+            },
+            {
+                question: "What does a YouTube Thumbnail do?",
+                options: ["Add background music", "Attract viewers to click the video", "Increase subscribers", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "What is the benefit of using AI tools like ChatGPT in digital content creation?",
+                options: ["Editing raw footage", "Posting directly to YouTube", "Writing scripts, generating ideas, and content", "Playing videos"],
+                answer: 2
+            },
+            {
+                question: "What is required for a YouTube channel to apply for monetization via AdSense?",
+                options: ["500 subscribers & 500 views", "1000 subscribers & 4000 watch hours", "10000 subscribers only", "Just a Gmail account"],
+                answer: 1
+            },
+            {
+                question: "Which of these tools can help automate video editing for faceless YouTube channels?",
+                options: ["Adobe Illustrator", "CapCut", "Pictory", "Canva"],
+                answer: 2
+            },
+            {
+                question: "What does 'RPM' stand for in YouTube Analytics?",
+                options: ["Revenue Per Month", "Revenue Per Mille", "Rate Per Monetization", "Reach Performance Measure"],
+                answer: 1
+            },
+            {
+                question: "Which platform is best for finding stock footage for YouTube videos?",
+                options: ["Upwork", "Pixabay", "Fiverr", "Facebook"],
+                answer: 1
+            },
+            {
+                question: "Which one is a good method for earning on YouTube without showing your face?",
+                options: ["Vlogging", "Faceless automation videos", "Daily live streaming", "Reaction videos"],
+                answer: 1
+            },
+            {
+                question: "What is the function of 'YouTube Studio'?",
+                options: ["Upload movies", "Manage video content & analytics", "Edit thumbnails only", "Live video only"],
+                answer: 1
+            },
+            {
+                question: "YouTube Shorts can also be monetized after completing how many views in 90 days?",
+                options: ["10K", "100K", "1M", "5M"],
+                answer: 2
+            },
+            {
+                question: "Which AI tool is helpful for converting text to realistic voiceovers?",
+                options: ["Grammarly", "ElevenLabs", "Zoom", "MetaMask"],
+                answer: 1
+            },
+            {
+                question: "What type of content violates YouTube's monetization policy?",
+                options: ["Educational content", "Duplicate or reused content without commentary", "Original animations", "Gaming videos"],
+                answer: 1
+            },
+            {
+                question: "What should every monetized YouTube channel connect to receive earnings?",
+                options: ["Instagram", "AdSense account", "PayPal", "Google Docs"],
+                answer: 1
+            },
+            {
+                question: "What is WordPress commonly used for?",
+                options: ["Watching movies", "Coding websites", "Building websites without coding", "Designing logos"],
+                answer: 2
+            },
+            {
+                question: "In freelancing, which platform is best known for gigs and services?",
+                options: ["Codecanyon", "Fiverr", "Google", "Behance"],
+                answer: 1
+            },
+            {
+                question: "What is the primary function of ChatGPT?",
+                options: ["Creating animations", "Answering questions and generating content", "Playing music", "Editing videos"],
+                answer: 1
+            },
+            {
+                question: "What kind of websites can you buy from Codecanyon?",
+                options: ["Blogging tools", "Business card templates", "Ready-made script-based websites", "Hosting platforms"],
+                answer: 2
+            },
+            {
+                question: "What does SEO help improve?",
+                options: ["Image quality", "Website loading speed", "Search engine ranking", "Color contrast"],
+                answer: 2
+            },
+            {
+                question: "What is a 'niche' in online business or YouTube?",
+                options: ["A camera setting", "A topic-focused category", "A type of product", "A video filter"],
+                answer: 1
+            },
+            {
+                question: "Which tool helps you design without needing graphic design skills?",
+                options: ["Adobe Premiere", "Canva", "YouTube Studio", "Blender"],
+                answer: 1
+            },
+            {
+                question: "What is the benefit of using a premade script from Codecanyon?",
+                options: ["Saves time & no need to code", "Slows down performance", "Increases errors", "Only for mobile"],
+                answer: 0
+            },
+            {
+                question: "What feature does YouTube Studio provide to check video performance?",
+                options: ["Analytics", "Live comments", "Likes", "Sharing tools"],
+                answer: 0
+            },
+            {
+                question: "What is the purpose of the YouTube Content ID system?",
+                options: ["Promote channels", "Detect copyrighted content", "Create subtitles", "Automate uploads"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is best for making AI-generated story videos?",
+                options: ["MS Word", "Pictory", "VLC Player", "Zoom"],
+                answer: 1
+            },
+            {
+                question: "In YouTube monetization, what is the minimum watch time required in the last 12 months?",
+                options: ["1,000 hours", "2,000 hours", "4,000 hours", "10,000 hours"],
+                answer: 2
+            },
+            {
+                question: "What's the use of the tool 'Tome' or 'Beautiful.ai'?",
+                options: ["Video editing", "Presentation creation using AI", "Logo design", "Translation"],
+                answer: 1
+            },
+            {
+                question: "What is the first step when building a no-code website?",
+                options: ["Hire a developer", "Buy a domain", "Write PHP code", "Use Adobe Photoshop"],
+                answer: 1
+            },
+            {
+                question: "In freelancing, why is Upwork famous?",
+                options: ["Free blogging", "Selling videos", "Offering project-based jobs", "Buying software"],
+                answer: 2
+            },
+            {
+                question: "Which monetization method is commonly used with blog websites?",
+                options: ["YouTube Ads", "Google AdSense", "Facebook Pages", "Fiverr"],
+                answer: 1
+            },
+            {
+                question: "What kind of app can you easily launch using Codecanyon scripts?",
+                options: ["E-commerce app", "WhatsApp", "Gmail", "Snapchat"],
+                answer: 0
+            },
+            {
+                question: "What is 'Keyword Research' mainly used for?",
+                options: ["Choosing font styles", "Editing images", "Finding trending search terms", "Compressing files"],
+                answer: 2
+            },
+            {
+                question: "In YouTube Automation, what is used for voiceovers if you don't record your own voice?",
+                options: ["Manual typing", "AI voice generator", "Adobe Reader", "Google Drive"],
+                answer: 1
+            },
+            {
+                question: "What does an Affiliate Link do?",
+                options: ["Redirects to Google", "Gives commission on product sales", "Downloads images", "Uploads videos"],
+                answer: 1
+            },
+            {
+                question: "What is the main purpose of YouTube Shorts?",
+                options: ["Long videos", "Quick entertainment or information in under 60 seconds", "File sharing", "Video downloads"],
+                answer: 1
+            },
+            {
+                question: "What helps improve video ranking on YouTube?",
+                options: ["Uploading without title", "Ignoring thumbnails", "Using relevant titles, descriptions, and tags", "Posting once a year"],
+                answer: 2
+            },
+            {
+                question: "What is the role of 'Watch Time' on YouTube?",
+                options: ["It helps increase mobile data", "It helps boost channel monetization eligibility", "It slows video speed", "It adds subtitles"],
+                answer: 1
+            },
+            {
+                question: "What is passive income?",
+                options: ["Income from daily job", "Income that stops when you sleep", "Income that continues even when you're not working", "Cash in hand"],
+                answer: 2
+            },
+            {
+                question: "What is the benefit of digital skills in 2025?",
+                options: ["Only for fun", "Global income opportunities", "Only for developers", "It replaces books"],
+                answer: 1
+            },
+            {
+                question: "Which is more valuable in freelancing?",
+                options: ["Personal interest only", "Strong digital skills and communication", "Timepass work", "Ignoring client needs"],
+                answer: 1
+            },
+            {
+                question: "What do you need to create an online business?",
+                options: ["Just friends", "Strategy, product, and platform", "A land plot", "A smartphone only"],
+                answer: 1
+            },
+            {
+                question: "What's the benefit of learning no-code development?",
+                options: ["You can create apps without programming knowledge", "Only coders can do it", "It's only for students", "It's outdated"],
+                answer: 0
+            },
+            {
+                question: "Why do people use email marketing?",
+                options: ["For spam", "To sell unused items", "To build customer relationships and grow business", "To reset passwords"],
+                answer: 2
+            },
+            {
+                question: "What is the benefit of uploading consistent content online?",
+                options: ["It confuses the audience", "It helps grow trust and visibility", "It reduces views", "It hides your channel"],
+                answer: 1
+            },
+            {
+                question: "What is the main benefit of learning YouTube Automation?",
+                options: [
+                    "Avoid learning anything",
+                    "Earn without showing your face",
+                    "Just for watching videos",
+                    "Build a private channel"
+                ],
+                answer: 1
+            },
+            {
+                question: "What does 'Monetization' mean on YouTube?",
+                options: [
+                    "Deleting old videos",
+                    "Getting paid for your video content",
+                    "Making playlists only",
+                    "Posting stories"
+                ],
+                answer: 1
+            },
+            {
+                question: "Why is niche selection important in content creation?",
+                options: [
+                    "Helps target the right audience",
+                    "Makes your name popular",
+                    "Reduces workload",
+                    "Increases editing"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is a 'thumbnail' in a YouTube video?",
+                options: [
+                    "A short description",
+                    "A clickable image preview",
+                    "A type of ad",
+                    "A comment section"
+                ],
+                answer: 1
+            },
+            {
+                question: "What increases trust in a freelancing profile?",
+                options: [
+                    "Copying others' work",
+                    "Irregular responses",
+                    "Good reviews and project samples",
+                    "Long paragraphs"
+                ],
+                answer: 2
+            },
+            {
+                question: "What is one major benefit of working online?",
+                options: [
+                    "High fuel cost",
+                    "Freedom to work from anywhere",
+                    "Need to relocate",
+                    "Daily office commute"
+                ],
+                answer: 1
+            },
+            {
+                question: "What do most successful online earners focus on?",
+                options: [
+                    "Watching random content",
+                    "Learning and applying skills",
+                    "Playing games only",
+                    "Chatting online"
+                ],
+                answer: 1
+            },
+            {
+                question: "What should you do before starting a YouTube channel?",
+                options: [
+                    "Buy ads",
+                    "Pick a clear content topic/niche",
+                    "Post 10 videos blindly",
+                    "Avoid descriptions"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is the importance of consistency in online work?",
+                options: [
+                    "Builds long-term growth",
+                    "Confuses the algorithm",
+                    "Stops monetization",
+                    "Lowers confidence"
+                ],
+                answer: 0
+            },
+            {
+                question: "How do digital skills affect your career?",
+                options: [
+                    "No effect",
+                    "Delay job search",
+                    "Open more income opportunities",
+                    "Make studying harder"
+                ],
+                answer: 2
+            },
+            {
+                question: "What is the most important element of building an online income stream?",
+                options: [
+                    "Waiting for luck",
+                    "Learning valuable skills",
+                    "Just watching videos",
+                    "Sharing memes"
+                ],
+                answer: 1
+            },
+            {
+                question: "Which type of video is more likely to get monetized on YouTube?",
+                options: [
+                    "Copied content",
+                    "Original content with good watch time",
+                    "Private videos only",
+                    "Silent slideshows"
+                ],
+                answer: 1
+            },
+            {
+                question: "What should be your first step before freelancing?",
+                options: [
+                    "Create a strong profile",
+                    "Post memes",
+                    "Comment on others' gigs",
+                    "Buy expensive tools"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does 'engagement' mean in social media marketing?",
+                options: [
+                    "Sending emails",
+                    "Posting once a month",
+                    "Interaction through likes, shares, and comments",
+                    "Watching videos"
+                ],
+                answer: 2
+            },
+            {
+                question: "Which statement is true about online skills?",
+                options: [
+                    "They are only for IT professionals",
+                    "Anyone with basic learning ability can learn them",
+                    "Only experts benefit from them",
+                    "Too difficult to start"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is an online portfolio used for?",
+                options: [
+                    "Playing music",
+                    "Showcasing your work samples",
+                    "Posting quotes",
+                    "Watching ads"
+                ],
+                answer: 1
+            },
+            {
+                question: "Why is it important to write a clear video title on YouTube?",
+                options: [
+                    "It improves visibility and searchability",
+                    "It helps confuse viewers",
+                    "It hides the content",
+                    "It's not important"
+                ],
+                answer: 0
+            },
+            {
+                question: "What makes a client trust you more on freelancing platforms?",
+                options: [
+                    "Fast replies, clear communication, and honesty",
+                    "Ignoring messages",
+                    "Copy-paste proposals",
+                    "No display picture"
+                ],
+                answer: 0
+            },
+            {
+                question: "How does online learning benefit your long-term career?",
+                options: [
+                    "It adds flexible income options",
+                    "It replaces all books",
+                    "It ends studies",
+                    "No real benefit"
+                ],
+                answer: 0
+            },
+            {
+                question: "What's a smart way to stay ahead in the digital world?",
+                options: [
+                    "Rely only on social media",
+                    "Keep learning new tools and strategies",
+                    "Avoid change",
+                    "Use old methods forever"
+                ],
+                answer: 1
+            },
+            {
+                question: "What makes your content grow on any platform?",
+                options: [
+                    "Consistency and quality",
+                    "Posting once a year",
+                    "Buying likes",
+                    "Ignoring feedback"
+                ],
+                answer: 0
+            },
+            {
+                question: "What's the purpose of a call-to-action (CTA) in a video or post?",
+                options: [
+                    "To tell users what to do next",
+                    "To confuse the audience",
+                    "To remove interest",
+                    "To waste time"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the benefit of learning digital business skills early?",
+                options: [
+                    "Early start means faster growth",
+                    "It slows down progress",
+                    "It wastes effort",
+                    "It requires no learning"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which is more valuable when working online?",
+                options: [
+                    "Having 100 tools",
+                    "Mastering one useful skill",
+                    "Copying others",
+                    "Changing paths daily"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is the benefit of storytelling in videos?",
+                options: [
+                    "It builds connection and keeps attention",
+                    "It makes people leave",
+                    "It's useless",
+                    "It only works in books"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why do many people fail in freelancing?",
+                options: [
+                    "Lack of skills and patience",
+                    "Too much effort",
+                    "Sites don't work",
+                    "Luck issues"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which mindset is most helpful in the digital world?",
+                options: [
+                    "Open to learn and test",
+                    "Afraid to fail",
+                    "Waiting for help",
+                    "Blaming others"
+                ],
+                answer: 0
+            },
+            {
+                question: "How can you make your digital service stand out?",
+                options: [
+                    "Offer quality with clarity",
+                    "Use random titles",
+                    "Avoid communication",
+                    "Say 'yes' to everything"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does 'watch time' mean on YouTube?",
+                options: [
+                    "How long people watch your videos",
+                    "How many times you check YouTube",
+                    "Your upload time",
+                    "Video length only"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is one benefit of learning skills through structured training?",
+                options: [
+                    "Step-by-step clarity and faster results",
+                    "Confusion",
+                    "Delayed learning",
+                    "Free trials only"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the first step before starting a YouTube channel?",
+                options: [
+                    "Identifying niche and audience",
+                    "Uploading random videos",
+                    "Copying trending creators",
+                    "Ignoring branding"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does a good video thumbnail do?",
+                options: [
+                    "Attracts viewers to click",
+                    "Hides the real topic",
+                    "Makes video boring",
+                    "Replaces video editing"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why is content planning important in online work?",
+                options: [
+                    "It saves time and keeps strategy focused",
+                    "It wastes effort",
+                    "It slows growth",
+                    "It's optional only for experts"
+                ],
+                answer: 0
+            },
+            {
+                question: "In freelancing, what does 'niche clarity' mean?",
+                options: [
+                    "Knowing your specific skill and target market",
+                    "Trying every type of work",
+                    "Avoiding specialization",
+                    "Leaving profile empty"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which is better for growth in digital business?",
+                options: [
+                    "Learning one skill deeply",
+                    "Watching random tutorials",
+                    "Switching platforms daily",
+                    "No action"
+                ],
+                answer: 0
+            },
+            {
+                question: "What builds client trust online?",
+                options: [
+                    "Quality, communication & delivery",
+                    "Fake reviews",
+                    "Ignoring feedback",
+                    "Asking for money first"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is YouTube monetization?",
+                options: [
+                    "Earning money from your video content",
+                    "Watching other videos",
+                    "Subscribing to channels",
+                    "Sharing links only"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is an online portfolio used for?",
+                options: [
+                    "Showcasing your work to clients",
+                    "Hiding your skills",
+                    "Wasting time",
+                    "Only for big companies"
+                ],
+                answer: 0
+            },
+            {
+                question: "What makes digital skills powerful?",
+                options: [
+                    "Can be used globally with low cost",
+                    "Only work offline",
+                    "Need big investment",
+                    "Take years to learn"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does consistency mean in digital growth?",
+                options: [
+                    "Showing up regularly with effort",
+                    "Posting once a month",
+                    "Depending on luck",
+                    "Ignoring feedback"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the key to building a strong personal brand online?",
+                options: [
+                    "Trust, consistency, and authenticity",
+                    "Posting without strategy",
+                    "Copying others",
+                    "Avoiding interaction"
+                ],
+                answer: 0
+            },
+            {
+                question: "How can you attract long-term freelance clients?",
+                options: [
+                    "Deliver quality work on time",
+                    "Offer lowest prices always",
+                    "Delay responses",
+                    "Use copied samples"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the benefit of story-based videos on YouTube?",
+                options: [
+                    "Increase retention and viewer engagement",
+                    "They waste time",
+                    "They confuse audience",
+                    "Only work for movies"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why is learning automation important today?",
+                options: [
+                    "Saves time and increases output",
+                    "Makes work harder",
+                    "Has no future",
+                    "Only for coders"
+                ],
+                answer: 0
+            },
+            {
+                question: "What mindset helps you succeed in digital business?",
+                options: [
+                    "Growth, patience & practice",
+                    "Fear and quick results",
+                    "Complaining",
+                    "Waiting for others"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does real skill-building require?",
+                options: [
+                    "Focus, regular practice, and right guidance",
+                    "Just watching YouTube",
+                    "Changing tools daily",
+                    "Skipping basics"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why is English understanding helpful in tech learning?",
+                options: [
+                    "Most tools and resources are in English",
+                    "Not useful at all",
+                    "Only for grammar",
+                    "Avoided in freelancing"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the biggest mistake in freelancing?",
+                options: [
+                    "Starting without clarity or skill",
+                    "Learning before working",
+                    "Updating profile",
+                    "Using samples"
+                ],
+                answer: 0
+            },
+            {
+                question: "What makes your YouTube channel grow faster?",
+                options: [
+                    "Quality content and consistent uploads",
+                    "Sub4Sub",
+                    "Random titles",
+                    "No niche"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why are global skills necessary in today's economy?",
+                options: [
+                    "They help you earn from anywhere",
+                    "Only for students",
+                    "Need local offices",
+                    "Limited to one field"
+                ],
+                answer: 0
+            }
+        ];
 
         let currentQuestionIndex = 0;
         let score = 0;
         let timerInterval;
-        const timePerQuestion = 40; // seconds
-        const passingScore = 33; // Minimum correct answers to qualify
-        let userName = ""; // To store user's name
-        let userEmail = ""; // To store user's email
-
-        const correctEntryPass = "SkillGate"; // The entry pass for the quiz
+        const timePerQuestion = 40;
+        const passingScore = 33;
+        let userName = "";
+        let userEmail = "";
+        const correctEntryPass = "SkillGate";
 
         $(document).ready(function() {
-            // Initially disable user info fields and start button
+            // Initialize form state
             $('#userName').prop('disabled', true);
             $('#userEmail').prop('disabled', true);
             $('#startButton').prop('disabled', true);
-            $('#password-entry-error').hide(); // Hide error message by default
-            $('#email-duplicate-error').hide(); // Hide email duplicate error message by default
 
-            // Event listener for the entry pass submission button
-            $('#submitEntryPass').on('click', function() {
-                checkEntryPass();
-            });
-
-            // Allow pressing Enter key to submit entry pass
+            // Event listeners
+            $('#submitEntryPass').on('click', checkEntryPass);
             $('#entryPass').on('keypress', function(e) {
-                if (e.which === 13) { // 13 is the Enter key code
-                    checkEntryPass();
-                }
+                if (e.which === 13) checkEntryPass();
             });
-
-            // Event listener for the actual quiz start button
-            $('#startButton').on('click', async function() { // Added async keyword here
-                // Reset email duplicate error message
-                $('#email-duplicate-error').hide();
-
-                // Get user info from input fields
-                userName = $('#userName').val().trim();
-                userEmail = $('#userEmail').val().trim();
-
-                // Validate user info
-                if (userName === "" || userEmail === "") {
-                    alert("Please enter your Name and Email to start the quiz.");
-                    return; // Stop function if fields are empty
-                }
-                if (!isValidEmail(userEmail)) {
-                    alert("Please enter a valid email address.");
-                    return;
-                }
-
-                // Check if email already exists in Firestore
-                try {
-                    const querySnapshot = await db.collection("quiz_results")
-                                                  .where("email", "==", userEmail)
-                                                  .get();
-
-                    if (!querySnapshot.empty) {
-                        $('#email-duplicate-error').show(); // Show duplicate email error
-                        $('#userEmail').focus(); // Focus on the email field
-                        return; // Prevent quiz from starting
-                    }
-                } catch (error) {
-                    console.error("Error checking for duplicate email:", error);
-                    alert("An error occurred while validating your email. Please try again later.");
-                    return; // Prevent quiz from starting due to error
-                }
-
-
-                // Hide welcome section and show quiz section
-                $('#welcome-section').hide();
-                $('#quiz-section').show();
-                startQuiz();
-            });
-
-            // Event listener for submitting quiz answer
-            $('#submitAnswerButton').on('click', function() {
-                handleAnswerSubmission();
-            });
+            $('#startButton').on('click', startQuizHandler);
+            $('#submitAnswerButton').on('click', handleAnswerSubmission);
         });
 
         function checkEntryPass() {
             const enteredPass = $('#entryPass').val().trim();
             if (enteredPass === correctEntryPass) {
-                $('#entryPass').prop('disabled', true); // Disable password input
-                $('#submitEntryPass').hide(); // Hide submit pass button
-                $('#password-entry-error').hide(); // Hide any previous error
+                $('#entryPass').prop('disabled', true);
+                $('#submitEntryPass').hide();
+                $('#password-entry-error').removeClass('show');
 
-                // Enable user info fields and start button
-                $('#userName').prop('disabled', false).focus(); // Enable and focus on name
+                // Enable user info fields
+                $('#userName').prop('disabled', false).focus();
                 $('#userEmail').prop('disabled', false);
                 $('#startButton').prop('disabled', false);
             } else {
-                $('#password-entry-error').show(); // Show error message
-                $('#entryPass').val(''); // Clear the password field
-                $('#entryPass').focus(); // Put focus back on password field
+                $('#password-entry-error').addClass('show');
+                $('#entryPass').val('').focus();
             }
         }
 
-        // Basic email validation function
+        async function startQuizHandler() {
+            $('#email-duplicate-error').removeClass('show');
+
+            userName = $('#userName').val().trim();
+            userEmail = $('#userEmail').val().trim();
+
+            if (!userName || !userEmail) {
+                alert("Please enter your Name and Email to start the quiz.");
+                return;
+            }
+
+            if (!isValidEmail(userEmail)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            try {
+                const querySnapshot = await db.collection("quiz_results")
+                                              .where("email", "==", userEmail)
+                                              .get();
+
+                if (!querySnapshot.empty) {
+                    $('#email-duplicate-error').addClass('show');
+                    $('#userEmail').focus();
+                    return;
+                }
+            } catch (error) {
+                console.error("Error checking for duplicate email:", error);
+                alert("An error occurred while validating your email. Please try again later.");
+                return;
+            }
+
+            // Start quiz
+            $('#welcome-section').hide();
+            $('#quiz-section').show();
+            startQuiz();
+        }
+
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
@@ -1442,12 +1708,12 @@
         }
 
         function displayQuestion() {
-            clearInterval(timerInterval); // Clear any existing timer
+            clearInterval(timerInterval);
             if (currentQuestionIndex < questions.length) {
                 const q = questions[currentQuestionIndex];
                 $('#question-counter').text(`Question ${currentQuestionIndex + 1} / ${questions.length}`);
                 $('#question-text').text(q.question);
-                $('#options-container').empty(); // Clear previous options
+                $('#options-container').empty();
 
                 q.options.forEach((option, index) => {
                     const optionHtml = `
@@ -1460,46 +1726,43 @@
                 });
 
                 startTimer();
-                $('#submitAnswerButton').prop('disabled', false); // Enable submit button for new question
+                $('#submitAnswerButton').prop('disabled', false);
             } else {
-                showResults(); // All questions answered
+                showResults();
             }
         }
 
         function startTimer() {
             let timeLeft = timePerQuestion;
-            $('#timer').text(`Time Left: ${timeLeft}`); // Initial display
+            $('#timer').text(`Time Left: ${timeLeft}`);
 
             timerInterval = setInterval(() => {
                 timeLeft--;
-                $('#timer').text(`Time Left: ${timeLeft}`); // Update display
+                $('#timer').text(`Time Left: ${timeLeft}`);
 
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    handleAnswerSubmission(); // Automatically submit if time runs out
+                    handleAnswerSubmission();
                 }
             }, 1000);
         }
 
         function handleAnswerSubmission() {
-            clearInterval(timerInterval); // Stop timer immediately
+            clearInterval(timerInterval);
 
             const selectedOption = $('input[name="answer"]:checked').val();
             const currentQuestion = questions[currentQuestionIndex];
 
-            // If no option is selected (e.g., timer runs out), selectedOption will be undefined
             if (selectedOption !== undefined && parseInt(selectedOption) === currentQuestion.answer) {
                 score++;
             }
 
-            // Disable submit button temporarily to prevent double submission
             $('#submitAnswerButton').prop('disabled', true);
-
-            // Move to next question
             currentQuestionIndex++;
+            
             setTimeout(() => {
-                displayQuestion(); // Display next question after a short delay
-            }, 500); // Small delay for better UX
+                displayQuestion();
+            }, 500);
         }
 
         function showResults() {
@@ -1511,44 +1774,42 @@
 
             if (quizStatus === 'Qualified') {
                 resultsSection.html(`
-                    <div class="congratulations-card">
+                    <div class="congratulations-card fade-in">
                         <h2>
-                            <img src="https://em-content.zobj.net/source/microsoft-teams/337/party-popper_1f389.png" alt="Party Popper Icon">
-                            Congratulations!
+                            🎉 Congratulations!
                         </h2>
                         <p id="score-display">Your Score: <span id="final-score">${score}</span> / 100</p>
                         <p>You have successfully passed the test.</p>
-                        <div class="lock-message">🔒 You are now eligible to join our
-                        </div>
-                        <p style="font-size: 1.2em; color: #28a745; margin-top: -15px; margin-bottom: 25px; font-weight: bold;">Premium-Level-Skills WhatsApp Group.</p>
+                        <div class="lock-message">🔒 You are now eligible to join our</div>
+                        <p style="font-size: 1.2em; color: var(--accent); margin-top: -15px; margin-bottom: 25px; font-weight: bold;">Premium-Level-Skills WhatsApp Group.</p>
                         <a href="https://chat.whatsapp.com/Il9CC2RtLoI1ZJEQozxbuP" class="join-button">
-                            <img src="https://em-content.zobj.net/source/microsoft-teams/337/backhand-index-pointing-right_1f449.png" alt="Finger Pointing Right" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;">
-                            Join the Group
+                            👉 Join the Group
                         </a>
                     </div>
                 `);
             } else {
                 resultsSection.html(`
-                    <h2>Test Completed!</h2>
-                    <p id="score-display">Your Score: <span id="final-score">${score}</span> / 100</p>
-                    <p id="qualification-status" class="fail">Unfortunately, you did not qualify.</p>
-                    <p class="important-notice">
-                        مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
-                    </p>
+                    <div class="congratulations-card fade-in">
+                        <h2 style="color: var(--error);">Test Completed!</h2>
+                        <p id="score-display" style="color: var(--error);">Your Score: <span id="final-score">${score}</span> / 100</p>
+                        <p style="color: var(--error); font-weight: 600;">Unfortunately, you did not qualify.</p>
+                        <div class="important-notice" style="margin-top: 2rem;">
+                            مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
+                        </div>
+                    </div>
                 `);
             }
 
-            // Send data to Firebase Firestore using the collected userName and userEmail
+            // Save to Firebase
             db.collection("quiz_results").add({
-                name: userName, // Use name collected at the start
-                email: userEmail, // Use email collected at the start
+                name: userName,
+                email: userEmail,
                 score: score,
-                quiz_status: quizStatus, // "Qualified" or "Not Qualified" (SkillGate status)
-                timestamp: firebase.firestore.FieldValue.serverTimestamp() // Firestore automatically adds server time
+                quiz_status: quizStatus,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
             .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
-                // alert("Your quiz results have been recorded!"); // Removed alert for smoother UX
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);
@@ -1558,3 +1819,4 @@
     </script>
 </body>
 </html>
+
