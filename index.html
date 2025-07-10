@@ -771,80 +771,17 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Overlay for Announcement */
-        .announcement-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999; /* High z-index to be on top */
-            backdrop-filter: blur(5px); /* Optional: blur background content */
-            padding: var(--spacing-md);
-        }
-
-        .announcement-card {
-            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
-            padding: var(--spacing-3xl);
-            max-width: 600px;
-            text-align: center;
-            position: relative;
-            z-index: 10000;
-            border: 2px solid var(--primary);
-            animation: popIn 0.5s ease-out forwards;
-        }
-
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .announcement-card h2 {
-            font-family: var(--font-heading);
-            color: var(--primary-dark);
-            font-size: clamp(1.75rem, 4vw, 2.25rem);
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .announcement-card p {
-            font-size: clamp(1rem, 2.5vw, 1.125rem);
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
-            line-height: 1.7;
-        }
-
-        .announcement-card strong {
-            color: var(--primary);
-        }
     </style>
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <div class="announcement-overlay">
-        <div class="announcement-card">
-            <h2>📢 Important Announcement:</h2>
-            <p>The SkillGate Online Test has been temporarily closed for maintenance and system review due to high traffic.</p>
-            <p><strong>⏳ We’re currently not accepting new entries or responses.</strong></p>
-            <p>📩 Please avoid sending messages regarding the test for now.</p>
-            <p><strong>📌 Updates regarding the next test window will be shared soon in the group.</strong></p>
-            <p style="margin-top: var(--spacing-xl); font-weight: 600; color: var(--accent);">Thanks for your patience and understanding!</p>
-        </div>
-    </div>
-
     <div class="container">
         <header>
             <h1>Shehzad Hussain Premium-Level Skills Consultant</h1>
             <p>Welcome to Your Gateway to Digital Mastery</p>
-            <div id="redirect-timer" class="hidden">Time Left To Close This Test: Loading...</div>
+            <div id="redirect-timer">Time Left To Close This Test: Loading...</div>
         </header>
 
         <div id="welcome-section">
@@ -1728,13 +1665,18 @@
             $('#submitAnswerButton').on('click', handleAnswerSubmission);
 
             // Update countdown timer for display
-            // updateRedirectCountdown(); // No longer calling this as the timer div is hidden
-            // setInterval(updateRedirectCountdown, 1000); // No longer calling this as the timer div is hidden
+            updateRedirectCountdown();
+            setInterval(updateRedirectCountdown, 1000);
         });
 
         function updateRedirectCountdown() {
             const now = new Date();
             const timeLeft = targetDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
             const redirectTimerElement = document.getElementById('redirect-timer');
 
@@ -1743,12 +1685,6 @@
                 window.location.replace("index2.html"); // Redirect to index2.html
                 return;
             }
-
-            // This part of the function will no longer execute visually if the element has display: none
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
             // Updated text as per user's request
             redirectTimerElement.textContent = `Time Left To Close This Test: ${days}d ${hours}h ${minutes}m ${seconds}s`;
@@ -1895,7 +1831,7 @@
                         <p>You have successfully passed the test.</p>
                         <div class="lock-message">🔒 You are now eligible to join our</div>
                         <p style="font-size: 1.2em; color: var(--accent); margin-top: -15px; margin-bottom: 25px; font-weight: bold;">Premium-Level-Skills WhatsApp Group.</p>
-                        <a href="https://chat.whatsapp.com/Il9CC2RtLoI1ZJEQozxbuP" class="join-button">
+                        <a href="https://chat.whatsapp.com/JRWutO7osRVHKd2sEMFAGN" class="join-button">
                             👉 Join the Group
                         </a>
                     </div>
