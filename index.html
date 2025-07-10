@@ -464,40 +464,40 @@
 
         /* Timer specific styling */
         #redirect-timer {
-            font-family: 'Poppins', sans-serif; /* Professional font */
-            font-size: 1.3rem; /* Slightly larger for prominence */
-            font-weight: 700; /* Bold for emphasis */
-            color: var(--primary); /* Use primary color for a professional look */
-            background-color: var(--white); /* Clean white background */
-            border: 2px solid var(--border-medium); /* Subtle border */
-            border-radius: var(--radius-md); /* Consistent border-radius */
-            padding: var(--spacing-md) var(--spacing-lg); /* Adequate padding */
-            margin-top: var(--spacing-xl); /* Good spacing from header text */
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: var(--white);
+            border: 2px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin-top: var(--spacing-xl);
             text-align: center;
-            display: inline-block; /* Allows width to be set if needed */
-            box-shadow: var(--shadow-sm); /* Subtle shadow for depth */
-            width: fit-content; /* Adjust width to content */
-            margin-left: auto; /* Center the block */
-            margin-right: auto; /* Center the block */
-            display: block; /* Make it a block element to take full width and allow margin auto */
-            letter-spacing: 0.02em; /* Slightly increased letter spacing */
-            text-shadow: 0 1px 1px rgba(0,0,0,0.05); /* Very subtle text shadow */
+            display: inline-block;
+            box-shadow: var(--shadow-sm);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            letter-spacing: 0.02em;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.05);
         }
 
         /* New styles for 15-minute notification */
         #fifteen-min-notification {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #ff0000; /* Red color for urgency */
-            background-color: #fffacd; /* Light yellow background */
-            border: 2px solid #ff4500; /* Orange-red border */
+            color: #ff0000;
+            background-color: #fffacd;
+            border: 2px solid #ff4500;
             border-radius: 10px;
             padding: 15px;
             margin-top: 20px;
             text-align: center;
-            display: none; /* Hidden by default */
-            animation: pulse 1s infinite alternate; /* Pulsing animation */
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.5); /* Orange glow */
+            display: none;
+            animation: pulse 1s infinite alternate;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
         }
 
         @keyframes pulse {
@@ -673,6 +673,86 @@
             box-shadow: var(--shadow-lg);
         }
 
+        /* Test Pause Modal */
+        .test-pause-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .test-pause-modal.show {
+            display: flex;
+        }
+
+        .pause-modal-content {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .pause-modal-content h2 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .pause-modal-content .announcement-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .pause-modal-content .emoji-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .pause-modal-content .highlight-text {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .pause-modal-content .urgent-text {
+            color: var(--error);
+            font-weight: 700;
+        }
+
+        .pause-modal-content .success-text {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
@@ -733,6 +813,15 @@
             }
             
             #score-display {
+                font-size: 1.5rem;
+            }
+
+            .pause-modal-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .pause-modal-content h2 {
                 font-size: 1.5rem;
             }
         }
@@ -799,96 +888,33 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Overlay for maintenance */
-        #maintenance-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000; /* High z-index to cover everything */
-            color: white;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-            backdrop-filter: blur(5px); /* Optional: blur background */
-        }
-
-        #maintenance-message {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-            max-width: 600px;
-            color: var(--text-primary);
-            font-family: var(--font-heading);
-            transform: scale(0.95);
-            animation: popIn 0.5s forwards;
-            border: 2px solid var(--primary);
-        }
-
-        #maintenance-message h2 {
-            font-size: 2.2rem;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        #maintenance-message p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        #maintenance-message p:last-child {
-            margin-bottom: 0;
-            font-style: italic;
-            color: var(--text-secondary);
-        }
-
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.7); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @media (max-width: 768px) {
-            #maintenance-message {
-                padding: 30px;
-                margin: 20px;
-            }
-            #maintenance-message h2 {
-                font-size: 1.8rem;
-            }
-            #maintenance-message p {
-                font-size: 1rem;
-            }
-        }
     </style>
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <div id="maintenance-overlay">
-        <div id="maintenance-message">
-            <h2>📢 Important Announcement:</h2>
-            <p>The SkillGate Online Test has been temporarily closed for maintenance and system review due to high traffic.</p>
-            <p>⏳ We’re currently not accepting new entries or responses.</p>
-            <p>📩 Please avoid sending messages regarding the test for now.</p>
-            <p>📌 Updates regarding the next test window will be shared soon in the group.</p>
-            <p>Thanks for your patience and understanding!</p>
+    <!-- Test Pause Modal -->
+    <div id="test-pause-modal" class="test-pause-modal">
+        <div class="pause-modal-content">
+            <span class="emoji-icon">📢</span>
+            <h2>Important Announcement:</h2>
+            <div class="announcement-text">
+                <p>The SkillGate Online Test has been temporarily closed for maintenance and system review due to high traffic.</p>
+                <br>
+                <p class="highlight-text">⏳ We're currently not accepting new entries or responses.</p>
+                <br>
+                <p class="urgent-text">📩 Please avoid sending messages regarding the test for now.</p>
+                <br>
+                <p class="success-text">📌 Updates regarding the next test window will be shared soon in the group.</p>
+                <br>
+                <p class="success-text">Thanks for your patience and understanding!</p>
+            </div>
         </div>
     </div>
 
-    <div class="container hidden"> <header>
+    <div class="container">
+        <header>
             <h1>Shehzad Hussain Premium-Level Skills Consultant</h1>
             <p>Welcome to Your Gateway to Digital Mastery</p>
             <div id="redirect-timer">Time Left To Close This Test: Loading...</div>
@@ -992,6 +1018,88 @@
         const db = firebase.firestore();
         console.log("Firebase App and Firestore initialized successfully.");
 
+        // Test Status Listener (NEW CODE)
+        const testStatusDocRef = db.collection('app_settings').doc('test_status');
+        let testStatusListener = null;
+        let isTestPaused = false;
+
+        function setupTestStatusListener() {
+            testStatusListener = testStatusDocRef.onSnapshot((doc) => {
+                if (doc.exists && doc.data().status) {
+                    const status = doc.data().status;
+                    handleTestStatusChange(status);
+                } else {
+                    // Default to active if document doesn't exist
+                    handleTestStatusChange('active');
+                }
+            }, (error) => {
+                console.error("Failed to listen for test status updates:", error);
+            });
+        }
+
+        function handleTestStatusChange(status) {
+            const testPauseModal = document.getElementById('test-pause-modal');
+            
+            if (status === 'paused') {
+                isTestPaused = true;
+                testPauseModal.classList.add('show');
+                // Disable all interactions
+                disableTestInteractions();
+            } else {
+                isTestPaused = false;
+                testPauseModal.classList.remove('show');
+                // Re-enable interactions
+                enableTestInteractions();
+            }
+        }
+
+        function disableTestInteractions() {
+            // Disable all form inputs and buttons
+            const inputs = document.querySelectorAll('input, button, select');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+            
+            // Pause timer if quiz is running
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        }
+
+        function enableTestInteractions() {
+            // Re-enable form inputs and buttons based on current state
+            const entryPass = document.getElementById('entryPass');
+            const submitEntryPassBtn = document.getElementById('submitEntryPass');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const startButton = document.getElementById('startButton');
+            const submitAnswerButton = document.getElementById('submitAnswerButton');
+
+            // Check if entry pass was already submitted
+            if (entryPass.disabled) {
+                // Entry pass was submitted, enable user details
+                userName.disabled = false;
+                userEmail.disabled = false;
+                startButton.disabled = false;
+            } else {
+                // Entry pass not submitted yet
+                entryPass.disabled = false;
+                submitEntryPassBtn.disabled = false;
+            }
+
+            // If quiz is running, re-enable quiz interactions
+            if (document.getElementById('quiz-section').style.display !== 'none') {
+                submitAnswerButton.disabled = false;
+                // Restart timer if quiz was running
+                if (currentQuestionIndex < questions.length) {
+                    startTimer();
+                }
+            }
+        }
+
+        // Initialize test status listener on page load
+        setupTestStatusListener();
+
        const questions = [
   {
     question: "Which platform allows you to buy and sell pre-built scripts or templates for websites and apps?",
@@ -1084,7 +1192,7 @@
     answer: 1
   },
   {
-    question: "What type of content violates YouTube’s monetization policy?",
+    question: "What type of content violates YouTube's monetization policy?",
     options: ["Educational content", "Duplicate or reused content without commentary", "Original animations", "Gaming videos"],
     answer: 1
   },
@@ -1120,7 +1228,7 @@
   }
 ,
   {
-    question: "What is a ‘niche’ in online business or YouTube?",
+    question: "What is a 'niche' in online business or YouTube?",
     options: ["A camera setting", "A topic-focused category", "A type of product", "A video filter"],
     answer: 1
   },
@@ -1155,7 +1263,7 @@
     answer: 2
   },
   {
-    question: "What’s the use of the tool ‘Tome’ or ‘Beautiful.ai’?",
+    question: "What's the use of the tool 'Tome' or 'Beautiful.ai'?",
     options: ["Video editing", "Presentation creation using AI", "Logo design", "Translation"],
     answer: 1
   },
@@ -1185,7 +1293,7 @@
     answer: 2
   },
   {
-    question: "In YouTube Automation, what is used for voiceovers if you don’t record your own voice?",
+    question: "In YouTube Automation, what is used for voiceovers if you don't record your own voice?",
     options: ["Manual typing", "AI voice generator", "Adobe Reader", "Google Drive"],
     answer: 1
   },
@@ -1230,8 +1338,8 @@
     answer: 1
   },
   {
-    question: "What’s the benefit of learning no-code development?",
-    options: ["You can create apps without programming knowledge", "Only coders can do it", "It’s only for students", "It’s outdated"],
+    question: "What's the benefit of learning no-code development?",
+    options: ["You can create apps without programming knowledge", "Only coders can do it", "It's only for students", "It's outdated"],
     answer: 0
   },
   {
@@ -1288,7 +1396,7 @@
   {
     question: "What increases trust in a freelancing profile?",
     options: [
-      "Copying others’ work",
+      "Copying others' work",
       "Irregular responses",
       "Good reviews and project samples",
       "Long paragraphs"
@@ -1370,7 +1478,7 @@
     options: [
       "Create a strong profile",
       "Post memes",
-      "Comment on others’ gigs",
+      "Comment on others' gigs",
       "Buy expensive tools"
     ],
     answer: 0
@@ -1411,7 +1519,7 @@
       "It improves visibility and searchability",
       "It helps confuse viewers",
       "It hides the content",
-      "It’s not important"
+      "It's not important"
     ],
     answer: 0
   },
@@ -1436,7 +1544,7 @@
     answer: 0
   },
   {
-    question: "What’s a smart way to stay ahead in the digital world?",
+    question: "What's a smart way to stay ahead in the digital world?",
     options: [
       "Rely only on social media",
       "Keep learning new tools and strategies",
@@ -1456,7 +1564,7 @@
     answer: 0
   },
   {
-    question: "What’s the purpose of a call-to-action (CTA) in a video or post?",
+    question: "What's the purpose of a call-to-action (CTA) in a video or post?",
     options: [
       "To tell users what to do next",
       "To confuse the audience",
@@ -1490,7 +1598,7 @@
     options: [
       "It builds connection and keeps attention",
       "It makes people leave",
-      "It’s useless",
+      "It's useless",
       "It only works in books"
     ],
     answer: 0
@@ -1502,7 +1610,7 @@
     options: [
       "Lack of skills and patience",
       "Too much effort",
-      "Sites don’t work",
+      "Sites don't work",
       "Luck issues"
     ],
     answer: 0
@@ -1523,7 +1631,7 @@
       "Offer quality with clarity",
       "Use random titles",
       "Avoid communication",
-      "Say ‘yes’ to everything"
+      "Say 'yes' to everything"
     ],
     answer: 0
   },
@@ -1573,12 +1681,12 @@
       "It saves time and keeps strategy focused",
       "It wastes effort",
       "It slows growth",
-      "It’s optional only for experts"
+      "It's optional only for experts"
     ],
     answer: 0
   },
   {
-    question: "In freelancing, what does ‘niche clarity’ mean?",
+    question: "In freelancing, what does 'niche clarity' mean?",
     options: [
       "Knowing your specific skill and target market",
       "Trying every type of work",
@@ -1738,7 +1846,7 @@
     answer: 0
   },
   {
-    question: "Why are global skills necessary in today’s economy?",
+    question: "Why are global skills necessary in today's economy?",
     options: [
       "They help you earn from anywhere",
       "Only for students",
@@ -1758,260 +1866,264 @@
         let userName = "";
         let userEmail = "";
         const correctEntryPass = "SkillGate";
-        let fifteenMinNotificationShown = false; // Flag to show notification only once
+        let fifteenMinNotificationShown = false;
 
-        // Define the target date for redirection (Updated to 36 hours from now based on July 10, 2025, 3:25 PM PKT)
-        // const targetDate = new Date("July 12, 2025 03:25:00 GMT+0500"); // Saturday, July 12, 2025, 3:25 AM PKT (GMT+5)
+        // Define the target date for redirection
+        const targetDate = new Date("July 12, 2025 03:25:00 GMT+0500");
 
-        // IMMEDIATE REDIRECTION CHECK ON PAGE LOAD (Commented out as test is closed)
-        // This ensures index.html always redirects to index2.html if the time is past the deadline
-        // if (new Date() >= targetDate) {
-        //     window.location.replace("index2.html"); // Using replace to prevent back button
-        // }
+        // IMMEDIATE REDIRECTION CHECK ON PAGE LOAD
+        if (new Date() >= targetDate) {
+            window.location.replace("index2.html");
+        }
 
         $(document).ready(function() {
-            // Initially hide the main container and show the overlay
-            $('#maintenance-overlay').removeClass('hidden');
-            $('.container').addClass('hidden');
-
-            // All quiz-related functionality is now effectively disabled by the overlay
-            // and the removal of relevant function calls in the script.
-
-            // Initialize form state (these are now irrelevant due to overlay, but keeping for completeness if overlay is removed later)
+            // Initialize form state
             $('#userName').prop('disabled', true);
             $('#userEmail').prop('disabled', true);
             $('#startButton').prop('disabled', true);
 
-            // Event listeners (commented out as interaction is blocked by overlay)
-            // $('#submitEntryPass').on('click', checkEntryPass);
-            // $('#entryPass').on('keypress', function(e) {
-            //     if (e.which === 13) checkEntryPass();
-            // });
-            // $('#startButton').on('click', startQuizHandler);
-            // $('#submitAnswerButton').on('click', handleAnswerSubmission);
+            // Event listeners
+            $('#submitEntryPass').on('click', checkEntryPass);
+            $('#entryPass').on('keypress', function(e) {
+                if (e.which === 13) checkEntryPass();
+            });
+            $('#startButton').on('click', startQuizHandler);
+            $('#submitAnswerButton').on('click', handleAnswerSubmission);
 
-            // Update countdown timer for display (commented out as timer is paused/removed)
-            // updateRedirectCountdown();
-            // setInterval(updateRedirectCountdown, 1000);
+            // Update countdown timer for display
+            updateRedirectCountdown();
+            setInterval(updateRedirectCountdown, 1000);
         });
 
-        // Functions related to quiz operation (now effectively disabled due to overlay and lack of calls)
-        // function updateRedirectCountdown() {
-        //     const now = new Date();
-        //     const timeLeft = targetDate - now; // Time left in milliseconds
-        //     const timeLeftSeconds = Math.floor(timeLeft / 1000); // Time left in seconds
+        function updateRedirectCountdown() {
+            const now = new Date();
+            const timeLeft = targetDate - now;
+            const timeLeftSeconds = Math.floor(timeLeft / 1000);
 
-        //     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        //     const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        //     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        //     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-        //     const redirectTimerElement = document.getElementById('redirect-timer');
-        //     const fifteenMinNotificationElement = document.getElementById('fifteen-min-notification');
+            const redirectTimerElement = document.getElementById('redirect-timer');
+            const fifteenMinNotificationElement = document.getElementById('fifteen-min-notification');
 
-        //     if (timeLeft <= 0) {
-        //         redirectTimerElement.textContent = "Test window closed. Redirecting...";
-        //         if (fifteenMinNotificationElement) { // Hide notification if it was shown
-        //             fifteenMinNotificationElement.style.display = 'none';
-        //         }
-        //         window.location.replace("index2.html"); // Redirect to index2.html
-        //         return;
-        //     }
+            if (timeLeft <= 0) {
+                redirectTimerElement.textContent = "Test window closed. Redirecting...";
+                if (fifteenMinNotificationElement) {
+                    fifteenMinNotificationElement.style.display = 'none';
+                }
+                window.location.replace("index2.html");
+                return;
+            }
 
-        //     // Display 15-minute notification
-        //     // 15 minutes = 15 * 60 = 900 seconds
-        //     if (timeLeftSeconds <= 900 && timeLeftSeconds > 0 && !fifteenMinNotificationShown) {
-        //         if (fifteenMinNotificationElement) {
-        //             fifteenMinNotificationElement.style.display = 'block'; // Show the notification
-        //             fifteenMinNotificationShown = true; // Set flag to true so it only shows once
-        //         }
-        //     } else if (timeLeftSeconds > 900 && fifteenMinNotificationShown) {
-        //         // If time goes above 15 mins after being below (e.g., system time change), hide it
-        //         if (fifteenMinNotificationElement) {
-        //             fifteenMinNotificationElement.style.display = 'none';
-        //             fifteenMinNotificationShown = false;
-        //         }
-        //     }
+            // Display 15-minute notification
+            if (timeLeftSeconds <= 900 && timeLeftSeconds > 0 && !fifteenMinNotificationShown) {
+                if (fifteenMinNotificationElement) {
+                    fifteenMinNotificationElement.style.display = 'block';
+                    fifteenMinNotificationShown = true;
+                }
+            } else if (timeLeftSeconds > 900 && fifteenMinNotificationShown) {
+                if (fifteenMinNotificationElement) {
+                    fifteenMinNotificationElement.style.display = 'none';
+                    fifteenMinNotificationShown = false;
+                }
+            }
             
-        //     // Updated text as per user's request
-        //     redirectTimerElement.textContent = `Time Left To Close This Test: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-        // }
+            redirectTimerElement.textContent = `Time Left To Close This Test: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
 
-        // function checkEntryPass() {
-        //     const enteredPass = $('#entryPass').val().trim();
-        //     if (enteredPass === correctEntryPass) {
-        //         $('#entryPass').prop('disabled', true);
-        //         $('#submitEntryPass').hide();
-        //         $('#password-entry-error').removeClass('show');
-
-        //         // Enable user info fields
-        //         $('#userName').prop('disabled', false).focus();
-        //         $('#userEmail').prop('disabled', false);
-        //         $('#startButton').prop('disabled', false);
-        //     } else {
-        //         $('#password-entry-error').addClass('show');
-        //         $('#entryPass').val('').focus();
-        //     }
-        // }
-
-        // async function startQuizHandler() {
-        //     $('#email-duplicate-error').removeClass('show');
-
-        //     userName = $('#userName').val().trim();
-        //     userEmail = $('#userEmail').val().trim();
-
-        //     if (!userName || !userEmail) {
-        //         alert("Please enter your Name and Email to start the quiz.");
-        //         return;
-        //     }
-
-        //     if (!isValidEmail(userEmail)) {
-        //         alert("Please enter a valid email address.");
-        //         return;
-        //     }
-
-        //     try {
-        //         const querySnapshot = await db.collection("quiz_results")
-        //                                       .where("email", "==", userEmail)
-        //                                       .get();
-
-        //         if (!querySnapshot.empty) {
-        //             $('#email-duplicate-error').addClass('show');
-        //             $('#userEmail').focus();
-        //             return;
-        //         }
-        //     } catch (error) {
-        //         console.error("Error checking for duplicate email:", error);
-        //         alert("An error occurred while validating your email. Please try again later.");
-        //         return;
-        //     }
-
-        //     // Start quiz
-        //     $('#welcome-section').hide();
-        //     $('#quiz-section').show();
-        //     startQuiz();
-        // }
-
-        // function isValidEmail(email) {
-        //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        //     return emailRegex.test(email);
-        // }
-
-        // function startQuiz() {
-        //     currentQuestionIndex = 0;
-        //     score = 0;
-        //     displayQuestion();
-        // }
-
-        // function displayQuestion() {
-        //     clearInterval(timerInterval);
-        //     if (currentQuestionIndex < questions.length) {
-        //         const q = questions[currentQuestionIndex];
-        //         $('#question-counter').text(`Question ${currentQuestionIndex + 1} / ${questions.length}`);
-        //         $('#question-text').text(q.question);
-        //         $('#options-container').empty();
-
-        //         q.options.forEach((option, index) => {
-        //             const optionHtml = `
-        //                 <div class="option">
-        //                     <input type="radio" id="option${index}" name="answer" value="${index}">
-        //                     <label for="option${index}">${option}</label>
-        //                 </div>
-        //             `;
-        //             $('#options-container').append(optionHtml);
-        //         });
-
-        //         startTimer();
-        //         $('#submitAnswerButton').prop('disabled', false);
-        //     } else {
-        //         showResults();
-        //     }
-        // }
-
-        // function startTimer() {
-        //     let timeLeft = timePerQuestion;
-        //     $('#timer').text(`Time Left: ${timeLeft}`);
-
-        //     timerInterval = setInterval(() => {
-        //         timeLeft--;
-        //         $('#timer').text(`Time Left: ${timeLeft}`);
-
-        //         if (timeLeft <= 0) {
-        //             clearInterval(timerInterval);
-        //             handleAnswerSubmission();
-        //         }
-        //     }, 1000);
-        // }
-
-        // function handleAnswerSubmission() {
-        //     clearInterval(timerInterval);
-
-        //     const selectedOption = $('input[name="answer"]:checked').val();
-        //     const currentQuestion = questions[currentQuestionIndex];
-
-        //     if (selectedOption !== undefined && parseInt(selectedOption) === currentQuestion.answer) {
-        //         score++;
-        //     }
-
-        //     $('#submitAnswerButton').prop('disabled', true);
-        //     currentQuestionIndex++;
+        function checkEntryPass() {
+            if (isTestPaused) return; // Don't allow interaction if test is paused
             
-        //     setTimeout(() => {
-        //         displayQuestion();
-        //     }, 500);
-        // }
+            const enteredPass = $('#entryPass').val().trim();
+            if (enteredPass === correctEntryPass) {
+                $('#entryPass').prop('disabled', true);
+                $('#submitEntryPass').hide();
+                $('#password-entry-error').removeClass('show');
 
-        // function showResults() {
-        //     $('#quiz-section').hide();
-        //     const resultsSection = $('#results-section');
-        //     resultsSection.show();
+                // Enable user info fields
+                $('#userName').prop('disabled', false).focus();
+                $('#userEmail').prop('disabled', false);
+                $('#startButton').prop('disabled', false);
+            } else {
+                $('#password-entry-error').addClass('show');
+                $('#entryPass').val('').focus();
+            }
+        }
 
-        //     const quizStatus = score >= passingScore ? 'Qualified' : 'Not Qualified';
+        async function startQuizHandler() {
+            if (isTestPaused) return; // Don't allow interaction if test is paused
+            
+            $('#email-duplicate-error').removeClass('show');
 
-        //     if (quizStatus === 'Qualified') {
-        //         resultsSection.html(`
-        //             <div class="congratulations-card fade-in">
-        //                 <h2>
-        //                     🎉 Congratulations!
-        //                 </h2>
-        //                 <p id="score-display">Your Score: <span id="final-score">${score}</span> / 100</p>
-        //                 <p>You have successfully passed the test.</p>
-        //                 <div class="lock-message">🔒 You are now eligible to join our</div>
-        //                 <p style="font-size: 1.2em; color: var(--accent); margin-top: -15px; margin-bottom: 25px; font-weight: bold;">Premium-Level-Skills WhatsApp Group.</p>
-        //                 <a href="https://chat.whatsapp.com/JRWutO7osRVHKd2sEMFAGN" class="join-button">
-        //                     👉 Join the Group
-        //                 </a>
-        //             </div>
-        //         `);
-        //     } else {
-        //         resultsSection.html(`
-        //             <div class="congratulations-card fade-in">
-        //                 <h2 style="color: var(--error);">Test Completed!</h2>
-        //                 <p id="score-display" style="color: var(--error);">Your Score: <span id="final-score">${score}</span> / 100</p>
-        //                 <p style="color: var(--error); font-weight: 600;">Unfortunately, you did not qualify.</p>
-        //                 <div class="important-notice" style="margin-top: 2rem;">
-        //                     مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
-        //                 </div>
-        //             </div>
-        //         `);
-        //     }
+            userName = $('#userName').val().trim();
+            userEmail = $('#userEmail').val().trim();
 
-        //     // Save to Firebase
-        //     db.collection("quiz_results").add({
-        //         name: userName,
-        //         email: userEmail,
-        //         score: score,
-        //         quiz_status: quizStatus,
-        //         timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        //     })
-        //     .then((docRef) => {
-        //         console.log("Document written with ID: ", docRef.id);
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error adding document: ", error);
-        //         alert("There was an error saving your results. Please try again.");
-        //     });
-        // }
+            if (!userName || !userEmail) {
+                alert("Please enter your Name and Email to start the quiz.");
+                return;
+            }
+
+            if (!isValidEmail(userEmail)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            try {
+                const querySnapshot = await db.collection("quiz_results")
+                                              .where("email", "==", userEmail)
+                                              .get();
+
+                if (!querySnapshot.empty) {
+                    $('#email-duplicate-error').addClass('show');
+                    $('#userEmail').focus();
+                    return;
+                }
+            } catch (error) {
+                console.error("Error checking for duplicate email:", error);
+                alert("An error occurred while validating your email. Please try again later.");
+                return;
+            }
+
+            // Start quiz
+            $('#welcome-section').hide();
+            $('#quiz-section').show();
+            startQuiz();
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (isTestPaused) return; // Don't proceed if test is paused
+            
+            clearInterval(timerInterval);
+            if (currentQuestionIndex < questions.length) {
+                const q = questions[currentQuestionIndex];
+                $('#question-counter').text(`Question ${currentQuestionIndex + 1} / ${questions.length}`);
+                $('#question-text').text(q.question);
+                $('#options-container').empty();
+
+                q.options.forEach((option, index) => {
+                    const optionHtml = `
+                        <div class="option">
+                            <input type="radio" id="option${index}" name="answer" value="${index}">
+                            <label for="option${index}">${option}</label>
+                        </div>
+                    `;
+                    $('#options-container').append(optionHtml);
+                });
+
+                startTimer();
+                $('#submitAnswerButton').prop('disabled', false);
+            } else {
+                showResults();
+            }
+        }
+
+        function startTimer() {
+            if (isTestPaused) return; // Don't start timer if test is paused
+            
+            let timeLeft = timePerQuestion;
+            $('#timer').text(`Time Left: ${timeLeft}`);
+
+            timerInterval = setInterval(() => {
+                if (isTestPaused) {
+                    clearInterval(timerInterval);
+                    return;
+                }
+                
+                timeLeft--;
+                $('#timer').text(`Time Left: ${timeLeft}`);
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleAnswerSubmission();
+                }
+            }, 1000);
+        }
+
+        function handleAnswerSubmission() {
+            if (isTestPaused) return; // Don't allow interaction if test is paused
+            
+            clearInterval(timerInterval);
+
+            const selectedOption = $('input[name="answer"]:checked').val();
+            const currentQuestion = questions[currentQuestionIndex];
+
+            if (selectedOption !== undefined && parseInt(selectedOption) === currentQuestion.answer) {
+                score++;
+            }
+
+            $('#submitAnswerButton').prop('disabled', true);
+            currentQuestionIndex++;
+            
+            setTimeout(() => {
+                displayQuestion();
+            }, 500);
+        }
+
+        function showResults() {
+            $('#quiz-section').hide();
+            const resultsSection = $('#results-section');
+            resultsSection.show();
+
+            const quizStatus = score >= passingScore ? 'Qualified' : 'Not Qualified';
+
+            if (quizStatus === 'Qualified') {
+                resultsSection.html(`
+                    <div class="congratulations-card fade-in">
+                        <h2>
+                            🎉 Congratulations!
+                        </h2>
+                        <p id="score-display">Your Score: <span id="final-score">${score}</span> / 100</p>
+                        <p>You have successfully passed the test.</p>
+                        <div class="lock-message">🔒 You are now eligible to join our</div>
+                        <p style="font-size: 1.2em; color: var(--accent); margin-top: -15px; margin-bottom: 25px; font-weight: bold;">Premium-Level-Skills WhatsApp Group.</p>
+                        <a href="https://chat.whatsapp.com/JRWutO7osRVHKd2sEMFAGN" class="join-button">
+                            👉 Join the Group
+                        </a>
+                    </div>
+                `);
+            } else {
+                resultsSection.html(`
+                    <div class="congratulations-card fade-in">
+                        <h2 style="color: var(--error);">Test Completed!</h2>
+                        <p id="score-display" style="color: var(--error);">Your Score: <span id="final-score">${score}</span> / 100</p>
+                        <p style="color: var(--error); font-weight: 600;">Unfortunately, you did not qualify.</p>
+                        <div class="important-notice" style="margin-top: 2rem;">
+                            مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Save to Firebase
+            db.collection("quiz_results").add({
+                name: userName,
+                email: userEmail,
+                score: score,
+                quiz_status: quizStatus,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+                alert("There was an error saving your results. Please try again.");
+            });
+        }
     </script>
 </body>
 </html>
+

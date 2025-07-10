@@ -55,13 +55,13 @@
             --primary-dark: #6366f1;
             --primary-light: #8b9cf7;
             
-            --text-primary: #e0e7ff; /* Changed for better visibility */
-            --text-secondary: #a8b4e0; /* Changed for better visibility */
+            --text-primary: #e0e7ff;
+            --text-secondary: #a8b4e0;
             --text-muted: #9ca3af;
             
             --bg-primary: #0f172a;
             --bg-secondary: #1e293b;
-            --bg-card: #2d3a4b; /* Changed for slightly better contrast */
+            --bg-card: #2d3a4b;
             --bg-hover: #475569;
             
             --border-light: #475569;
@@ -73,9 +73,8 @@
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        /* Placeholder color for dark mode */
         [data-theme="dark"] .form-control::placeholder {
-            color: var(--text-secondary); /* Use light text-secondary for visibility */
+            color: var(--text-secondary);
         }
 
         * {
@@ -92,20 +91,19 @@
             transition: var(--transition);
             overflow-x: hidden;
         }
-        /* New CSS to prevent body scrolling when modal is open */
+
         body.modal-open {
             overflow: hidden;
         }
 
-        /* Modal Overlay Styles */
         .modal-overlay {
             position: fixed;
-            inset: 0; /* top:0; right:0; bottom:0; left:0; */
+            inset: 0;
             background-color: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999; /* Ensure it's on top */
+            z-index: 9999;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
@@ -122,7 +120,7 @@
             border-radius: var(--border-radius-lg);
             box-shadow: var(--shadow-xl);
             max-width: 400px;
-            width: 90%; /* Responsive width */
+            width: 90%;
             text-align: center;
             color: var(--text-primary);
         }
@@ -145,7 +143,6 @@
             gap: 1rem;
         }
 
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -153,7 +150,6 @@
             min-height: 100vh;
         }
 
-        /* Modern Card Design */
         .modern-card {
             background: var(--bg-card);
             border-radius: var(--border-radius-lg);
@@ -179,7 +175,6 @@
             background: var(--primary-gradient);
         }
 
-        /* Header Styles */
         .admin-header {
             padding: 2rem;
             margin-bottom: 2rem;
@@ -225,7 +220,7 @@
             justify-content: center;
             width: 48px;
             height: 48px;
-            color: var(--text-primary); /* Set icon color dynamically */
+            color: var(--text-primary);
         }
 
         .theme-toggle:hover {
@@ -240,9 +235,42 @@
             border-radius: 50px;
             font-weight: 500;
             border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        /* Modern Button Styles */
+        .test-status-badge {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            border: 1px solid;
+        }
+
+        .test-status-badge.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .test-status-badge.paused {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .test-status-badge i {
+            font-size: 0.6rem;
+        }
+
         .btn-modern {
             border: none;
             padding: 0.875rem 1.75rem;
@@ -253,7 +281,7 @@
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            justify-content: center; /* This line will center the content horizontally */
+            justify-content: center;
             gap: 0.5rem;
             text-decoration: none;
             position: relative;
@@ -317,28 +345,70 @@
             color: var(--primary-dark);
         }
 
-        /* Controls Section */
         .controls-section {
             padding: 2rem;
             margin-bottom: 2rem;
         }
 
-        .controls-grid {
+        /* NEW IMPROVED LAYOUT */
+        .controls-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .filters-row {
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 2rem;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1.5rem;
             align-items: end;
         }
 
-        .search-section {
+        .filter-item {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            flex-direction: column;
         }
 
-        .search-group {
-            flex: 1;
-            min-width: 250px;
+        .actions-row {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 1024px) {
+            .filters-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            
+            .filter-item:first-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filters-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .filter-item:first-child {
+                grid-column: 1;
+            }
+            
+            .actions-row {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .btn-modern {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+            }
         }
 
         .form-group {
@@ -373,8 +443,8 @@
         }
 
         .form-control::placeholder {
-            color: var(--text-muted); /* Default placeholder color for light mode */
-            opacity: 1; /* Ensure placeholder is not transparent */
+            color: var(--text-muted);
+            opacity: 1;
         }
 
         .input-group {
@@ -393,13 +463,6 @@
             border-bottom-left-radius: 0;
         }
 
-        .actions-group {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        /* Stats Cards */
         .stats-section {
             margin-bottom: 2rem;
         }
@@ -431,7 +494,7 @@
         .stat-icon {
             width: 48px;
             height: 48px;
-            border-radius: 50%; /* Corrected: Added missing semicolon */
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -444,7 +507,7 @@
         .stat-icon.success { background: linear-gradient(135deg, var(--accent-green), #059669); }
         .stat-icon.warning { background: linear-gradient(135deg, var(--accent-orange), #d97706); }
         .stat-icon.info { background: linear-gradient(135deg, var(--accent-blue), #2563eb); }
-        .stat-icon.danger { background: linear-gradient(135deg, var(--accent-red), #dc2626); } /* Added for Not Qualified */
+        .stat-icon.danger { background: linear-gradient(135deg, var(--accent-red), #dc2626); }
 
         .stat-value {
             font-size: 2rem;
@@ -461,7 +524,6 @@
             font-size: 0.875rem;
         }
 
-        /* Modern Table */
         .table-section {
             padding: 0;
         }
@@ -524,7 +586,6 @@
             border-bottom: none;
         }
 
-        /* Status Badges */
         .status-badge {
             padding: 0.375rem 0.75rem;
             border-radius: 50px;
@@ -540,13 +601,12 @@
             border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
-        .status-not-qualified { /* Changed from status-not-qualified */
+        .status-not-qualified {
             background: rgba(239, 68, 68, 0.1);
             color: var(--accent-red);
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
-        /* Pagination Controls */
         .pagination-controls {
             display: flex;
             justify-content: center;
@@ -586,12 +646,11 @@
             font-size: 0.9rem;
         }
 
-        /* Analytics Section (for charts) */
         .analytics-section {
             margin-top: 2rem;
             margin-bottom: 2rem;
             padding: 2rem;
-            position: relative; /* Needed for absolute positioning of toggle button */
+            position: relative;
         }
 
         .analytics-section .section-header {
@@ -610,27 +669,26 @@
         .chart-container {
             position: relative;
             width: 100%;
-            height: 400px; /* Adjust as needed */
+            height: 400px;
         }
+
         [data-theme="dark"] .chart-container {
-            background-color: var(--bg-secondary); /* Ensure chart background is visible in dark mode */
+            background-color: var(--bg-secondary);
             border-radius: var(--border-radius);
             padding: 1rem;
         }
 
-        /* Collapsible content */
         .collapsible-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out; /* Smooth transition for expand/collapse */
+            transition: max-height 0.3s ease-out;
         }
 
         .collapsible-content.expanded {
-            max-height: 500px; /* Sufficiently large value to show content. Adjust if chart height varies greatly */
+            max-height: 500px;
             transition: max-height 0.5s ease-in;
         }
 
-        /* Loading Spinner */
         .loading-container {
             display: none;
             flex-direction: column;
@@ -660,7 +718,6 @@
             font-weight: 500;
         }
 
-        /* Login Section */
         .login-container {
             display: none;
             min-height: 100vh;
@@ -722,82 +779,6 @@
             margin-top: 1rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .admin-header {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-            }
-
-            .header-left h1 {
-                font-size: 2rem;
-            }
-
-            .controls-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .search-section {
-                flex-direction: column;
-            }
-
-            .actions-group {
-                justify-content: center;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modern-table {
-                font-size: 0.875rem;
-            }
-
-            .modern-table thead {
-                display: none;
-            }
-
-            .modern-table tbody td {
-                display: block;
-                text-align: right;
-                padding: 0.75rem 1rem;
-                border-bottom: 1px solid var(--border-light);
-                position: relative;
-                padding-left: 50%;
-            }
-
-            .modern-table tbody td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 1rem;
-                width: 45%;
-                text-align: left;
-                font-weight: 600;
-                color: var(--text-secondary);
-                text-transform: uppercase;
-                font-size: 0.75rem;
-                letter-spacing: 0.05em;
-            }
-
-            .modern-table tbody tr {
-                border: 1px solid var(--border-light);
-                border-radius: var(--border-radius);
-                margin-bottom: 1rem;
-                display: block;
-            }
-
-            .pagination-controls {
-                flex-direction: column;
-            }
-        }
-
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -813,10 +794,9 @@
             animation: fadeInUp 0.6s ease-out;
         }
 
-        /* Print Styles */
         @media print {
             @page {
-                size: landscape; /* Suggest landscape orientation for printing */
+                size: landscape;
             }
 
             body {
@@ -835,8 +815,8 @@
             .theme-toggle,
             .btn-modern,
             .pagination-controls,
-            .analytics-section .section-header, /* Hide header */
-            .collapsible-content { /* Hide collapsible content for print */
+            .analytics-section .section-header,
+            .collapsible-content {
                 display: none !important;
             }
 
@@ -899,8 +879,11 @@
                         <i class="fas fa-moon"></i>
                     </button>
                     <div class="welcome-badge">
-                        <i class="fas fa-user-circle me-2"></i>
+                        <i class="fas fa-user-circle"></i>
                         Welcome, Admin
+                    </div>
+                    <div id="test-status-indicator" class="test-status-badge active">
+                        <i class="fas fa-circle"></i> TEST ACTIVE
                     </div>
                     <button id="logout-button" class="btn-modern btn-danger">
                         <i class="fas fa-sign-out-alt"></i>
@@ -943,73 +926,64 @@
             </div>
 
             <div class="modern-card controls-section fade-in-up">
-                <div class="controls-grid">
-                    <div class="search-section">
-                        <div class="search-group">
-                            <div class="form-group">
-                                <label for="search-input" class="form-label">Search</label>
-                                <div class="input-group">
-                                    <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
-                                    <button id="search-button" class="btn-modern btn-primary">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
+                <div class="controls-layout">
+                    <div class="filters-row">
+                        <div class="filter-item">
+                            <label for="search-input" class="form-label">Search</label>
+                            <div class="input-group">
+                                <input type="text" id="search-input" class="form-control" placeholder="Search by name or email...">
+                                <button id="search-button" class="btn-modern btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="search-group">
-                            <div class="form-group">
-                                <label for="sort-by-select" class="form-label">Sort By</label>
-                                <select id="sort-by-select" class="form-control">
-                                    <option value="timestamp-desc">Newest First</option>
-                                    <option value="timestamp-asc">Oldest First</option>
-                                    <option value="name-asc">Name (A-Z)</option>
-                                    <option value="name-desc">Name (Z-A)</option>
-                                    <option value="email-asc">Email (A-Z)</option>
-                                    <option value="email-desc">Email (Z-A)</option>
-                                    <option value="score-desc">Score (High to Low)</option>
-                                    <option value="score-asc">Score (Low to High)</option>
-                                    <option value="status-asc">Status (A-Z)</option>
-                                    <option value="status-desc">Status (Z-A)</option>
-                                </select>
-                            </div>
+                        <div class="filter-item">
+                            <label for="sort-by-select" class="form-label">Sort By</label>
+                            <select id="sort-by-select" class="form-control">
+                                <option value="timestamp-desc">Newest First</option>
+                                <option value="timestamp-asc">Oldest First</option>
+                                <option value="name-asc">Name (A-Z)</option>
+                                <option value="name-desc">Name (Z-A)</option>
+                                <option value="email-asc">Email (A-Z)</option>
+                                <option value="email-desc">Email (Z-A)</option>
+                                <option value="score-desc">Score (High to Low)</option>
+                                <option value="score-asc">Score (Low to High)</option>
+                                <option value="status-asc">Status (A-Z)</option>
+                                <option value="status-desc">Status (Z-A)</option>
+                            </select>
                         </div>
-                        <div class="search-group">
-                            <div class="form-group">
-                                <label for="status-filter-select" class="form-label">Filter by Status</label>
-                                <select id="status-filter-select" class="form-control">
-                                    <option value="All">All</option>
-                                    <option value="Qualified">Qualified</option>
-                                    <option value="Not Qualified">Not Qualified</option>
-                                </select>
-                            </div>
+                        <div class="filter-item">
+                            <label for="status-filter-select" class="form-label">Filter by Status</label>
+                            <select id="status-filter-select" class="form-control">
+                                <option value="All">All</option>
+                                <option value="Qualified">Qualified</option>
+                                <option value="Not Qualified">Not Qualified</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="actions-group">
+                    <div class="actions-row">
                         <button id="refresh-button" class="btn-modern btn-success">
-                            <i class="fas fa-sync-alt"></i>
-                            Refresh
+                            <i class="fas fa-sync-alt"></i> Refresh
                         </button>
                         <button id="print-button" class="btn-modern btn-info">
-                            <i class="fas fa-print"></i>
-                            Print
+                            <i class="fas fa-print"></i> Print
                         </button>
                         <button id="export-csv-button" class="btn-modern btn-outline">
-                            <i class="fas fa-file-csv"></i>
-                            Export CSV
+                            <i class="fas fa-file-csv"></i> Export CSV
                         </button>
-                        
-    <button id="send-invitations" class="btn-modern btn-warning">
-      <i class="fas fa-envelope"></i> Send Invitation
-    </button>
-    <button id="delete-all-button" class="btn-modern btn-danger">
-    
-                            <i class="fas fa-trash-alt"></i>
-                            Delete All
+                        <button id="send-invitations" class="btn-modern btn-warning">
+                            <i class="fas fa-envelope"></i> Send Invitation
+                        </button>
+                        <button id="delete-all-button" class="btn-modern btn-danger">
+                            <i class="fas fa-trash-alt"></i> Delete All
+                        </button>
+                        <button id="toggle-test-status-button" class="btn-modern btn-success">
+                            <i class="fas fa-play-circle"></i> Resume Test
                         </button>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modern-card analytics-section fade-in-up">
                 <div class="section-header">
                     <h3 class="section-title">Quiz Performance Analytics</h3>
@@ -1044,16 +1018,16 @@
                                 <th>Score</th>
                                 <th>Status</th>
                                 <th>Date</th>
-<th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="results-table-body">
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
                 <div class="pagination-controls">
                     <button id="prev-page-button" disabled><i class="fas fa-chevron-left"></i> Previous</button>
-                    <span id="page-info" class="pagination-info">Page ${currentPage} of ${totalPages}</span>
+                    <span id="page-info" class="pagination-info">Page 1 of 1</span>
                     <button id="next-page-button" disabled>Next <i class="fas fa-chevron-right"></i></button>
                     <select id="results-per-page-select" class="form-control" style="width: auto; margin-left: 1rem;">
                         <option value="10">10 per page</option>
@@ -1070,7 +1044,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
     <script>
         // Firebase Configuration
         const firebaseConfig = {
@@ -1090,12 +1063,11 @@
         // Theme Management
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = themeToggle.querySelector('i');
-        
+
         function initTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
             updateThemeIcon(savedTheme);
-            // Also update chart colors if theme changes
             if (window.scoreChart) {
                 updateChartColors(savedTheme);
                 window.scoreChart.update();
@@ -1109,35 +1081,31 @@
         themeToggle.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
-            // Update chart colors on theme change
             if (window.scoreChart) {
                 updateChartColors(newTheme);
                 window.scoreChart.update();
             }
         });
 
-        // Initialize theme on page load
         initTheme();
 
         // Global variables for data and pagination
-        let allQuizResults = []; // Stores all fetched data
-        let currentFilteredData = []; // Stores data after search and status filter
+        let allQuizResults = [];
+        let currentFilteredData = [];
         let currentPage = 1;
         let resultsPerPage = parseInt(document.getElementById('results-per-page-select')?.value) || 10;
         let totalPages = 1;
-        let scoreChart = null; // Variable to hold the Chart.js instance
+        let scoreChart = null;
 
         // Statistics Management
         function updateStatistics(data) {
             const totalUsers = data.length;
             const qualifiedUsers = data.filter(item => item.quiz_status === 'Qualified').length;
             const notQualifiedUsers = data.filter(item => item.quiz_status !== 'Qualified').length;
-            const avgScore = totalUsers > 0 ? 
-                Math.round(data.reduce((sum, item) => sum + (item.score || 0), 0) / totalUsers) : 0;
+            const avgScore = totalUsers > 0 ? Math.round(data.reduce((sum, item) => sum + (item.score || 0), 0) / totalUsers) : 0;
 
             document.getElementById('total-users').textContent = totalUsers;
             document.getElementById('qualified-users').textContent = qualifiedUsers;
@@ -1159,7 +1127,6 @@
             }
 
             resultsTableBody.innerHTML = '';
-            
             const startIndex = (currentPage - 1) * resultsPerPage;
             const endIndex = startIndex + resultsPerPage;
             const paginatedData = currentFilteredData.slice(startIndex, endIndex);
@@ -1167,37 +1134,28 @@
             totalPages = Math.ceil(currentFilteredData.length / resultsPerPage);
             pageInfoElement.textContent = `Page ${currentPage} of ${totalPages}`;
             totalRecordsCountElement.textContent = `${currentFilteredData.length} records`;
-
             prevPageButton.disabled = currentPage === 1;
             nextPageButton.disabled = currentPage === totalPages || totalPages === 0;
 
             if (paginatedData.length === 0) {
                 resultsTableBody.innerHTML = `
                     <tr>
-                        <td colspan="6" style="text-align:center; padding: 3rem; color: var(--text-secondary);">
+                        <td colspan="7" style="text-align:center; padding: 3rem; color: var(--text-secondary);">
                             <i class="fas fa-inbox fa-3x mb-3" style="display: block; opacity: 0.3;"></i>
                             ${currentFilteredData.length === 0 ? "No matching results found." : "No results on this page."}
                         </td>
-                    </tr>`;
+                    </tr>
+                `;
                 return;
             }
 
-            let counter = startIndex + 1; // Start ID counter from the correct index
+            let counter = startIndex + 1;
             const labels = ["ID", "Name", "Email", "Score", "Status", "Date"];
 
             paginatedData.forEach((data) => {
                 const row = resultsTableBody.insertRow();
                 row.className = 'fade-in-up';
-
-                const timestamp = data.timestamp ? 
-                    new Date(data.timestamp.toDate()).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    }) : 'N/A';
-
+                const timestamp = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A';
                 const statusClass = data.quiz_status === 'Qualified' ? 'status-qualified' : 'status-not-qualified';
 
                 const cellData = [
@@ -1212,7 +1170,6 @@
                 cellData.forEach((value, index) => {
                     const cell = row.insertCell();
                     cell.setAttribute('data-label', labels[index]);
-                    
                     if (labels[index] === "Status") {
                         cell.innerHTML = `<span class="status-badge ${statusClass}">${value}</span>`;
                     } else {
@@ -1220,18 +1177,16 @@
                     }
                 });
 
-                
                 const actionCell = row.insertCell();
                 actionCell.setAttribute('data-label', 'Action');
                 actionCell.innerHTML = `
-                <button class="btn-modern btn-info btn-sm send-invite-btn" data-email="${data.email}" data-name="${data.name}">
-                    <i class="fas fa-paper-plane"></i>
-                </button>`;
-
+                    <button class="btn-modern btn-info btn-sm send-invite-btn" data-email="${data.email}" data-name="${data.name}">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>`;
                 counter++;
             });
         }
-        
+
         // Chart.js - Score Distribution Chart
         function renderScoreDistributionChart(data) {
             const ctx = document.getElementById('scoreDistributionChart');
@@ -1240,12 +1195,10 @@
                 return;
             }
 
-            // Destroy existing chart if it exists
             if (window.scoreChart) {
                 window.scoreChart.destroy();
             }
 
-            // Prepare data for the chart
             const scoreRanges = {
                 '0-20%': 0,
                 '21-40%': 0,
@@ -1256,662 +1209,535 @@
 
             data.forEach(item => {
                 const score = item.score;
-                if (score !== undefined && score !== null) {
-                    if (score >= 0 && score <= 20) scoreRanges['0-20%']++;
-                    else if (score >= 21 && score <= 40) scoreRanges['21-40%']++;
-                    else if (score >= 41 && score <= 60) scoreRanges['41-60%']++;
-                    else if (score >= 61 && score <= 80) scoreRanges['61-80%']++;
-                    else if (score >= 81 && score <= 100) scoreRanges['81-100%']++;
+                if (score >= 0 && score <= 20) {
+                    scoreRanges['0-20%']++;
+                } else if (score >= 21 && score <= 40) {
+                    scoreRanges['21-40%']++;
+                } else if (score >= 41 && score <= 60) {
+                    scoreRanges['41-60%']++;
+                } else if (score >= 61 && score <= 80) {
+                    scoreRanges['61-80%']++;
+                } else if (score >= 81 && score <= 100) {
+                    scoreRanges['81-100%']++;
                 }
             });
 
-            const labels = Object.keys(scoreRanges);
-            const chartData = Object.values(scoreRanges);
+            const chartData = {
+                labels: Object.keys(scoreRanges),
+                datasets: [{
+                    label: 'Number of Users',
+                    data: Object.values(scoreRanges),
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.7)',
+                        'rgba(245, 158, 11, 0.7)',
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(102, 126, 234, 0.7)',
+                        'rgba(16, 185, 129, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(102, 126, 234, 1)',
+                        'rgba(16, 185, 129, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
 
-            // Get colors based on current theme
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const colors = getChartColors(currentTheme);
+            const getChartOptions = (theme) => {
+                const isDark = theme === 'dark';
+                const textColor = isDark ? 'var(--text-primary)' : 'var(--text-primary)';
+                const gridColor = isDark ? 'var(--border-medium)' : 'var(--border-light)';
 
-            window.scoreChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Number of Users',
-                        data: chartData,
-                        backgroundColor: colors.backgroundColor,
-                        borderColor: colors.borderColor,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
+                return {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        title: {
-                            display: true,
-                            text: 'Score Distribution',
-                            color: colors.textColor,
-                            font: { size: 18, weight: 'bold' }
-                        },
                         legend: {
-                            display: false
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + ' users';
+                                    }
+                                    return label;
+                                }
+                            },
+                            titleColor: textColor,
+                            bodyColor: textColor,
+                            backgroundColor: isDark ? 'var(--bg-card)' : 'var(--bg-card)',
+                            borderColor: gridColor,
+                            borderWidth: 1
                         }
                     },
                     scales: {
                         x: {
-                            ticks: { color: colors.textColor },
-                            grid: { color: colors.gridColor }
+                            ticks: {
+                                color: textColor,
+                            },
+                            grid: {
+                                color: gridColor,
+                                drawBorder: false,
+                            },
+                            title: {
+                                display: true,
+                                text: 'Score Ranges',
+                                color: textColor
+                            }
                         },
                         y: {
                             beginAtZero: true,
-                            ticks: { color: colors.textColor, stepSize: 1 },
-                            grid: { color: colors.gridColor }
+                            ticks: {
+                                color: textColor,
+                                precision: 0
+                            },
+                            grid: {
+                                color: gridColor,
+                                drawBorder: false,
+                            },
+                            title: {
+                                display: true,
+                                text: 'Number of Users',
+                                color: textColor
+                            }
                         }
                     }
-                }
+                };
+            };
+
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            window.scoreChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: getChartOptions(currentTheme)
             });
         }
 
-        // Helper function to get chart colors based on theme
-        function getChartColors(theme) {
-            if (theme === 'dark') {
-                return {
-                    backgroundColor: 'rgba(99, 102, 241, 0.6)', // Primary blue from dark theme
-                    borderColor: 'rgba(99, 102, 241, 1)',
-                    textColor: '#e0e7ff', // text-primary from dark theme
-                    gridColor: 'rgba(71, 85, 105, 0.5)' // border-light from dark theme
-                };
-            } else { // Light theme
-                return {
-                    backgroundColor: 'rgba(102, 126, 234, 0.6)', // Primary blue from light theme
-                    borderColor: 'rgba(102, 126, 234, 1)',
-                    textColor: '#1f2937', // text-primary from light theme
-                    gridColor: 'rgba(226, 232, 240, 0.5)' // border-light from light theme
-                };
-            }
-        }
-
-        // Function to update chart colors
         function updateChartColors(theme) {
             if (window.scoreChart) {
-                const colors = getChartColors(theme);
-                window.scoreChart.data.datasets[0].backgroundColor = colors.backgroundColor;
-                window.scoreChart.data.datasets[0].borderColor = colors.borderColor;
-                window.scoreChart.options.plugins.title.color = colors.textColor;
-                window.scoreChart.options.scales.x.ticks.color = colors.textColor;
-                window.scoreChart.options.scales.x.grid.color = colors.gridColor;
-                window.scoreChart.options.scales.y.ticks.color = colors.textColor;
-                window.scoreChart.options.scales.y.grid.color = colors.gridColor;
+                const isDark = theme === 'dark';
+                const textColor = isDark ? 'var(--text-primary)' : 'var(--text-primary)';
+                const gridColor = isDark ? 'var(--border-medium)' : 'var(--border-light)';
+
+                window.scoreChart.options.scales.x.ticks.color = textColor;
+                window.scoreChart.options.scales.x.grid.color = gridColor;
+                window.scoreChart.options.scales.x.title.color = textColor;
+
+                window.scoreChart.options.scales.y.ticks.color = textColor;
+                window.scoreChart.options.scales.y.grid.color = gridColor;
+                window.scoreChart.options.scales.y.title.color = textColor;
+
+                window.scoreChart.options.plugins.tooltip.titleColor = textColor;
+                window.scoreChart.options.plugins.tooltip.bodyColor = textColor;
+                window.scoreChart.options.plugins.tooltip.backgroundColor = isDark ? 'var(--bg-card)' : 'var(--bg-card)';
+                window.scoreChart.options.plugins.tooltip.borderColor = gridColor;
             }
         }
 
-
-        // Enhanced fetch, filter, sort, and display function
-        async function fetchAndProcessResults(searchTerm = '', sortBy = 'timestamp', sortOrder = 'desc', statusFilter = 'All') {
+        // Fetch Data from Firebase
+        const fetchQuizResults = async () => {
             const loadingSpinner = document.getElementById('loading-spinner');
-            if (!loadingSpinner) {
-                console.error("Loading spinner element not found.");
-                return;
-            }
-
             loadingSpinner.style.display = 'flex';
-            loadingSpinner.querySelector('.loading-text').textContent = "Loading quiz results...";
-            
-            try {
-                // Fetch all data if not already fetched or if a refresh is forced
-                // Only fetch from Firestore if allQuizResults is empty (first load or explicit refresh)
-                if (allQuizResults.length === 0 || searchTerm === '' && sortBy === 'timestamp' && sortOrder === 'desc' && statusFilter === 'All') {
-                    const querySnapshot = await db.collection("quiz_results").get();
-                    allQuizResults = [];
-                    querySnapshot.forEach(doc => {
-                        allQuizResults.push({ id: doc.id, ...doc.data() });
-                    });
-                }
-
-                let processedDocs = [...allQuizResults]; // Start with all data
-
-                // Apply Search Filter
-                if (searchTerm) {
-                    const lowerCaseSearchTerm = searchTerm.toLowerCase();
-                    processedDocs = processedDocs.filter(doc => {
-                        const name = (doc.name || '').toLowerCase();
-                        const email = (doc.email || '').toLowerCase();
-                        return name.includes(lowerCaseSearchTerm) || email.includes(lowerCaseSearchTerm);
-                    });
-                }
-
-                // Apply Status Filter
-                if (statusFilter !== 'All') {
-                    processedDocs = processedDocs.filter(doc => doc.quiz_status === statusFilter);
-                }
-
-                // Sort data
-                processedDocs.sort((a, b) => {
-                    let valA, valB;
-
-                    const getSortValue = (item, key) => {
-                        if (key.includes('timestamp')) {
-                            return item.timestamp ? item.timestamp.toMillis() : 0;
-                        } else if (key.includes('score')) {
-                            return item.score !== undefined ? item.score : -Infinity;
-                        }
-                        return (item[key.split('-')[0]] || '').toLowerCase();
-                    };
-
-                    valA = getSortValue(a, sortBy);
-                    valB = getSortValue(b, sortBy);
-
-                    if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
-                    if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
-                    return 0;
-                });
-
-                currentFilteredData = processedDocs; // Store filtered and sorted data
-                updateStatistics(currentFilteredData); // Update stats based on filtered data
-                
-                // Only render chart if collapsible content is expanded (or initially render it to get it ready)
-                const chartCollapsibleContent = document.getElementById('chart-collapsible-content');
-                if (chartCollapsibleContent && chartCollapsibleContent.classList.contains('expanded')) {
-                    renderScoreDistributionChart(currentFilteredData);
-                } else {
-                    // If collapsed, destroy existing chart to save resources
-                    if (window.scoreChart) {
-                        window.scoreChart.destroy();
-                        window.scoreChart = null;
-                    }
-                }
-
-                currentPage = 1; // Reset to first page on new search/filter/sort
-                renderTablePage(); // Render the first page of results
-
-                loadingSpinner.style.display = 'none';
-
-            } catch (error) {
-                console.error("Error fetching or processing documents: ", error);
-                loadingSpinner.querySelector('.loading-text').textContent = "Error loading data. Please try again.";
-                document.getElementById('results-table-body').innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center; color: var(--accent-red); padding: 3rem;">
-                            <i class="fas fa-exclamation-triangle fa-2x mb-2" style="display: block;"></i>
-                            Failed to load results: ${error.message}
-                        </td>
-                    </tr>`;
-                // Replaced alert with custom modal
-                showModal('Error', `Failed to load quiz results: ${error.message}`);
-                document.getElementById('total-records-count').textContent = `Error loading records`;
-            }
-        }
-
-        // Enhanced delete all function
-        async function deleteAllQuizResults() {
-            // Custom confirmation dialog instead of alert
-            const confirmDelete = await new Promise(resolve => {
-                const modal = document.createElement('div');
-                modal.className = 'modal-overlay'; /* Use new class */
-                modal.innerHTML = `
-                  <div class="modal-content">
-                    <h3 class="text-lg font-bold mb-4 text-gray-900">Confirm Deletion</h3>
-                    <p class="mb-6 text-gray-700">Are you absolutely sure you want to delete ALL quiz results? This action cannot be undone.</p>
-                    <div class="modal-buttons">
-                      <button id="confirmYes" class="btn-modern btn-danger px-6 py-2">Yes, Delete All</button>
-                      <button id="confirmNo" class="btn-modern btn-outline px-6 py-2">Cancel</button>
-                    </div>
-                  </div>
-                `;
-                document.body.appendChild(modal);
-                document.body.classList.add('modal-open'); // Prevent scrolling
-                setTimeout(() => modal.classList.add('modal-show'), 10); // Show modal with transition
-
-                document.getElementById('confirmYes').onclick = () => {
-                  modal.classList.remove('modal-show'); // Hide modal with transition
-                  setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
-                  resolve(true);
-                };
-                document.getElementById('confirmNo').onclick = () => {
-                  modal.classList.remove('modal-show'); // Hide modal with transition
-                  setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
-                  resolve(false);
-                };
-            });
-
-            if (!confirmDelete) return;
-
-
-            const loadingSpinner = document.getElementById('loading-spinner');
-            const deleteButton = document.getElementById('delete-all-button');
-            const originalButtonContent = deleteButton.innerHTML;
-
-            loadingSpinner.style.display = 'flex';
-            loadingSpinner.querySelector('.loading-text').textContent = "Deleting all quiz results...";
-            deleteButton.disabled = true;
-            deleteButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
-
-            const collectionRef = db.collection("quiz_results");
-            const batchSize = 500;
 
             try {
-                let querySnapshot = await collectionRef.limit(batchSize).get();
-                let documentsDeleted = 0;
-
-                while (querySnapshot.size > 0) {
-                    const batch = db.batch();
-                    querySnapshot.docs.forEach(doc => {
-                        batch.delete(doc.ref);
-                    });
-
-                    await batch.commit();
-                    documentsDeleted += querySnapshot.size;
-                    console.log(`Deleted ${querySnapshot.size} documents. Total: ${documentsDeleted}`);
-
-                    querySnapshot = await collectionRef.limit(batchSize).get();
-                }
-
-                // Custom alert for success
-                showModal('Deletion Complete', `Successfully deleted ${documentsDeleted} quiz results.`, () => {
-                    allQuizResults = []; // Clear all data after deletion
-                    fetchAndProcessResults(); // Re-fetch to update dashboard
-                });
-
+                const snapshot = await db.collection('quiz_results').orderBy('timestamp', 'desc').get();
+                allQuizResults = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                applyFiltersAndSort();
             } catch (error) {
-                console.error("Error deleting documents: ", error);
-                // Custom alert for error
-                showModal('Deletion Failed', `Error deleting quiz results: ${error.message}`);
-
+                console.error("Error fetching quiz results:", error);
+                alert("Error fetching quiz results. Please check your internet connection and try again.");
             } finally {
                 loadingSpinner.style.display = 'none';
-                deleteButton.disabled = false;
-                deleteButton.innerHTML = originalButtonContent;
             }
+        };
+
+        // Apply all filters and sort
+        function applyFiltersAndSort() {
+            let filtered = [...allQuizResults];
+
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(item =>
+                    (item.name && item.name.toLowerCase().includes(searchTerm)) ||
+                    (item.email && item.email.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            const statusFilter = document.getElementById('status-filter-select').value;
+            if (statusFilter !== 'All') {
+                filtered = filtered.filter(item => item.quiz_status === statusFilter);
+            }
+
+            const sortBy = document.getElementById('sort-by-select').value;
+            filtered.sort((a, b) => {
+                switch (sortBy) {
+                    case 'timestamp-desc': return (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0);
+                    case 'timestamp-asc': return (a.timestamp?.toDate() || 0) - (b.timestamp?.toDate() || 0);
+                    case 'name-asc': return (a.name || '').localeCompare(b.name || '');
+                    case 'name-desc': return (b.name || '').localeCompare(a.name || '');
+                    case 'email-asc': return (a.email || '').localeCompare(b.email || '');
+                    case 'email-desc': return (b.email || '').localeCompare(a.email || '');
+                    case 'score-desc': return (b.score || 0) - (a.score || 0);
+                    case 'score-asc': return (a.score || 0) - (b.score || 0);
+                    case 'status-asc': return (a.quiz_status || '').localeCompare(b.quiz_status || '');
+                    case 'status-desc': return (b.quiz_status || '').localeCompare(a.quiz_status || '');
+                    default: return 0;
+                }
+            });
+
+            currentFilteredData = filtered;
+            currentPage = 1;
+            updateStatistics(currentFilteredData);
+            renderScoreDistributionChart(currentFilteredData);
+            renderTablePage();
         }
 
-        // Export to CSV function
-        function exportToCsv(data) {
-            if (data.length === 0) {
-                // Custom alert for no data
-                showModal('No Data', "No data to export.");
+        // Event Listeners for Filters and Sort
+        document.getElementById('search-button')?.addEventListener('click', applyFiltersAndSort);
+        document.getElementById('search-input')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                applyFiltersAndSort();
+            }
+        });
+        document.getElementById('sort-by-select')?.addEventListener('change', applyFiltersAndSort);
+        document.getElementById('status-filter-select')?.addEventListener('change', applyFiltersAndSort);
+
+        // Pagination Event Listeners
+        document.getElementById('prev-page-button')?.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTablePage();
+            }
+        });
+
+        document.getElementById('next-page-button')?.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTablePage();
+            }
+        });
+
+        document.getElementById('results-per-page-select')?.addEventListener('change', (e) => {
+            resultsPerPage = parseInt(e.target.value);
+            currentPage = 1;
+            renderTablePage();
+        });
+
+        // Other Buttons
+        document.getElementById('refresh-button')?.addEventListener('click', fetchQuizResults);
+        document.getElementById('print-button')?.addEventListener('click', () => window.print());
+
+        document.getElementById('export-csv-button')?.addEventListener('click', () => {
+            if (currentFilteredData.length === 0) {
+                showModal('Export Failed', 'No data to export.');
                 return;
             }
 
-            const headers = ["ID", "Name", "Email", "Score", "Status", "Date"];
-            
-            const rows = data.map((item, index) => {
-                const timestamp = item.timestamp ? 
-                    new Date(item.timestamp.toDate()).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    }) : 'N/A';
-
-                return [
-                    index + 1,
-                    `"${(item.name || 'N/A').replace(/"/g, '""')}"`,
-                    `"${(item.email || 'N/A').replace(/"/g, '""')}"`,
-                    (item.score !== undefined ? item.score : 'N/A'),
-                    `"${(item.quiz_status || 'N/A').replace(/"/g, '""')}"`,
-                    `"${timestamp.replace(/"/g, '""')}"`
-                ].join(',');
+            let csvContent = "ID,Name,Email,Score,Status,Date\n";
+            currentFilteredData.forEach((item, index) => {
+                const id = index + 1;
+                const name = `"${item.name || 'N/A'}"`;
+                const email = `"${item.email || 'N/A'}"`;
+                const score = item.score !== undefined ? item.score : 'N/A';
+                const status = `"${item.quiz_status || 'N/A'}"`;
+                const date = item.timestamp ? new Date(item.timestamp.toDate()).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A';
+                csvContent += `${id},${name},${email},${score},${status},${date}\n`;
             });
 
-            const csvContent = "data:text/csv;charset=utf-8," 
-                                + headers.join(',') + "\n" 
-                                + rows.join('\n');
-
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "quiz_results.csv");
-            document.body.appendChild(link);
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'quiz_results.csv');
             link.click();
-            document.body.removeChild(link);
-        }
+            URL.revokeObjectURL(url);
+            showModal('Export Successful', '✅ Quiz results exported to CSV.');
+        });
 
-        // Helper to get current filter/sort parameters
-        function getCurrentParams() {
-            const searchTerm = document.getElementById('search-input').value.trim();
-            const [sortBy, sortOrder] = document.getElementById('sort-by-select').value.split('-');
-            const statusFilter = document.getElementById('status-filter-select').value;
-            return { searchTerm, sortBy, sortOrder, statusFilter };
-        }
+        // Delete All Button
+        document.getElementById('delete-all-button')?.addEventListener('click', () => {
+            showModal(
+                'Confirm Deletion',
+                'Are you sure you want to delete all quiz results? This action cannot be undone.',
+                true,
+                async () => {
+                    try {
+                        const batch = db.batch();
+                        allQuizResults.forEach(doc => {
+                            const docRef = db.collection('quiz_results').doc(doc.id);
+                            batch.delete(docRef);
+                        });
+                        await batch.commit();
+                        showModal('Deletion Successful', '✅ All quiz results have been deleted.');
+                        fetchQuizResults();
+                    } catch (error) {
+                        console.error("Error deleting all documents:", error);
+                        showModal('Deletion Failed', '❌ Failed to delete all quiz results. Please try again.');
+                    }
+                }
+            );
+        });
 
-        // Centralized modal display function
-        function showModal(title, message, onOkCallback = null) {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay'; /* Use new class */
-            modal.innerHTML = `
-              <div class="modal-content">
-                <h3>${title}</h3>
-                <p>${message}</p>
-                <div class="modal-buttons">
-                  <button id="alertOk" class="btn-modern btn-primary px-6 py-2">OK</button>
+        // Chart Toggle Button
+        document.getElementById('toggle-chart-button')?.addEventListener('click', function() {
+            const chartCollapsibleContent = document.getElementById('chart-collapsible-content');
+            const icon = this.querySelector('i');
+            if (chartCollapsibleContent.classList.contains('expanded')) {
+                chartCollapsibleContent.classList.remove('expanded');
+                icon.className = 'fas fa-chevron-down';
+                this.innerHTML = '<i class="fas fa-chevron-down"></i> Expand Chart';
+            } else {
+                chartCollapsibleContent.classList.add('expanded');
+                icon.className = 'fas fa-chevron-up';
+                this.innerHTML = '<i class="fas fa-chevron-up"></i> Collapse Chart';
+                if (window.scoreChart) {
+                    window.scoreChart.resize();
+                    window.scoreChart.update();
+                }
+            }
+        });
+
+        // Custom Modal Implementation
+        function showModal(title, message, isConfirm = false, onConfirm = null) {
+            let modalOverlay = document.getElementById('custom-modal-overlay');
+            if (!modalOverlay) {
+                modalOverlay = document.createElement('div');
+                modalOverlay.id = 'custom-modal-overlay';
+                modalOverlay.className = 'modal-overlay';
+                document.body.appendChild(modalOverlay);
+            }
+
+            modalOverlay.innerHTML = `
+                <div class="modal-content">
+                    <h3>${title}</h3>
+                    <p>${message}</p>
+                    <div class="modal-buttons">
+                        ${isConfirm ? `<button id="modal-confirm-btn" class="btn-modern btn-danger">Confirm</button>` : ''}
+                        <button id="modal-close-btn" class="btn-modern btn-outline">${isConfirm ? 'Cancel' : 'Close'}</button>
+                    </div>
                 </div>
-              </div>
             `;
-            document.body.appendChild(modal);
-            document.body.classList.add('modal-open'); // Prevent scrolling
-            setTimeout(() => modal.classList.add('modal-show'), 10); // Show modal with transition
 
-            document.getElementById('alertOk').onclick = () => {
-                modal.classList.remove('modal-show'); // Hide modal with transition
-                setTimeout(() => { 
-                    modal.remove(); 
-                    document.body.classList.remove('modal-open'); 
-                    if (onOkCallback) onOkCallback();
-                }, 300); // Remove after transition
+            document.body.classList.add('modal-open');
+            modalOverlay.classList.add('modal-show');
+
+            document.getElementById('modal-close-btn').addEventListener('click', () => {
+                modalOverlay.classList.remove('modal-show');
+                document.body.classList.remove('modal-open');
+            });
+
+            if (isConfirm) {
+                document.getElementById('modal-confirm-btn').addEventListener('click', () => {
+                    modalOverlay.classList.remove('modal-show');
+                    document.body.classList.remove('modal-open');
+                    if (onConfirm) onConfirm();
+                });
+            }
+        }
+
+        // EmailJS Integration (Placeholder)
+        if (typeof emailjs === 'undefined') {
+            window.emailjs = {
+                send: async (serviceId, templateId, templateParams) => {
+                    console.warn("EmailJS is not initialized. Cannot send email. Params:", templateParams);
+                    return new Promise(resolve => setTimeout(() => {
+                        console.log("Simulating email send for:", templateParams.to_email);
+                        resolve();
+                    }, 1000));
+                }
             };
         }
 
+        document.getElementById("send-invitations")?.addEventListener("click", () => {
+            showModal(
+                'Confirm Bulk Invitation',
+                `Are you sure you want to send invitations to all ${currentFilteredData.filter(u => u.quiz_status === 'Qualified').length} qualified users? This might take a while.`,
+                true,
+                async () => {
+                    const qualifiedUsers = currentFilteredData.filter(u => u.quiz_status === 'Qualified');
+                    if (qualifiedUsers.length === 0) {
+                        showModal('No Qualified Users', 'There are no qualified users to send invitations to.');
+                        return;
+                    }
 
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', () => {
+                    showModal('Sending Invitations', `Sending invitations to ${qualifiedUsers.length} qualified users. Please do not close this window.`, false);
+
+                    let sentCount = 0;
+                    let failedCount = 0;
+                    for (const user of qualifiedUsers) {
+                        try {
+                            await emailjs.send("service_awkl67c", "template_jbq1bxm", {
+                                to_email: user.email,
+                                name: user.name
+                            });
+                            sentCount++;
+                        } catch (error) {
+                            console.error(`Failed to send invitation to ${user.email}`, error);
+                            failedCount++;
+                        }
+                    }
+                    showModal('Invitation Batch Complete', `✅ Sent ${sentCount} invitations. ❌ Failed to send ${failedCount} invitations.`);
+                }
+            );
+        });
+
+        document.addEventListener("click", async (e) => {
+            if (e.target.closest(".send-invite-btn")) {
+                const btn = e.target.closest(".send-invite-btn");
+                const email = btn.getAttribute("data-email");
+                const name = btn.getAttribute("data-name");
+
+                const user = allQuizResults.find(u => u.email === email);
+
+                if (user && user.quiz_status === 'Qualified') {
+                    btn.disabled = true;
+                    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+
+                    try {
+                        await emailjs.send("service_awkl67c", "template_jbq1bxm", {
+                            to_email: email,
+                            name: name
+                        });
+                        showModal('Invitation Sent', `✅ Invitation sent to ${name}`);
+
+                    } catch (error) {
+                        console.error("Failed to send invitation", error);
+                        showModal('Invitation Failed', `❌ Failed to send to ${name}`);
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+                    }
+                } else {
+                    showModal('Cannot Send Invitation', `User ${name} is not qualified.`);
+                }
+            }
+        });
+
+        // Authentication Logic
+        auth.onAuthStateChanged(user => {
             const loginSection = document.getElementById('login-section');
             const adminPanel = document.getElementById('admin-panel');
-            const loginEmailInput = document.getElementById('login-email');
-            const loginPasswordInput = document.getElementById('login-password');
-            const loginErrorDiv = document.getElementById('login-error');
-            const loginButton = document.getElementById('login-button');
-            const logoutButton = document.getElementById('logout-button');
-            const refreshButton = document.getElementById('refresh-button');
-            const printButton = document.getElementById('print-button');
-            const exportCsvButton = document.getElementById('export-csv-button');
-            const deleteAllButton = document.getElementById('delete-all-button');
-            const searchInput = document.getElementById('search-input');
-            const searchButton = document.getElementById('search-button');
-            const sortBySelect = document.getElementById('sort-by-select');
-            const statusFilterSelect = document.getElementById('status-filter-select');
-            const prevPageButton = document.getElementById('prev-page-button');
-            const nextPageButton = document.getElementById('next-page-button');
-            const resultsPerPageSelect = document.getElementById('results-per-page-select');
-            const toggleChartButton = document.getElementById('toggle-chart-button');
-            const chartCollapsibleContent = document.getElementById('chart-collapsible-content');
-
-
-            // Authentication state observer
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    console.log("User logged in:", user.email);
-                    loginSection.style.display = 'none';
-                    adminPanel.style.display = 'block';
-                    // Initial load with current params
-                    const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
-                    fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
-                } else {
-                    console.log("User logged out.");
-                    loginSection.style.display = 'flex';
-                    adminPanel.style.display = 'none';
-                }
-            });
-
-            // Login functionality
-            loginButton.addEventListener('click', async () => {
-                const email = loginEmailInput.value.trim();
-                const password = loginPasswordInput.value.trim();
-                loginErrorDiv.style.display = 'none';
-
-                if (!email || !password) {
-                    loginErrorDiv.textContent = "Please enter both email and password.";
-                    loginErrorDiv.style.display = 'block';
-                    return;
-                }
-
-                try {
-                    loginButton.disabled = true;
-                    loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-
-                    await auth.signInWithEmailAndPassword(email, password);
-                } catch (error) {
-                    console.error("Login error:", error);
-                    let errorMessage = "Login failed. Please check your credentials.";
-                    
-                    switch (error.code) {
-                        case 'auth/user-not-found':
-                        case 'auth/wrong-password':
-                            errorMessage = "Invalid email or password.";
-                            break;
-                        case 'auth/invalid-email':
-                            errorMessage = "Invalid email format.";
-                            break;
-                        case 'auth/network-request-failed':
-                            errorMessage = "Network error. Check your internet connection.";
-                            break;
-                    }
-                    
-                    loginErrorDiv.textContent = errorMessage;
-                    loginErrorDiv.style.display = 'block';
-                } finally {
-                    loginButton.disabled = false;
-                    loginButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-                }
-            });
-
-            // Logout functionality
-            logoutButton.addEventListener('click', async () => {
-                try {
-                    await auth.signOut();
-                    allQuizResults = []; // Clear data on logout
-                    currentFilteredData = [];
-                    if (window.scoreChart) {
-                        window.scoreChart.destroy(); // Destroy chart on logout
-                        window.scoreChart = null;
-                    }
-                } catch (error) {
-                    console.error("Logout error:", error);
-                    // Replaced alert with custom modal
-                    showModal('Logout Failed', `Error logging out: ${error.message}`);
-                }
-            });
-
-            // Other event listeners
-            refreshButton.addEventListener('click', () => {
-                allQuizResults = []; // Force re-fetch on refresh
-                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
-                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
-            });
-
-            printButton.addEventListener('click', () => {
-                window.print();
-            });
-
-            exportCsvButton.addEventListener('click', () => {
-                exportToCsv(currentFilteredData);
-            });
-            
-            deleteAllButton.addEventListener('click', deleteAllQuizResults);
-
-            // Search, Sort, and Filter by Status events
-            searchButton.addEventListener('click', () => {
-                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
-                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
-            });
-
-            searchInput.addEventListener('keyup', (e) => {
-                if (e.key === 'Enter') {
-                    const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
-                    fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
-                } else if (searchInput.value.trim() === '' && (currentFilteredData.length !== allQuizResults.length || document.getElementById('status-filter-select').value !== 'All' || document.getElementById('sort-by-select').value !== 'timestamp-desc')) {
-                    // If search input is cleared AND other filters/sort are active, re-apply
-                    const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
-                    fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
-                }
-            });
-
-            sortBySelect.addEventListener('change', () => {
-                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
-                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
-            });
-
-            statusFilterSelect.addEventListener('change', () => {
-                const { searchTerm, sortBy, sortOrder, statusFilter } = getCurrentParams();
-                fetchAndProcessResults(searchTerm, sortBy, sortOrder, statusFilter);
-            });
-
-            // Pagination event listeners
-            prevPageButton.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderTablePage();
-                }
-            });
-
-            nextPageButton.addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderTablePage();
-                }
-            });
-
-            resultsPerPageSelect.addEventListener('change', () => {
-                resultsPerPage = parseInt(resultsPerPageSelect.value);
-                currentPage = 1; // Reset to first page
-                renderTablePage(); // Re-render with new items per page
-            });
-
-            // Chart Expand/Collapse functionality
-            toggleChartButton.addEventListener('click', () => {
-                const isExpanded = chartCollapsibleContent.classList.toggle('expanded');
-                if (isExpanded) {
-                    toggleChartButton.innerHTML = '<i class="fas fa-chevron-up"></i> Collapse Chart';
-                    renderScoreDistributionChart(currentFilteredData); // Re-render chart when expanded
-                } else {
-                    toggleChartButton.innerHTML = '<i class="fas fa-chevron-down"></i> Expand Chart';
-                    if (window.scoreChart) {
-                        window.scoreChart.destroy(); // Destroy chart when collapsed
-                        window.scoreChart = null;
-                    }
-                }
-            });
-
-
-            // Handle Enter key for login
-            loginPasswordInput.addEventListener('keypress', function(e) {
-                if (e.which === 13) {
-                    loginButton.click();
-                }
-            });
+            if (user) {
+                loginSection.style.display = 'none';
+                adminPanel.style.display = 'block';
+                fetchQuizResults();
+                setupTestStatusListener();
+            } else {
+                loginSection.style.display = 'flex';
+                adminPanel.style.display = 'none';
+            }
         });
+
+        document.getElementById('login-button')?.addEventListener('click', async () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginError = document.getElementById('login-error');
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                loginError.style.display = 'none';
+            } catch (error) {
+                loginError.textContent = error.message;
+                loginError.style.display = 'block';
+                console.error("Login Error:", error);
+            }
+        });
+
+        document.getElementById('logout-button')?.addEventListener('click', async () => {
+            try {
+                await auth.signOut();
+            } catch (error) {
+                console.error("Logout Error:", error);
+                alert("Error logging out. Please try again.");
+            }
+        });
+
+        // Test Status Management (NEW CODE)
+        const testStatusDocRef = db.collection('app_settings').doc('test_status');
+        const toggleTestStatusButton = document.getElementById('toggle-test-status-button');
+
+        async function updateTestStatusButton(status) {
+            const testStatusIndicator = document.getElementById('test-status-indicator');
+            
+            if (toggleTestStatusButton) {
+                if (status === 'paused') {
+                    toggleTestStatusButton.innerHTML = '<i class="fas fa-play-circle"></i> Resume Test';
+                    toggleTestStatusButton.classList.remove('btn-primary');
+                    toggleTestStatusButton.classList.add('btn-success');
+                } else {
+                    toggleTestStatusButton.innerHTML = '<i class="fas fa-pause-circle"></i> Pause Test';
+                    toggleTestStatusButton.classList.remove('btn-success');
+                    toggleTestStatusButton.classList.add('btn-primary');
+                }
+            }
+
+            if (testStatusIndicator) {
+                testStatusIndicator.className = `test-status-badge ${status}`;
+                if (status === 'paused') {
+                    testStatusIndicator.innerHTML = '<i class="fas fa-circle"></i> TEST PAUSED';
+                } else {
+                    testStatusIndicator.innerHTML = '<i class="fas fa-circle"></i> TEST ACTIVE';
+                }
+            }
+        }
+
+        async function fetchAndSetInitialTestStatus() {
+            try {
+                const doc = await testStatusDocRef.get();
+                let status = 'active';
+                if (doc.exists && doc.data().status) {
+                    status = doc.data().status;
+                } else {
+                    await testStatusDocRef.set({ status: 'active' });
+                }
+                updateTestStatusButton(status);
+            } catch (error) {
+                console.error("Error fetching initial test status:", error);
+                showModal('Error', 'Failed to load test status. Please refresh.');
+            }
+        }
+
+        function setupTestStatusListener() {
+            if (toggleTestStatusButton) {
+                testStatusDocRef.onSnapshot((doc) => {
+                    if (doc.exists && doc.data().status) {
+                        const newStatus = doc.data().status;
+                        updateTestStatusButton(newStatus);
+                    } else {
+                        updateTestStatusButton('active');
+                    }
+                }, (error) => {
+                    console.error("Error listening to test status changes:", error);
+                    showModal('Error', 'Failed to listen for test status updates.');
+                });
+
+                toggleTestStatusButton.addEventListener('click', async () => {
+                    try {
+                        const doc = await testStatusDocRef.get();
+                        let currentStatus = 'active';
+                        if (doc.exists && doc.data().status) {
+                            currentStatus = doc.data().status;
+                        }
+
+                        const newStatus = currentStatus === 'active' ? 'paused' : 'active';
+                        await testStatusDocRef.update({ status: newStatus });
+                        showModal('Test Status Updated', `Test is now ${newStatus}.`);
+                    } catch (error) {
+                        console.error("Error updating test status:", error);
+                        showModal('Error', 'Failed to update test status.');
+                    }
+                });
+            }
+        }
+
+        fetchAndSetInitialTestStatus();
     </script>
-
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  // Initialize EmailJS with your Public Key
-  emailjs.init("KU4KQRBITiPfUBiQr");
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const sendInvitationButton = document.getElementById("send-invitations");
-
-    sendInvitationButton.addEventListener("click", async () => {
-      // Custom confirmation dialog instead of alert
-      const confirmSend = await new Promise(resolve => {
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay'; 
-        modal.innerHTML = `
-          <div class="modal-content">
-            <h3>Confirm Action</h3>
-            <p>Are you sure you want to send invitations to ALL QUALIFIED users?</p>
-            <div class="modal-buttons">
-              <button id="confirmYes" class="btn-modern btn-primary px-6 py-2">Yes, Send</button>
-              <button id="confirmNo" class="btn-modern btn-outline px-6 py-2">Cancel</button>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(modal);
-        document.body.classList.add('modal-open'); // Prevent scrolling
-        setTimeout(() => modal.classList.add('modal-show'), 10); // Show modal with transition
-
-        document.getElementById('confirmYes').onclick = () => {
-          modal.classList.remove('modal-show'); // Hide modal with transition
-          setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
-          resolve(true);
-        };
-        document.getElementById('confirmNo').onclick = () => {
-          modal.classList.remove('modal-show'); // Hide modal with transition
-          setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
-          resolve(false);
-        };
-      });
-
-      if (!confirmSend) return;
-
-      sendInvitationButton.disabled = true;
-      sendInvitationButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending...`;
-
-      let sent = 0, failed = 0;
-
-      // Filter for qualified users before sending invitations
-      const qualifiedUsers = currentFilteredData.filter(user => user.quiz_status === 'Qualified');
-
-      if (qualifiedUsers.length === 0) {
-        // Custom alert for no qualified users
-        showModal('No Qualified Users', "No qualified users found to send invitations to.");
-        sendInvitationButton.disabled = false;
-        sendInvitationButton.innerHTML = `<i class="fas fa-envelope"></i> Send Invitation`;
-        return;
-      }
-
-      for (const user of qualifiedUsers) {
-        if (!user.name || !user.email) continue;
-
-        try {
-          await emailjs.send("service_awkl67c", "template_jbq1bxm", {
-            to_email: user.email,
-            name: user.name
-          });
-          sent++;
-        } catch (error) {
-          console.error(`Failed to send to ${user.email}`, error);
-          failed++;
-        }
-      }
-
-      // Custom alert for send results
-      showModal('Invitation Status', `✅ Invitations sent to qualified users: ${sent}<br>❌ Failed: ${failed}`);
-
-      sendInvitationButton.disabled = false;
-      sendInvitationButton.innerHTML = `<i class="fas fa-envelope"></i> Send Invitation`;
-    });
-  
-// Individual user invitation
-document.addEventListener("click", async (e) => {
-  if (e.target.closest(".send-invite-btn")) {
-    const btn = e.target.closest(".send-invite-btn");
-    const email = btn.getAttribute("data-email");
-    const name = btn.getAttribute("data-name");
-
-    // Find the user in the allQuizResults or currentFilteredData to check status
-    const user = allQuizResults.find(u => u.email === email);
-
-    if (user && user.quiz_status === 'Qualified') {
-        btn.disabled = true;
-        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-
-        try {
-          await emailjs.send("service_awkl67c", "template_jbq1bxm", {
-            to_email: email,
-            name: name
-          });
-          // Custom alert for success
-          showModal('Invitation Sent', `✅ Invitation sent to ${name}`);
-
-        } catch (error) {
-          console.error("Failed to send invitation", error);
-          // Custom alert for failure
-          showModal('Invitation Failed', `❌ Failed to send to ${name}`);
-        } finally {
-          btn.disabled = false;
-          btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
-        }
-    } else {
-        // Custom alert for not qualified
-        showModal('Cannot Send Invitation', `Invitation can only be sent to Qualified users. ${name} is not Qualified.`);
-    }
-  }
-});
-
-
-});
-</script>
 </body>
-
 </html>
+
