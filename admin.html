@@ -271,6 +271,34 @@
             font-size: 0.6rem;
         }
 
+        .test-page-badge {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            border: 1px solid;
+            cursor: pointer;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .test-page-badge:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .test-page-badge i {
+            font-size: 0.6rem;
+        }
+
         .btn-modern {
             border: none;
             padding: 0.875rem 1.75rem;
@@ -884,6 +912,9 @@
                     </div>
                     <div id="test-status-indicator" class="test-status-badge active">
                         <i class="fas fa-circle"></i> TEST ACTIVE
+                    </div>
+                    <div id="test-page-badge" class="test-page-badge">
+                        <i class="fas fa-external-link-alt"></i> TEST PAGE
                     </div>
                     <button id="logout-button" class="btn-modern btn-danger">
                         <i class="fas fa-sign-out-alt"></i>
@@ -1737,6 +1768,11 @@
         }
 
         fetchAndSetInitialTestStatus();
+
+        // Test Page Badge Click Handler
+        document.getElementById('test-page-badge')?.addEventListener('click', () => {
+            window.open('https://skillgatequiz.netlify.app/index.html', '_blank');
+        });
     </script>
 </body>
 </html>
