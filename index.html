@@ -3,101 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Notice: Test Window Closed</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Shehzad Hussain Premium-Level Skills Consultant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Modern CSS Variables */
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            --warning-gradient: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
-            --info-gradient: linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%);
-            --action-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --text-light: #718096;
-            --bg-primary: #f7fafc;
-            --bg-card: #ffffff;
-            --border-light: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.1);
-            
-            --border-radius: 16px;
-            --border-radius-sm: 8px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Reset and Base Styles */
+        /* CSS Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', 'Noto Sans Arabic', sans-serif;
-            line-height: 1.7;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
+        :root {
+            /* Color Palette */
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --accent-dark: #059669;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            /* Transitions */
+            --transition-fast: 150ms ease-in-out;
+            --transition-normal: 250ms ease-in-out;
+            --transition-slow: 350ms ease-in-out;
         }
 
-        /* Animated Background */
-        body::before {
+        /* Base Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: var(--spacing-md);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
             content: '';
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            opacity: 0.05;
-            z-index: -1;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Main Container */
-        .container {
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-xl);
-            max-width: 900px;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Header Section */
-        .header {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 40px;
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
             text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-xl);
             position: relative;
             overflow: hidden;
         }
 
-        .header::before {
+        header::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -105,520 +115,1820 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
+        header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
             font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            animation: slideInDown 0.8s ease-out;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
         }
 
-        .header p {
-            font-size: 1.2rem;
+        header p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
             opacity: 0.9;
-            font-weight: 300;
-            animation: slideInUp 0.8s ease-out 0.2s both;
+            position: relative;
+            z-index: 1;
         }
 
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Welcome Section */
+        #welcome-section {
+            padding: var(--spacing-2xl);
         }
 
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .welcome-message {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 1px solid #a7f3d0;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            position: relative;
         }
 
-        /* Main Content */
-        .main-content {
-            padding: 40px;
+        .welcome-message::before {
+            content: '🎯';
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            font-size: 1.5rem;
         }
 
-        .intro-text {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
+        .welcome-message p {
+            margin-bottom: var(--spacing-md);
+            color: #065f46;
+            font-weight: 500;
+        }
+
+        .welcome-message p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Important Notice */
+        .important-notice {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border-right: 4px solid #00acc1;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            color: #00695c;
+            font-weight: 600;
             text-align: right;
             direction: rtl;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            border-radius: var(--border-radius-sm);
-            border-right: 4px solid #667eea;
-            animation: fadeInRight 0.8s ease-out 0.4s both;
+            box-shadow: var(--shadow-sm);
         }
 
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .important-notice a {
+            color: #004d40;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color var(--transition-fast);
         }
 
-        /* Info Cards */
-        .info-cards {
-            display: grid;
-            gap: 20px;
-            margin-bottom: 30px;
+        .important-notice a:hover {
+            border-bottom-color: #004d40;
         }
 
-        .info-card {
-            background: var(--bg-card);
-            border-radius: var(--border-radius-sm);
-            padding: 25px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-light);
+        /* Instructions Section */
+        .instructions {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .instructions h2 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: var(--spacing-lg);
             display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            flex-direction: row-reverse;
-            transition: var(--transition);
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .instructions h2::before {
+            content: '📋';
+            font-size: 1.2em;
+        }
+
+        .instructions h3 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .instructions h4 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+        }
+
+        .highlight-fee {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            display: inline-block;
+            margin-bottom: var(--spacing-lg);
+            font-weight: 600;
+            border: 1px solid #fbbf24;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-xl);
+        }
+
+        ul li, ol li {
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        ol li strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Authentication Form */
+        .auth-form {
+            background: var(--secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .auth-form label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .auth-form input[type="text"],
+        .auth-form input[type="email"],
+        .auth-form input[type="password"] {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            transition: all var(--transition-normal);
+            background: var(--white);
+        }
+
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .auth-form input:disabled {
+            background: #f1f5f9;
+            color: var(--text-light);
+            cursor: not-allowed;
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: var(--spacing-sm);
+            display: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-sm);
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 0.8s ease-out both;
         }
 
-        .info-card:nth-child(1) { animation-delay: 0.6s; }
-        .info-card:nth-child(2) { animation-delay: 0.8s; }
-        .info-card:nth-child(3) { animation-delay: 1.0s; }
-        .info-card:nth-child(4) { animation-delay: 1.2s; }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .info-card::before {
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
-            width: 4px;
+            left: -100%;
+            width: 100%;
             height: 100%;
-            transition: var(--transition);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left var(--transition-slow);
         }
 
-        .info-card:hover {
-            transform: translateY(-5px);
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
         }
 
-        .info-card:hover::before {
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            background: var(--border-medium);
+            color: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-large {
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            font-size: 1.125rem;
+        }
+
+        /* Start Section */
+        .start-section {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            padding: var(--spacing-xl);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+        }
+
+        .start-section p {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .good-luck {
+            margin-top: var(--spacing-lg);
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* Quiz Section */
+        #quiz-section {
+            padding: var(--spacing-xl);
+            display: none;
+        }
+
+        #quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        #question-counter {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+
+        #timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--error);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border: 2px solid #fecaca;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        /* Timer specific styling */
+        #redirect-timer {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #d63031; /* A clear error/alert color */
+            background-color: #ffebee; /* Light background for visibility */
+            border: 1px solid #ef5350; /* Matching border */
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-top: 20px;
+            text-align: center;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #question-text {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xl);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 500;
+            padding: var(--spacing-lg);
+            background: var(--secondary);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Options */
+        .options-container {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .option {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
-            opacity: 0.05;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent);
+            transition: left var(--transition-slow);
         }
 
-        .info-card.success::before {
-            background: var(--success-gradient);
+        .option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
-        .info-card.action::before {
-            background: var(--action-gradient);
+        .option:hover::before {
+            left: 100%;
         }
 
-        .info-card.warning::before {
-            background: var(--warning-gradient);
+        .option input[type="radio"] {
+            margin-right: var(--spacing-md);
+            transform: scale(1.2);
+            cursor: pointer;
+            accent-color: var(--primary);
         }
 
-        .info-card.announcement::before {
-            background: var(--info-gradient);
+        .option label {
+            font-size: 1rem;
+            cursor: pointer;
+            flex-grow: 1;
+            font-weight: 500;
+            color: var(--text-primary);
         }
 
-        .info-icon {
+        /* Results Section */
+        #results-section {
+            display: none;
+            text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-xl);
+        }
+
+        .congratulations-card {
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            padding: var(--spacing-3xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .congratulations-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            animation: celebrate 3s ease-in-out infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
+
+        .congratulations-card h2 {
+            font-family: var(--font-heading);
+            color: var(--primary);
             font-size: 2rem;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            margin-bottom: var(--spacing-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            gap: var(--spacing-sm);
             position: relative;
-            transition: var(--transition);
+            z-index: 1;
         }
 
-        .info-card:hover .info-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .info-card.success .info-icon {
-            background: var(--success-gradient);
-            color: white;
-        }
-
-        .info-card.action .info-icon {
-            background: var(--action-gradient);
-            color: white;
-        }
-
-        .info-card.warning .info-icon {
-            background: var(--warning-gradient);
-            color: white;
-        }
-
-        .info-card.announcement .info-icon {
-            background: var(--info-gradient);
-            color: white;
-        }
-
-        .info-content {
-            flex: 1;
-            text-align: right;
-            direction: rtl;
-        }
-
-        .info-content p {
-            font-size: 1.1rem;
-            line-height: 1.6;
+        .congratulations-card p {
+            font-size: 1.125rem;
             color: var(--text-secondary);
-            margin: 0;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
         }
 
-        .info-content a {
-            color: #667eea;
-            text-decoration: none;
+        #score-display {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lock-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            color: var(--accent);
+            margin: var(--spacing-xl) 0;
             font-weight: 600;
             position: relative;
-            transition: var(--transition);
+            z-index: 1;
         }
 
-        .info-content a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-gradient);
-            transition: var(--transition);
-        }
-
-        .info-content a:hover::after {
-            width: 100%;
-        }
-
-        .info-content a:hover {
-            color: #764ba2;
-        }
-
-        /* Footer Section */
-        .footer {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            padding: 30px 40px;
-            text-align: center;
-            border-top: 1px solid var(--border-light);
-            direction: rtl;
-        }
-
-        .footer p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-        }
-
-        .footer a {
-            color: #667eea;
+        .join-button {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            font-size: 1.125rem;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
             text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 25px;
-            background: rgba(102, 126, 234, 0.1);
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .footer a:hover {
-            background: var(--primary-gradient);
-            color: white;
-            transform: translateY(-2px);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
             box-shadow: var(--shadow-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .join-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: var(--spacing-sm);
             }
-
-            .header {
-                padding: 30px 20px;
+            
+            .container {
+                border-radius: var(--radius-lg);
             }
-
-            .header h1 {
-                font-size: 2rem;
+            
+            header {
+                padding: var(--spacing-xl) var(--spacing-lg);
             }
-
-            .header p {
+            
+            #welcome-section {
+                padding: var(--spacing-lg);
+            }
+            
+            .auth-form {
+                padding: var(--spacing-lg);
+            }
+            
+            #quiz-header {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                text-align: center;
+            }
+            
+            #timer {
+                font-size: 1.25rem;
+                min-width: auto;
+            }
+            
+            #question-text {
+                font-size: 1.125rem;
+                padding: var(--spacing-md);
+            }
+            
+            .option {
+                padding: var(--spacing-md);
+            }
+            
+            .option label {
+                font-size: 0.9375rem;
+            }
+            
+            .btn-large {
+                padding: var(--spacing-md) var(--spacing-lg);
                 font-size: 1rem;
             }
-
-            .main-content {
-                padding: 30px 20px;
+            
+            .congratulations-card {
+                padding: var(--spacing-xl);
             }
-
-            .intro-text {
-                font-size: 1.1rem;
-                padding: 15px;
-            }
-
-            .info-card {
-                padding: 20px;
-                gap: 15px;
-            }
-
-            .info-icon {
-                width: 50px;
-                height: 50px;
+            
+            .congratulations-card h2 {
                 font-size: 1.5rem;
             }
-
-            .info-content p {
-                font-size: 1rem;
-            }
-
-            .footer {
-                padding: 25px 20px;
+            
+            #score-display {
+                font-size: 1.5rem;
             }
         }
 
         @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.8rem;
+            .auth-form input[type="text"],
+            .auth-form input[type="email"],
+            .auth-form input[type="password"] {
+                padding: var(--spacing-sm) var(--spacing-md);
             }
-
-            .intro-text {
-                font-size: 1rem;
+            
+            .btn {
+                padding: var(--spacing-sm) var(--spacing-lg);
+                font-size: 0.9375rem;
             }
-
-            .info-card {
-                padding: 15px;
-                gap: 12px;
+            
+            .option {
+                padding: var(--spacing-sm) var(--spacing-md);
             }
-
-            .info-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-
-            .info-content p {
-                font-size: 0.95rem;
+            
+            .option input[type="radio"] {
+                transform: scale(1);
+                margin-right: var(--spacing-sm);
             }
         }
 
         /* Loading Animation */
-        .container {
-            animation: containerLoad 1s ease-out;
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
         }
 
-        @keyframes containerLoad {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 {
+            margin-bottom: 0 !important;
+        }
+
+        .mt-lg {
+            margin-top: var(--spacing-lg);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Overlay for Announcement */
+        .announcement-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: rgba(102, 126, 234, 0.2);
-            z-index: 1000;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* High z-index to be on top */
+            backdrop-filter: blur(5px); /* Optional: blur background content */
+            padding: var(--spacing-md);
         }
 
-        .scroll-progress {
-            height: 100%;
-            background: var(--primary-gradient);
-            width: 0%;
-            transition: width 0.3s ease;
+        .announcement-card {
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            padding: var(--spacing-3xl);
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            z-index: 10000;
+            border: 2px solid var(--primary);
+            animation: popIn 0.5s ease-out forwards;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .announcement-card h2 {
+            font-family: var(--font-heading);
+            color: var(--primary-dark);
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .announcement-card p {
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.7;
+        }
+
+        .announcement-card strong {
+            color: var(--primary);
         }
     </style>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <div class="scroll-indicator">
-        <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="announcement-overlay">
+        <div class="announcement-card">
+            <h2>📢 Important Announcement:</h2>
+            <p>The SkillGate Online Test has been temporarily closed for maintenance and system review due to high traffic.</p>
+            <p><strong>⏳ We’re currently not accepting new entries or responses.</strong></p>
+            <p>📩 Please avoid sending messages regarding the test for now.</p>
+            <p><strong>📌 Updates regarding the next test window will be shared soon in the group.</strong></p>
+            <p style="margin-top: var(--spacing-xl); font-weight: 600; color: var(--accent);">Thanks for your patience and understanding!</p>
+        </div>
     </div>
 
     <div class="container">
-        <header class="header">
-            <div class="header-content">
-                <h1>🔔 Official Notice: First Batch Test Window Closed</h1>
-                <p>Important information regarding the Creative Batch 1 test results</p>
-            </div>
+        <header>
+            <h1>Shehzad Hussain Premium-Level Skills Consultant</h1>
+            <p>Welcome to Your Gateway to Digital Mastery</p>
+            <div id="redirect-timer" class="hidden">Time Left To Close This Test: Loading...</div>
         </header>
 
-        <main class="main-content">
-            <div class="intro-text">
-                تمام ميمبرن کي آگاهه ڪيو وڃي ٿو ته Creative Batch 1 لاءِ 48 ڪلاڪن وارو ٽيسٽ جو وقت هاڻي ختم ٿي چڪو آهي.
+        <div id="welcome-section">
+            <section class="welcome-message fade-in">
+                <p>We're excited to welcome you to a platform built exclusively for forward-thinkers and future creators.</p>
+                <p>This isn't just a simple test; this is your first step toward mastering global skills like YouTube Automation, Freelancing, AI Integration, Website Creation, and much more.</p>
+                <p>Here, your journey will be guided by real-world insights, expert mentorship, and hands-on practical training, all in a step-by-step format tailored for your growth.</p>
+            </section>
+
+            <div class="important-notice top-notice">
+                مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
             </div>
 
-            <div class="info-cards">
-                <div class="info-card success">
-                    <div class="info-icon">✅</div>
-                    <div class="info-content">
-                        <p>جيڪي اميدوار ڪاميابيءَ سان ٽيسٽ پاس ڪري چڪا آهن، انهن جي لسٽ اسان وٽ محفوظ ٿي چڪي آهي.</p>
-                    </div>
-                </div>
+            <section class="instructions">
+                <h2>Test Name: SkillGate – Pass To Get Entry</h2>
+                <h3>📝 Instructions: Participants - Qualification Round</h3>
+                <p class="highlight-fee"><strong>Test Fee: Absolutely Free of Cost</strong></p>
 
-                <div class="info-card action">
-                    <div class="info-icon">📤</div>
-                    <div class="info-content">
-                        <p>مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ واٽس ايپ <strong><a href="https://wa.me/923454839888" target="_blank">03454839888</a></strong> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.</p>
-                    </div>
-                </div>
+                <h4>Test Overview</h4>
+                <ul>
+                    <li><strong>Total Questions:</strong> 100</li>
+                    <li><strong>Time per Question:</strong> 40 seconds</li>
+                    <li><strong>Passing Score:</strong> Minimum 33 correct answers required to qualify</li>
+                </ul>
 
-                <div class="info-card warning">
-                    <div class="info-icon">❗</div>
-                    <div class="info-content">
-                        <p>ياد رکو: غلط يا جعلي اسڪور موڪلڻ سان توهان جو نالو مستقل طور تي اسان جي پليٽفارم تان هٽايو ويندو.</p>
-                    </div>
-                </div>
+                <h4>Important Guidelines</h4>
+                <ol>
+                    <li><strong>No Negative Marking</strong> – So attempt all questions.</li>
+                    <li>Once you select an option and click Submit, you cannot go back to change your answer.</li>
+                    <li>The next question will appear automatically after submission.</li>
+                    <li>Complete the entire test. At the end, make sure to Submit your test fully.</li>
+                    <li>The test is timed. Stay focused and choose your answers carefully.</li>
+                    <li>Only those who pass will be provided with a training schedule and added to the private premium training group.</li>
+                </ol>
+            </section>
 
-                <div class="info-card announcement">
-                    <div class="info-icon">📢</div>
-                    <div class="info-content">
-                        <p>نئون Batch جلد ئي اسان جي Facebook Group ۽ Shehzad Hussain ID تي اعلان ڪيو ويندو. مهرباني ڪري <a href="https://www.facebook.com/ShehzadHussainsahito" target="_blank">Follow ڪريو</a> ته جيئن وقت سر معلومات حاصل ڪري سگهو.</p>
+            <div class="auth-form">
+                <div class="form-group">
+                    <label for="entryPass">Entry Pass:</label>
+                    <input type="password" id="entryPass" placeholder="Enter your pass here" required>
+                    <div id="password-entry-error" class="error-message">Incorrect Entry Pass. Please try again.</div>
+                </div>
+                <button id="submitEntryPass" class="btn btn-primary">Submit Entry Pass</button>
+
+                <div id="user-details-section">
+                    <p style="margin: 2rem 0 1rem 0; font-weight: 600; color: var(--text-primary);">Now, please provide your details:</p>
+                    <div class="form-group">
+                        <label for="userName">Your Full Name:</label>
+                        <input type="text" id="userName" placeholder="e.g., Ali Khan" required disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Your Email:</label>
+                        <input type="email" id="userEmail" placeholder="e.g., yourname@example.com" required disabled>
+                        <div id="email-duplicate-error" class="error-message">This email has already been used for a quiz attempt. Please use a different email.</div>
                     </div>
                 </div>
             </div>
-        </main>
 
-        <footer class="footer">
-            <p>وڌيڪ معلومات لاءِ اسان جو WhatsApp گروپ جوائن ڪريو:</p>
-            <p>
-                <a href="https://chat.whatsapp.com/FRszyg86DUt7R9eN9IdLso" target="_blank">Join WhatsApp Group</a>
-            </p>
-        </footer>
+            <div class="start-section">
+                <p>Ready to Start?</p>
+                <button id="startButton" class="btn btn-primary btn-large" disabled>
+                    <span>Start Qualification Round</span>
+                </button>
+                <p class="good-luck">Best of luck — your skills future starts now!</p>
+            </div>
+        </div>
+
+        <div id="quiz-section">
+            <div id="quiz-header">
+                <div id="question-counter">Question 1 / 100</div>
+                <div id="timer">Time Left: 40</div>
+            </div>
+            <h3 id="question-text"></h3>
+            <div class="options-container" id="options-container"></div>
+            <button id="submitAnswerButton" class="btn btn-success btn-large">Submit Answer</button>
+        </div>
+
+        <div id="results-section"></div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        // Scroll Progress Indicator
-        window.addEventListener('scroll', () => {
-            const scrollProgress = document.getElementById('scrollProgress');
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercentage = (scrollTop / scrollHeight) * 100;
-            scrollProgress.style.width = scrollPercentage + '%';
-        });
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC55rgT41mwuf5y4q3P_Wi7zsLwO4RQAPQ",
+            authDomain: "skillget-quiz.firebaseapp.com",
+            projectId: "skillget-quiz",
+            storageBucket: "skillget-quiz.firebasestorage.app",
+            messagingSenderId: "222675456393",
+            appId: "1:222675456393:web:931fae081fa10829d4d158"
+        };
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        console.log("Firebase App and Firestore initialized successfully.");
 
-        // Add loading class removal after page load
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-        });
-
-        // Enhanced hover effects for cards
-        document.querySelectorAll('.info-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Add ripple effect to clickable elements
-        function createRipple(event) {
-            const button = event.currentTarget;
-            const circle = document.createElement('span');
-            const diameter = Math.max(button.clientWidth, button.clientHeight);
-            const radius = diameter / 2;
-
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-            circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
-            circle.classList.add('ripple');
-
-            const ripple = button.getElementsByClassName('ripple')[0];
-            if (ripple) {
-                ripple.remove();
+        const questions = [
+            {
+                question: "Which platform allows you to buy and sell pre-built scripts or templates for websites and apps?",
+                options: ["Fiverr", "Canva", "CodeCanyon", "TikTok"],
+                answer: 2
+            },
+            {
+                question: "In YouTube Automation, what is typically outsourced?",
+                options: ["Only video uploading", "Scripting, voice-over, video editing, and thumbnails", "Liking and commenting", "Just watching videos"],
+                answer: 1
+            },
+            {
+                question: "What is the purpose of 'AI Voice Tools' in content creation?",
+                options: ["To create thumbnails", "To generate voice-overs without recording your own voice", "To write descriptions only", "To upload files"],
+                answer: 1
+            },
+            {
+                question: "What is the use of platforms like Pictory or HeyGen in YouTube Automation?",
+                options: ["Making logos", "Watching movies", "Creating AI-generated videos from text", "Selling products"],
+                answer: 2
+            },
+            {
+                question: "Why do many freelancers use platforms like Upwork or Fiverr?",
+                options: ["To watch courses", "To invest money", "To offer services and earn online", "To play games"],
+                answer: 2
+            },
+            {
+                question: "In Social Media Marketing (SMM), what does a 'Facebook Ad Campaign' help with?",
+                options: ["Increasing followers only", "Promoting products/services to targeted audience", "Creating memes", "Sending emails"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is commonly used to create websites without coding?",
+                options: ["MS Word", "Facebook", "WordPress or CodeCanyon templates", "CapCut"],
+                answer: 2
+            },
+            {
+                question: "What is the purpose of 'Monetization' in YouTube?",
+                options: ["Getting views", "Subscribing to other channels", "Earning money through ads and views", "Creating playlists"],
+                answer: 2
+            },
+            {
+                question: "What does a YouTube Thumbnail do?",
+                options: ["Add background music", "Attract viewers to click the video", "Increase subscribers", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "What is the benefit of using AI tools like ChatGPT in digital content creation?",
+                options: ["Editing raw footage", "Posting directly to YouTube", "Writing scripts, generating ideas, and content", "Playing videos"],
+                answer: 2
+            },
+            {
+                question: "What is required for a YouTube channel to apply for monetization via AdSense?",
+                options: ["500 subscribers & 500 views", "1000 subscribers & 4000 watch hours", "10000 subscribers only", "Just a Gmail account"],
+                answer: 1
+            },
+            {
+                question: "Which of these tools can help automate video editing for faceless YouTube channels?",
+                options: ["Adobe Illustrator", "CapCut", "Pictory", "Canva"],
+                answer: 2
+            },
+            {
+                question: "What does 'RPM' stand for in YouTube Analytics?",
+                options: ["Revenue Per Month", "Revenue Per Mille", "Rate Per Monetization", "Reach Performance Measure"],
+                answer: 1
+            },
+            {
+                question: "Which platform is best for finding stock footage for YouTube videos?",
+                options: ["Upwork", "Pixabay", "Fiverr", "Facebook"],
+                answer: 1
+            },
+            {
+                question: "Which one is a good method for earning on YouTube without showing your face?",
+                options: ["Vlogging", "Faceless automation videos", "Daily live streaming", "Reaction videos"],
+                answer: 1
+            },
+            {
+                question: "What is the function of 'YouTube Studio'?",
+                options: ["Upload movies", "Manage video content & analytics", "Edit thumbnails only", "Live video only"],
+                answer: 1
+            },
+            {
+                question: "YouTube Shorts can also be monetized after completing how many views in 90 days?",
+                options: ["10K", "100K", "1M", "5M"],
+                answer: 2
+            },
+            {
+                question: "Which AI tool is helpful for converting text to realistic voiceovers?",
+                options: ["Grammarly", "ElevenLabs", "Zoom", "MetaMask"],
+                answer: 1
+            },
+            {
+                question: "What type of content violates YouTube's monetization policy?",
+                options: ["Educational content", "Duplicate or reused content without commentary", "Original animations", "Gaming videos"],
+                answer: 1
+            },
+            {
+                question: "What should every monetized YouTube channel connect to receive earnings?",
+                options: ["Instagram", "AdSense account", "PayPal", "Google Docs"],
+                answer: 1
+            },
+            {
+                question: "What is WordPress commonly used for?",
+                options: ["Watching movies", "Coding websites", "Building websites without coding", "Designing logos"],
+                answer: 2
+            },
+            {
+                question: "In freelancing, which platform is best known for gigs and services?",
+                options: ["Codecanyon", "Fiverr", "Google", "Behance"],
+                answer: 1
+            },
+            {
+                question: "What is the primary function of ChatGPT?",
+                options: ["Creating animations", "Answering questions and generating content", "Playing music", "Editing videos"],
+                answer: 1
+            },
+            {
+                question: "What kind of websites can you buy from Codecanyon?",
+                options: ["Blogging tools", "Business card templates", "Ready-made script-based websites", "Hosting platforms"],
+                answer: 2
+            },
+            {
+                question: "What does SEO help improve?",
+                options: ["Image quality", "Website loading speed", "Search engine ranking", "Color contrast"],
+                answer: 2
+            },
+            {
+                question: "What is a 'niche' in online business or YouTube?",
+                options: ["A camera setting", "A topic-focused category", "A type of product", "A video filter"],
+                answer: 1
+            },
+            {
+                question: "Which tool helps you design without needing graphic design skills?",
+                options: ["Adobe Premiere", "Canva", "YouTube Studio", "Blender"],
+                answer: 1
+            },
+            {
+                question: "What is the benefit of using a premade script from Codecanyon?",
+                options: ["Saves time & no need to code", "Slows down performance", "Increases errors", "Only for mobile"],
+                answer: 0
+            },
+            {
+                question: "What feature does YouTube Studio provide to check video performance?",
+                options: ["Analytics", "Live comments", "Likes", "Sharing tools"],
+                answer: 0
+            },
+            {
+                question: "What is the purpose of the YouTube Content ID system?",
+                options: ["Promote channels", "Detect copyrighted content", "Create subtitles", "Automate uploads"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is best for making AI-generated story videos?",
+                options: ["MS Word", "Pictory", "VLC Player", "Zoom"],
+                answer: 1
+            },
+            {
+                question: "In YouTube monetization, what is the minimum watch time required in the last 12 months?",
+                options: ["1,000 hours", "2,000 hours", "4,000 hours", "10,000 hours"],
+                answer: 2
+            },
+            {
+                question: "What's the use of the tool 'Tome' or 'Beautiful.ai'?",
+                options: ["Video editing", "Presentation creation using AI", "Logo design", "Translation"],
+                answer: 1
+            },
+            {
+                question: "What is the first step when building a no-code website?",
+                options: ["Hire a developer", "Buy a domain", "Write PHP code", "Use Adobe Photoshop"],
+                answer: 1
+            },
+            {
+                question: "In freelancing, why is Upwork famous?",
+                options: ["Free blogging", "Selling videos", "Offering project-based jobs", "Buying software"],
+                answer: 2
+            },
+            {
+                question: "Which monetization method is commonly used with blog websites?",
+                options: ["YouTube Ads", "Google AdSense", "Facebook Pages", "Fiverr"],
+                answer: 1
+            },
+            {
+                question: "What kind of app can you easily launch using Codecanyon scripts?",
+                options: ["E-commerce app", "WhatsApp", "Gmail", "Snapchat"],
+                answer: 0
+            },
+            {
+                question: "What is 'Keyword Research' mainly used for?",
+                options: ["Choosing font styles", "Editing images", "Finding trending search terms", "Compressing files"],
+                answer: 2
+            },
+            {
+                question: "In YouTube Automation, what is used for voiceovers if you don't record your own voice?",
+                options: ["Manual typing", "AI voice generator", "Adobe Reader", "Google Drive"],
+                answer: 1
+            },
+            {
+                question: "What does an Affiliate Link do?",
+                options: ["Redirects to Google", "Gives commission on product sales", "Downloads images", "Uploads videos"],
+                answer: 1
+            },
+            {
+                question: "What is the main purpose of YouTube Shorts?",
+                options: ["Long videos", "Quick entertainment or information in under 60 seconds", "File sharing", "Video downloads"],
+                answer: 1
+            },
+            {
+                question: "What helps improve video ranking on YouTube?",
+                options: ["Uploading without title", "Ignoring thumbnails", "Using relevant titles, descriptions, and tags", "Posting once a year"],
+                answer: 2
+            },
+            {
+                question: "What is the role of 'Watch Time' on YouTube?",
+                options: ["It helps increase mobile data", "It helps boost channel monetization eligibility", "It slows video speed", "It adds subtitles"],
+                answer: 1
+            },
+            {
+                question: "What is passive income?",
+                options: ["Income from daily job", "Income that stops when you sleep", "Income that continues even when you're not working", "Cash in hand"],
+                answer: 2
+            },
+            {
+                question: "What is the benefit of digital skills in 2025?",
+                options: ["Only for fun", "Global income opportunities", "Only for developers", "It replaces books"],
+                answer: 1
+            },
+            {
+                question: "Which is more valuable in freelancing?",
+                options: ["Personal interest only", "Strong digital skills and communication", "Timepass work", "Ignoring client needs"],
+                answer: 1
+            },
+            {
+                question: "What do you need to create an online business?",
+                options: ["Just friends", "Strategy, product, and platform", "A land plot", "A smartphone only"],
+                answer: 1
+            },
+            {
+                question: "What's the benefit of learning no-code development?",
+                options: ["You can create apps without programming knowledge", "Only coders can do it", "It's only for students", "It's outdated"],
+                answer: 0
+            },
+            {
+                question: "Why do people use email marketing?",
+                options: ["For spam", "To sell unused items", "To build customer relationships and grow business", "To reset passwords"],
+                answer: 2
+            },
+            {
+                question: "What is the benefit of uploading consistent content online?",
+                options: ["It confuses the audience", "It helps grow trust and visibility", "It reduces views", "It hides your channel"],
+                answer: 1
+            },
+            {
+                question: "What is the main benefit of learning YouTube Automation?",
+                options: [
+                    "Avoid learning anything",
+                    "Earn without showing your face",
+                    "Just for watching videos",
+                    "Build a private channel"
+                ],
+                answer: 1
+            },
+            {
+                question: "What does 'Monetization' mean on YouTube?",
+                options: [
+                    "Deleting old videos",
+                    "Getting paid for your video content",
+                    "Making playlists only",
+                    "Posting stories"
+                ],
+                answer: 1
+            },
+            {
+                question: "Why is niche selection important in content creation?",
+                options: [
+                    "Helps target the right audience",
+                    "Makes your name popular",
+                    "Reduces workload",
+                    "Increases editing"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is a 'thumbnail' in a YouTube video?",
+                options: [
+                    "A short description",
+                    "A clickable image preview",
+                    "A type of ad",
+                    "A comment section"
+                ],
+                answer: 1
+            },
+            {
+                question: "What increases trust in a freelancing profile?",
+                options: [
+                    "Copying others' work",
+                    "Irregular responses",
+                    "Good reviews and project samples",
+                    "Long paragraphs"
+                ],
+                answer: 2
+            },
+            {
+                question: "What is one major benefit of working online?",
+                options: [
+                    "High fuel cost",
+                    "Freedom to work from anywhere",
+                    "Need to relocate",
+                    "Daily office commute"
+                ],
+                answer: 1
+            },
+            {
+                question: "What do most successful online earners focus on?",
+                options: [
+                    "Watching random content",
+                    "Learning and applying skills",
+                    "Playing games only",
+                    "Chatting online"
+                ],
+                answer: 1
+            },
+            {
+                question: "What should you do before starting a YouTube channel?",
+                options: [
+                    "Buy ads",
+                    "Pick a clear content topic/niche",
+                    "Post 10 videos blindly",
+                    "Avoid descriptions"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is the importance of consistency in online work?",
+                options: [
+                    "Builds long-term growth",
+                    "Confuses the algorithm",
+                    "Stops monetization",
+                    "Lowers confidence"
+                ],
+                answer: 0
+            },
+            {
+                question: "How do digital skills affect your career?",
+                options: [
+                    "No effect",
+                    "Delay job search",
+                    "Open more income opportunities",
+                    "Make studying harder"
+                ],
+                answer: 2
+            },
+            {
+                question: "What is the most important element of building an online income stream?",
+                options: [
+                    "Waiting for luck",
+                    "Learning valuable skills",
+                    "Just watching videos",
+                    "Sharing memes"
+                ],
+                answer: 1
+            },
+            {
+                question: "Which type of video is more likely to get monetized on YouTube?",
+                options: [
+                    "Copied content",
+                    "Original content with good watch time",
+                    "Private videos only",
+                    "Silent slideshows"
+                ],
+                answer: 1
+            },
+            {
+                question: "What should be your first step before freelancing?",
+                options: [
+                    "Create a strong profile",
+                    "Post memes",
+                    "Comment on others' gigs",
+                    "Buy expensive tools"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does 'engagement' mean in social media marketing?",
+                options: [
+                    "Sending emails",
+                    "Posting once a month",
+                    "Interaction through likes, shares, and comments",
+                    "Watching videos"
+                ],
+                answer: 2
+            },
+            {
+                question: "Which statement is true about online skills?",
+                options: [
+                    "They are only for IT professionals",
+                    "Anyone with basic learning ability can learn them",
+                    "Only experts benefit from them",
+                    "Too difficult to start"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is an online portfolio used for?",
+                options: [
+                    "Playing music",
+                    "Showcasing your work samples",
+                    "Posting quotes",
+                    "Watching ads"
+                ],
+                answer: 1
+            },
+            {
+                question: "Why is it important to write a clear video title on YouTube?",
+                options: [
+                    "It improves visibility and searchability",
+                    "It helps confuse viewers",
+                    "It hides the content",
+                    "It's not important"
+                ],
+                answer: 0
+            },
+            {
+                question: "What makes a client trust you more on freelancing platforms?",
+                options: [
+                    "Fast replies, clear communication, and honesty",
+                    "Ignoring messages",
+                    "Copy-paste proposals",
+                    "No display picture"
+                ],
+                answer: 0
+            },
+            {
+                question: "How does online learning benefit your long-term career?",
+                options: [
+                    "It adds flexible income options",
+                    "It replaces all books",
+                    "It ends studies",
+                    "No real benefit"
+                ],
+                answer: 0
+            },
+            {
+                question: "What's a smart way to stay ahead in the digital world?",
+                options: [
+                    "Rely only on social media",
+                    "Keep learning new tools and strategies",
+                    "Avoid change",
+                    "Use old methods forever"
+                ],
+                answer: 1
+            },
+            {
+                question: "What makes your content grow on any platform?",
+                options: [
+                    "Consistency and quality",
+                    "Posting once a year",
+                    "Buying likes",
+                    "Ignoring feedback"
+                ],
+                answer: 0
+            },
+            {
+                question: "What's the purpose of a call-to-action (CTA) in a video or post?",
+                options: [
+                    "To tell users what to do next",
+                    "To confuse the audience",
+                    "To remove interest",
+                    "To waste time"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the benefit of learning digital business skills early?",
+                options: [
+                    "Early start means faster growth",
+                    "It slows down progress",
+                    "It wastes effort",
+                    "It requires no learning"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which is more valuable when working online?",
+                options: [
+                    "Having 100 tools",
+                    "Mastering one useful skill",
+                    "Copying others",
+                    "Changing paths daily"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is the benefit of storytelling in videos?",
+                options: [
+                    "It builds connection and keeps attention",
+                    "It makes people leave",
+                    "It's useless",
+                    "It only works in books"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why do many people fail in freelancing?",
+                options: [
+                    "Lack of skills and patience",
+                    "Too much effort",
+                    "Sites don't work",
+                    "Luck issues"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which mindset is most helpful in the digital world?",
+                options: [
+                    "Open to learn and test",
+                    "Afraid to fail",
+                    "Waiting for help",
+                    "Blaming others"
+                ],
+                answer: 0
+            },
+            {
+                question: "How can you make your digital service stand out?",
+                options: [
+                    "Offer quality with clarity",
+                    "Use random titles",
+                    "Avoid communication",
+                    "Say 'yes' to everything"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does 'watch time' mean on YouTube?",
+                options: [
+                    "How long people watch your videos",
+                    "How many times you check YouTube",
+                    "Your upload time",
+                    "Video length only"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is one benefit of learning skills through structured training?",
+                options: [
+                    "Step-by-step clarity and faster results",
+                    "Confusion",
+                    "Delayed learning",
+                    "Free trials only"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the first step before starting a YouTube channel?",
+                options: [
+                    "Identifying niche and audience",
+                    "Uploading random videos",
+                    "Copying trending creators",
+                    "Ignoring branding"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does a good video thumbnail do?",
+                options: [
+                    "Attracts viewers to click",
+                    "Hides the real topic",
+                    "Makes video boring",
+                    "Replaces video editing"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why is content planning important in online work?",
+                options: [
+                    "It saves time and keeps strategy focused",
+                    "It wastes effort",
+                    "It slows growth",
+                    "It's optional only for experts"
+                ],
+                answer: 0
+            },
+            {
+                question: "In freelancing, what does 'niche clarity' mean?",
+                options: [
+                    "Knowing your specific skill and target market",
+                    "Trying every type of work",
+                    "Avoiding specialization",
+                    "Leaving profile empty"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which is better for growth in digital business?",
+                options: [
+                    "Learning one skill deeply",
+                    "Watching random tutorials",
+                    "Switching platforms daily",
+                    "No action"
+                ],
+                answer: 0
+            },
+            {
+                question: "What builds client trust online?",
+                options: [
+                    "Quality, communication & delivery",
+                    "Fake reviews",
+                    "Ignoring feedback",
+                    "Asking for money first"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is YouTube monetization?",
+                options: [
+                    "Earning money from your video content",
+                    "Watching other videos",
+                    "Subscribing to channels",
+                    "Sharing links only"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is an online portfolio used for?",
+                options: [
+                    "Showcasing your work to clients",
+                    "Hiding your skills",
+                    "Wasting time",
+                    "Only for big companies"
+                ],
+                answer: 0
+            },
+            {
+                question: "What makes digital skills powerful?",
+                options: [
+                    "Can be used globally with low cost",
+                    "Only work offline",
+                    "Need big investment",
+                    "Take years to learn"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does consistency mean in digital growth?",
+                options: [
+                    "Showing up regularly with effort",
+                    "Posting once a month",
+                    "Depending on luck",
+                    "Ignoring feedback"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the key to building a strong personal brand online?",
+                options: [
+                    "Trust, consistency, and authenticity",
+                    "Posting without strategy",
+                    "Copying others",
+                    "Avoiding interaction"
+                ],
+                answer: 0
+            },
+            {
+                question: "How can you attract long-term freelance clients?",
+                options: [
+                    "Deliver quality work on time",
+                    "Offer lowest prices always",
+                    "Delay responses",
+                    "Use copied samples"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the benefit of story-based videos on YouTube?",
+                options: [
+                    "Increase retention and viewer engagement",
+                    "They waste time",
+                    "They confuse audience",
+                    "Only work for movies"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why is learning automation important today?",
+                options: [
+                    "Saves time and increases output",
+                    "Makes work harder",
+                    "Has no future",
+                    "Only for coders"
+                ],
+                answer: 0
+            },
+            {
+                question: "What mindset helps you succeed in digital business?",
+                options: [
+                    "Growth, patience & practice",
+                    "Fear and quick results",
+                    "Complaining",
+                    "Waiting for others"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does real skill-building require?",
+                options: [
+                    "Focus, regular practice, and right guidance",
+                    "Just watching YouTube",
+                    "Changing tools daily",
+                    "Skipping basics"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why is English understanding helpful in tech learning?",
+                options: [
+                    "Most tools and resources are in English",
+                    "Not useful at all",
+                    "Only for grammar",
+                    "Avoided in freelancing"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the biggest mistake in freelancing?",
+                options: [
+                    "Starting without clarity or skill",
+                    "Learning before working",
+                    "Updating profile",
+                    "Using samples"
+                ],
+                answer: 0
+            },
+            {
+                question: "What makes your YouTube channel grow faster?",
+                options: [
+                    "Quality content and consistent uploads",
+                    "Sub4Sub",
+                    "Random titles",
+                    "No niche"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why are global skills necessary in today's economy?",
+                options: [
+                    "They help you earn from anywhere",
+                    "Only for students",
+                    "Need local offices",
+                    "Limited to one field"
+                ],
+                answer: 0
             }
+        ];
 
-            button.appendChild(circle);
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timerInterval;
+        const timePerQuestion = 40;
+        const passingScore = 33;
+        let userName = "";
+        let userEmail = "";
+        const correctEntryPass = "SkillGate";
+
+        // Define the target date for redirection
+        const targetDate = new Date("July 11, 2025 17:30:00 GMT+0500"); // Friday, July 11, 2025, 5:30 PM PKT (GMT+5)
+
+        // IMMEDIATE REDIRECTION CHECK ON PAGE LOAD
+        // This ensures index.html always redirects to index2.html if the time is past the deadline
+        if (new Date() >= targetDate) {
+            window.location.replace("index2.html"); // Using replace to prevent back button
         }
 
-        // Apply ripple effect to buttons and links
-        document.querySelectorAll('a, .info-card').forEach(element => {
-            element.addEventListener('click', createRipple);
+        $(document).ready(function() {
+            // Initialize form state
+            $('#userName').prop('disabled', true);
+            $('#userEmail').prop('disabled', true);
+            $('#startButton').prop('disabled', true);
+
+            // Event listeners
+            $('#submitEntryPass').on('click', checkEntryPass);
+            $('#entryPass').on('keypress', function(e) {
+                if (e.which === 13) checkEntryPass();
+            });
+            $('#startButton').on('click', startQuizHandler);
+            $('#submitAnswerButton').on('click', handleAnswerSubmission);
+
+            // Update countdown timer for display
+            // updateRedirectCountdown(); // No longer calling this as the timer div is hidden
+            // setInterval(updateRedirectCountdown, 1000); // No longer calling this as the timer div is hidden
         });
 
-        // Add CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background-color: rgba(255, 255, 255, 0.6);
-                transform: scale(0);
-                animation: ripple-animation 0.6s linear;
-                pointer-events: none;
+        function updateRedirectCountdown() {
+            const now = new Date();
+            const timeLeft = targetDate - now;
+
+            const redirectTimerElement = document.getElementById('redirect-timer');
+
+            if (timeLeft <= 0) {
+                redirectTimerElement.textContent = "Test window closed. Redirecting...";
+                window.location.replace("index2.html"); // Redirect to index2.html
+                return;
             }
 
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
+            // This part of the function will no longer execute visually if the element has display: none
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Updated text as per user's request
+            redirectTimerElement.textContent = `Time Left To Close This Test: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function checkEntryPass() {
+            const enteredPass = $('#entryPass').val().trim();
+            if (enteredPass === correctEntryPass) {
+                $('#entryPass').prop('disabled', true);
+                $('#submitEntryPass').hide();
+                $('#password-entry-error').removeClass('show');
+
+                // Enable user info fields
+                $('#userName').prop('disabled', false).focus();
+                $('#userEmail').prop('disabled', false);
+                $('#startButton').prop('disabled', false);
+            } else {
+                $('#password-entry-error').addClass('show');
+                $('#entryPass').val('').focus();
             }
-        `;
-        document.head.appendChild(style);
+        }
+
+        async function startQuizHandler() {
+            $('#email-duplicate-error').removeClass('show');
+
+            userName = $('#userName').val().trim();
+            userEmail = $('#userEmail').val().trim();
+
+            if (!userName || !userEmail) {
+                alert("Please enter your Name and Email to start the quiz.");
+                return;
+            }
+
+            if (!isValidEmail(userEmail)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            try {
+                const querySnapshot = await db.collection("quiz_results")
+                                              .where("email", "==", userEmail)
+                                              .get();
+
+                if (!querySnapshot.empty) {
+                    $('#email-duplicate-error').addClass('show');
+                    $('#userEmail').focus();
+                    return;
+                }
+            } catch (error) {
+                console.error("Error checking for duplicate email:", error);
+                alert("An error occurred while validating your email. Please try again later.");
+                return;
+            }
+
+            // Start quiz
+            $('#welcome-section').hide();
+            $('#quiz-section').show();
+            startQuiz();
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            clearInterval(timerInterval);
+            if (currentQuestionIndex < questions.length) {
+                const q = questions[currentQuestionIndex];
+                $('#question-counter').text(`Question ${currentQuestionIndex + 1} / ${questions.length}`);
+                $('#question-text').text(q.question);
+                $('#options-container').empty();
+
+                q.options.forEach((option, index) => {
+                    const optionHtml = `
+                        <div class="option">
+                            <input type="radio" id="option${index}" name="answer" value="${index}">
+                            <label for="option${index}">${option}</label>
+                        </div>
+                    `;
+                    $('#options-container').append(optionHtml);
+                });
+
+                startTimer();
+                $('#submitAnswerButton').prop('disabled', false);
+            } else {
+                showResults();
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = timePerQuestion;
+            $('#timer').text(`Time Left: ${timeLeft}`);
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                $('#timer').text(`Time Left: ${timeLeft}`);
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleAnswerSubmission();
+                }
+            }, 1000);
+        }
+
+        function handleAnswerSubmission() {
+            clearInterval(timerInterval);
+
+            const selectedOption = $('input[name="answer"]:checked').val();
+            const currentQuestion = questions[currentQuestionIndex];
+
+            if (selectedOption !== undefined && parseInt(selectedOption) === currentQuestion.answer) {
+                score++;
+            }
+
+            $('#submitAnswerButton').prop('disabled', true);
+            currentQuestionIndex++;
+            
+            setTimeout(() => {
+                displayQuestion();
+            }, 500);
+        }
+
+        function showResults() {
+            $('#quiz-section').hide();
+            const resultsSection = $('#results-section');
+            resultsSection.show();
+
+            const quizStatus = score >= passingScore ? 'Qualified' : 'Not Qualified';
+
+            if (quizStatus === 'Qualified') {
+                resultsSection.html(`
+                    <div class="congratulations-card fade-in">
+                        <h2>
+                            🎉 Congratulations!
+                        </h2>
+                        <p id="score-display">Your Score: <span id="final-score">${score}</span> / 100</p>
+                        <p>You have successfully passed the test.</p>
+                        <div class="lock-message">🔒 You are now eligible to join our</div>
+                        <p style="font-size: 1.2em; color: var(--accent); margin-top: -15px; margin-bottom: 25px; font-weight: bold;">Premium-Level-Skills WhatsApp Group.</p>
+                        <a href="https://chat.whatsapp.com/Il9CC2RtLoI1ZJEQozxbuP" class="join-button">
+                            👉 Join the Group
+                        </a>
+                    </div>
+                `);
+            } else {
+                resultsSection.html(`
+                    <div class="congratulations-card fade-in">
+                        <h2 style="color: var(--error);">Test Completed!</h2>
+                        <p id="score-display" style="color: var(--error);">Your Score: <span id="final-score">${score}</span> / 100</p>
+                        <p style="color: var(--error); font-weight: 600;">Unfortunately, you did not qualify.</p>
+                        <div class="important-notice" style="margin-top: 2rem;">
+                            مهرباني ڪري پنهنجو اسڪور وارو اسڪرين شاٽ <a href="https://wa.me/923454839888" target="_blank">واٽس ايپ 03454839888</a> تي موڪليو، جيئن تصديق کانپوءِ اوهان کي Premium-Level Training Group ۾ شامل ڪيو وڃي.
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Save to Firebase
+            db.collection("quiz_results").add({
+                name: userName,
+                email: userEmail,
+                score: score,
+                quiz_status: quizStatus,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+                alert("There was an error saving your results. Please try again.");
+            });
+        }
     </script>
 </body>
 </html>
-
