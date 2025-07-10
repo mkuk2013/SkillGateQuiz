@@ -944,7 +944,12 @@
                             <i class="fas fa-file-csv"></i>
                             Export CSV
                         </button>
-                        <button id="delete-all-button" class="btn-modern btn-danger">
+                        
+    <button id="send-invitations" class="btn-modern btn-warning">
+      <i class="fas fa-envelope"></i> Send Invitation
+    </button>
+    <button id="delete-all-button" class="btn-modern btn-danger">
+    
                             <i class="fas fa-trash-alt"></i>
                             Delete All
                         </button>
@@ -986,6 +991,7 @@
                                 <th>Score</th>
                                 <th>Status</th>
                                 <th>Date</th>
+<th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="results-table-body">
@@ -1160,6 +1166,14 @@
                         cell.textContent = value;
                     }
                 });
+
+                
+                const actionCell = row.insertCell();
+                actionCell.setAttribute('data-label', 'Action');
+                actionCell.innerHTML = `
+                <button class="btn-modern btn-info btn-sm send-invite-btn" data-email="${data.email}" data-name="${data.name}">
+                    <i class="fas fa-paper-plane"></i>
+                </button>`;
 
                 counter++;
             });
@@ -1661,5 +1675,72 @@
             });
         });
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  // Initialize EmailJS with your Public Key
+  emailjs.init("KU4KQRBITiPfUBiQr");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const sendInvitationButton = document.getElementById("send-invitations");
+
+    sendInvitationButton.addEventListener("click", async () => {
+      if (!confirm("Are you sure you want to send invitations to all users?")) return;
+
+      sendInvitationButton.disabled = true;
+      sendInvitationButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending...`;
+
+      let sent = 0, failed = 0;
+
+      for (const user of currentFilteredData) {
+        if (!user.name || !user.email) continue;
+
+        try {
+          await emailjs.send("service_awkl67c", "template_jbq1bxm", {
+            to_email: user.email,
+            name: user.name
+          });
+          sent++;
+        } catch (error) {
+          console.error(`Failed to send to ${user.email}`, error);
+          failed++;
+        }
+      }
+
+      alert(`✅ Invitations sent: ${sent}\n❌ Failed: ${failed}`);
+      sendInvitationButton.disabled = false;
+      sendInvitationButton.innerHTML = `<i class="fas fa-envelope"></i> Send Invitation`;
+    });
+  
+// Individual user invitation
+document.addEventListener("click", async (e) => {
+  if (e.target.closest(".send-invite-btn")) {
+    const btn = e.target.closest(".send-invite-btn");
+    const email = btn.getAttribute("data-email");
+    const name = btn.getAttribute("data-name");
+
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+
+    try {
+      await emailjs.send("service_awkl67c", "template_jbq1bxm", {
+        to_email: email,
+        name: name
+      });
+      alert(`✅ Invitation sent to ${name}`);
+    } catch (error) {
+      console.error("Failed to send invitation", error);
+      alert(`❌ Failed to send to ${name}`);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+    }
+  }
+});
+
+
+});
+</script>
 </body>
+
 </html>
