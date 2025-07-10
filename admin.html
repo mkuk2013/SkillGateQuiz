@@ -1090,6 +1090,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         // Firebase Configuration
         const firebaseConfig = {
@@ -1588,15 +1589,86 @@
             }
         }
 
-        // EmailJS Integration (Placeholder)
+        // EmailJS Integration
+        // Initialize EmailJS with your public key
+        (function() {
+            // Replace with your actual EmailJS public key
+            const publicKey = "KU4KQRBITiPfUBiQr";
+            
+            if (publicKey === "YOUR_PUBLIC_KEY") {
+                console.error("⚠️ EmailJS Public Key not configured! Please replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key.");
+                showModal('EmailJS Configuration Error', '⚠️ EmailJS is not properly configured. Please check the setup instructions and update your public key, service ID, and template ID.');
+                return;
+            }
+            
+            try {
+                emailjs.init(publicKey);
+                console.log("✅ EmailJS initialized successfully");
+            } catch (error) {
+                console.error("❌ Failed to initialize EmailJS:", error);
+                showModal('EmailJS Initialization Error', '❌ Failed to initialize EmailJS. Please check your configuration.');
+            }
+        })();
+
+        // EmailJS Configuration - Update these with your actual values
+        const EMAILJS_CONFIG = {
+            SERVICE_ID: "service_awkl67c",  // Your actual service ID
+            TEMPLATE_ID: "template_jbq1bxm", // Your actual template ID
+            PUBLIC_KEY: "KU4KQRBITiPfUBiQr"    // Your actual public key
+        };
+
+        // Enhanced email sending function with better error handling
+        async function sendEmailWithErrorHandling(recipientEmail, recipientName) {
+            try {
+                // Validate configuration
+                if (EMAILJS_CONFIG.PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+                    throw new Error("EmailJS not configured. Please update your public key, service ID, and template ID.");
+                }
+
+                console.log("Sending email to:", recipientEmail);
+                
+                const result = await emailjs.send(
+                    EMAILJS_CONFIG.SERVICE_ID,
+                    EMAILJS_CONFIG.TEMPLATE_ID,
+                    {
+                        to_email: recipientEmail,
+                        name: recipientName,
+                        from_name: "SkillGate Team" // Optional: add sender name
+                    }
+                );
+                
+                console.log("✅ Email sent successfully:", result);
+                return { success: true, result };
+                
+            } catch (error) {
+                console.error("❌ EmailJS Error:", error);
+                
+                // Provide specific error messages based on error type
+                let errorMessage = "Failed to send email";
+                if (error.text) {
+                    errorMessage = error.text;
+                } else if (error.message) {
+                    errorMessage = error.message;
+                } else if (typeof error === 'string') {
+                    errorMessage = error;
+                }
+                
+                return { success: false, error: errorMessage };
+            }
+        }
+
+        // Fallback for when EmailJS is not properly loaded
         if (typeof emailjs === 'undefined') {
+            console.error("❌ EmailJS library is not loaded. Please check your internet connection.");
             window.emailjs = {
                 send: async (serviceId, templateId, templateParams) => {
                     console.warn("EmailJS is not initialized. Cannot send email. Params:", templateParams);
-                    return new Promise(resolve => setTimeout(() => {
-                        console.log("Simulating email send for:", templateParams.to_email);
-                        resolve();
-                    }, 1000));
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            console.log("Simulating email send for:", templateParams.to_email);
+                            reject(new Error("EmailJS library not loaded"));
+                        }, 1000);
+                    });
                 }
             };
         }
@@ -1618,14 +1690,11 @@
                     let sentCount = 0;
                     let failedCount = 0;
                     for (const user of qualifiedUsers) {
-                        try {
-                            await emailjs.send("service_awkl67c", "template_jbq1bxm", {
-                                to_email: user.email,
-                                name: user.name
-                            });
+                        const result = await sendEmailWithErrorHandling(user.email, user.name);
+                        if (result.success) {
                             sentCount++;
-                        } catch (error) {
-                            console.error(`Failed to send invitation to ${user.email}`, error);
+                        } else {
+                            console.error(`Failed to send invitation to ${user.email}:`, result.error);
                             failedCount++;
                         }
                     }
@@ -1646,20 +1715,17 @@
                     btn.disabled = true;
                     btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
 
-                    try {
-                        await emailjs.send("service_awkl67c", "template_jbq1bxm", {
-                            to_email: email,
-                            name: name
-                        });
+                    const result = await sendEmailWithErrorHandling(email, name);
+                    
+                    if (result.success) {
                         showModal('Invitation Sent', `✅ Invitation sent to ${name}`);
-
-                    } catch (error) {
-                        console.error("Failed to send invitation", error);
-                        showModal('Invitation Failed', `❌ Failed to send to ${name}`);
-                    } finally {
-                        btn.disabled = false;
-                        btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+                    } else {
+                        console.error("Failed to send invitation:", result.error);
+                        showModal('Invitation Failed', `❌ Failed to send to ${name}: ${result.error}`);
                     }
+                    
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
                 } else {
                     showModal('Cannot Send Invitation', `User ${name} is not qualified.`);
                 }
