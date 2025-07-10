@@ -92,6 +92,59 @@
             transition: var(--transition);
             overflow-x: hidden;
         }
+        /* New CSS to prevent body scrolling when modal is open */
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* Modal Overlay Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0; /* top:0; right:0; bottom:0; left:0; */
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Ensure it's on top */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .modal-overlay.modal-show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            max-width: 400px;
+            width: 90%; /* Responsive width */
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .modal-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .modal-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
 
         .container {
             max-width: 1400px;
@@ -1384,16 +1437,46 @@
                             Failed to load results: ${error.message}
                         </td>
                     </tr>`;
-                alert("Failed to load quiz results: " + error.message);
+                // Replaced alert with custom modal
+                showModal('Error', `Failed to load quiz results: ${error.message}`);
                 document.getElementById('total-records-count').textContent = `Error loading records`;
             }
         }
 
         // Enhanced delete all function
         async function deleteAllQuizResults() {
-            if (!confirm("Are you absolutely sure you want to delete ALL quiz results? This action cannot be undone.")) {
-                return;
-            }
+            // Custom confirmation dialog instead of alert
+            const confirmDelete = await new Promise(resolve => {
+                const modal = document.createElement('div');
+                modal.className = 'modal-overlay'; /* Use new class */
+                modal.innerHTML = `
+                  <div class="modal-content">
+                    <h3 class="text-lg font-bold mb-4 text-gray-900">Confirm Deletion</h3>
+                    <p class="mb-6 text-gray-700">Are you absolutely sure you want to delete ALL quiz results? This action cannot be undone.</p>
+                    <div class="modal-buttons">
+                      <button id="confirmYes" class="btn-modern btn-danger px-6 py-2">Yes, Delete All</button>
+                      <button id="confirmNo" class="btn-modern btn-outline px-6 py-2">Cancel</button>
+                    </div>
+                  </div>
+                `;
+                document.body.appendChild(modal);
+                document.body.classList.add('modal-open'); // Prevent scrolling
+                setTimeout(() => modal.classList.add('modal-show'), 10); // Show modal with transition
+
+                document.getElementById('confirmYes').onclick = () => {
+                  modal.classList.remove('modal-show'); // Hide modal with transition
+                  setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
+                  resolve(true);
+                };
+                document.getElementById('confirmNo').onclick = () => {
+                  modal.classList.remove('modal-show'); // Hide modal with transition
+                  setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
+                  resolve(false);
+                };
+            });
+
+            if (!confirmDelete) return;
+
 
             const loadingSpinner = document.getElementById('loading-spinner');
             const deleteButton = document.getElementById('delete-all-button');
@@ -1424,13 +1507,17 @@
                     querySnapshot = await collectionRef.limit(batchSize).get();
                 }
 
-                alert(`Successfully deleted ${documentsDeleted} quiz results.`);
-                allQuizResults = []; // Clear all data after deletion
-                fetchAndProcessResults(); // Re-fetch to update dashboard
+                // Custom alert for success
+                showModal('Deletion Complete', `Successfully deleted ${documentsDeleted} quiz results.`, () => {
+                    allQuizResults = []; // Clear all data after deletion
+                    fetchAndProcessResults(); // Re-fetch to update dashboard
+                });
 
             } catch (error) {
                 console.error("Error deleting documents: ", error);
-                alert("Error deleting quiz results: " + error.message);
+                // Custom alert for error
+                showModal('Deletion Failed', `Error deleting quiz results: ${error.message}`);
+
             } finally {
                 loadingSpinner.style.display = 'none';
                 deleteButton.disabled = false;
@@ -1441,7 +1528,8 @@
         // Export to CSV function
         function exportToCsv(data) {
             if (data.length === 0) {
-                alert("No data to export.");
+                // Custom alert for no data
+                showModal('No Data', "No data to export.");
                 return;
             }
 
@@ -1487,6 +1575,34 @@
             const statusFilter = document.getElementById('status-filter-select').value;
             return { searchTerm, sortBy, sortOrder, statusFilter };
         }
+
+        // Centralized modal display function
+        function showModal(title, message, onOkCallback = null) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay'; /* Use new class */
+            modal.innerHTML = `
+              <div class="modal-content">
+                <h3>${title}</h3>
+                <p>${message}</p>
+                <div class="modal-buttons">
+                  <button id="alertOk" class="btn-modern btn-primary px-6 py-2">OK</button>
+                </div>
+              </div>
+            `;
+            document.body.appendChild(modal);
+            document.body.classList.add('modal-open'); // Prevent scrolling
+            setTimeout(() => modal.classList.add('modal-show'), 10); // Show modal with transition
+
+            document.getElementById('alertOk').onclick = () => {
+                modal.classList.remove('modal-show'); // Hide modal with transition
+                setTimeout(() => { 
+                    modal.remove(); 
+                    document.body.classList.remove('modal-open'); 
+                    if (onOkCallback) onOkCallback();
+                }, 300); // Remove after transition
+            };
+        }
+
 
         // Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
@@ -1582,7 +1698,8 @@
                     }
                 } catch (error) {
                     console.error("Logout error:", error);
-                    alert("Error logging out: " + error.message);
+                    // Replaced alert with custom modal
+                    showModal('Logout Failed', `Error logging out: ${error.message}`);
                 }
             });
 
@@ -1685,14 +1802,55 @@
     const sendInvitationButton = document.getElementById("send-invitations");
 
     sendInvitationButton.addEventListener("click", async () => {
-      if (!confirm("Are you sure you want to send invitations to all users?")) return;
+      // Custom confirmation dialog instead of alert
+      const confirmSend = await new Promise(resolve => {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay'; 
+        modal.innerHTML = `
+          <div class="modal-content">
+            <h3>Confirm Action</h3>
+            <p>Are you sure you want to send invitations to ALL QUALIFIED users?</p>
+            <div class="modal-buttons">
+              <button id="confirmYes" class="btn-modern btn-primary px-6 py-2">Yes, Send</button>
+              <button id="confirmNo" class="btn-modern btn-outline px-6 py-2">Cancel</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        document.body.classList.add('modal-open'); // Prevent scrolling
+        setTimeout(() => modal.classList.add('modal-show'), 10); // Show modal with transition
+
+        document.getElementById('confirmYes').onclick = () => {
+          modal.classList.remove('modal-show'); // Hide modal with transition
+          setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
+          resolve(true);
+        };
+        document.getElementById('confirmNo').onclick = () => {
+          modal.classList.remove('modal-show'); // Hide modal with transition
+          setTimeout(() => { modal.remove(); document.body.classList.remove('modal-open'); }, 300); // Remove after transition
+          resolve(false);
+        };
+      });
+
+      if (!confirmSend) return;
 
       sendInvitationButton.disabled = true;
       sendInvitationButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending...`;
 
       let sent = 0, failed = 0;
 
-      for (const user of currentFilteredData) {
+      // Filter for qualified users before sending invitations
+      const qualifiedUsers = currentFilteredData.filter(user => user.quiz_status === 'Qualified');
+
+      if (qualifiedUsers.length === 0) {
+        // Custom alert for no qualified users
+        showModal('No Qualified Users', "No qualified users found to send invitations to.");
+        sendInvitationButton.disabled = false;
+        sendInvitationButton.innerHTML = `<i class="fas fa-envelope"></i> Send Invitation`;
+        return;
+      }
+
+      for (const user of qualifiedUsers) {
         if (!user.name || !user.email) continue;
 
         try {
@@ -1707,7 +1865,9 @@
         }
       }
 
-      alert(`✅ Invitations sent: ${sent}\n❌ Failed: ${failed}`);
+      // Custom alert for send results
+      showModal('Invitation Status', `✅ Invitations sent to qualified users: ${sent}<br>❌ Failed: ${failed}`);
+
       sendInvitationButton.disabled = false;
       sendInvitationButton.innerHTML = `<i class="fas fa-envelope"></i> Send Invitation`;
     });
@@ -1719,21 +1879,32 @@ document.addEventListener("click", async (e) => {
     const email = btn.getAttribute("data-email");
     const name = btn.getAttribute("data-name");
 
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+    // Find the user in the allQuizResults or currentFilteredData to check status
+    const user = allQuizResults.find(u => u.email === email);
 
-    try {
-      await emailjs.send("service_awkl67c", "template_jbq1bxm", {
-        to_email: email,
-        name: name
-      });
-      alert(`✅ Invitation sent to ${name}`);
-    } catch (error) {
-      console.error("Failed to send invitation", error);
-      alert(`❌ Failed to send to ${name}`);
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+    if (user && user.quiz_status === 'Qualified') {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+
+        try {
+          await emailjs.send("service_awkl67c", "template_jbq1bxm", {
+            to_email: email,
+            name: name
+          });
+          // Custom alert for success
+          showModal('Invitation Sent', `✅ Invitation sent to ${name}`);
+
+        } catch (error) {
+          console.error("Failed to send invitation", error);
+          // Custom alert for failure
+          showModal('Invitation Failed', `❌ Failed to send to ${name}`);
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+        }
+    } else {
+        // Custom alert for not qualified
+        showModal('Cannot Send Invitation', `Invitation can only be sent to Qualified users. ${name} is not Qualified.`);
     }
   }
 });
