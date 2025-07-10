@@ -832,6 +832,14 @@
                 color: black !important;
             }
 
+            .modern-card.table-section {
+                margin-top: 0 !important;
+            }
+
+            .modern-card.analytics-section.fade-in-up {
+                display: none !important;
+            }
+
             .modern-card {
                 box-shadow: none !important;
                 border: 1px solid #ccc !important;
@@ -844,7 +852,14 @@
             .btn-modern,
             .pagination-controls,
             .analytics-section .section-header,
-            .collapsible-content {
+            .collapsible-content,
+            .modern-table thead th:nth-child(7),
+            .modern-table tbody td:nth-child(7) {
+                display: none !important;
+            }
+
+            .modern-table thead th:nth-child(7),
+            .modern-table tbody td:nth-child(7) {
                 display: none !important;
             }
 
@@ -1278,8 +1293,8 @@
 
             const getChartOptions = (theme) => {
                 const isDark = theme === 'dark';
-                const textColor = isDark ? 'var(--text-primary)' : 'var(--text-primary)';
-                const gridColor = isDark ? 'var(--border-medium)' : 'var(--border-light)';
+                const textColor = isDark ? 'white' : 'var(--text-primary)';
+                const gridColor = isDark ? 'white' : 'var(--border-light)';
 
                 return {
                     responsive: true,
@@ -1354,8 +1369,8 @@
         function updateChartColors(theme) {
             if (window.scoreChart) {
                 const isDark = theme === 'dark';
-                const textColor = isDark ? 'var(--text-primary)' : 'var(--text-primary)';
-                const gridColor = isDark ? 'var(--border-medium)' : 'var(--border-light)';
+                const textColor = isDark ? 'white' : 'var(--text-primary)';
+                const gridColor = isDark ? 'white' : 'var(--border-light)';
 
                 window.scoreChart.options.scales.x.ticks.color = textColor;
                 window.scoreChart.options.scales.x.grid.color = gridColor;
