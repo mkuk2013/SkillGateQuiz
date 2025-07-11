@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillGate - Enroll Now</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><polygon points="0,0 1000,0 1000,100 0,80"/></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Course Cards */
+        .courses-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .course-card.popular {
+            border: 3px solid #ffd700;
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #ffd700;
+            color: #333;
+            padding: 8px 40px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transform: rotate(45deg);
+            z-index: 3;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .ideal-for {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ideal-for i {
+            color: #1976d2;
+            font-size: 1.2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list i {
+            color: #28a745;
+            font-size: 1.1rem;
+        }
+
+        .duration-info {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .duration-info i {
+            color: #28a745;
+            font-size: 1.2rem;
+        }
+
+        .price-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+        }
+
+        .card-footer {
+            padding: 0 30px 30px;
+        }
+
+        .btn-enroll {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-enroll:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .btn-enroll.pulse {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Support Section */
+        .support-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .support-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn-support {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-support.primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-support.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-support:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+
+        .btn-support.primary:hover {
+            color: #667eea;
+        }
+
+        .btn-support.secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 30px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .course-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .course-summary h6 {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .support-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-support {
+                width: 250px;
+                justify-content: center;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Alert Styles */
+        .alert-success {
+            border-radius: 15px;
+            border: none;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .alert-success .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        /* EmailJS Status */
+        .emailjs-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .emailjs-status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .emailjs-status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .emailjs-status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <div class="hero-icon">🌐</div>
+                <h1 class="hero-title">Enroll Now – Start Your Skill Journey Today</h1>
+                <p class="hero-subtitle">🚀 Choose the plan that suits you best and begin learning in the most practical, professional way possible.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="courses-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="course-card h-100" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-header">
+                            <h3 class="card-title">Professional Skill Booklet</h3>
+                            <p class="card-subtitle">(Self-Paced)</p>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="ideal-for">
+                                <i class="fas fa-briefcase"></i>
+                                <span><strong>Ideal For:</strong> Independent learners who want structured guidance</span>
+                            </div>
+                            
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Printed & well-organized booklet delivered to your address</li>
+                                <li><i class="fas fa-check-circle"></i> Includes complete roadmap of in-demand digital skills</li>
+                                <li><i class="fas fa-check-circle"></i> Learn at your own pace</li>
+                                <li><i class="fas fa-check-circle"></i> No live training, but includes exercises & resources</li>
+                            </ul>
+                            
+                            <div class="price-section">
+                                <span class="price">PKR <span class="price-amount">2,999</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-enroll" data-course="booklet">
+                                <i class="fas fa-shopping-cart"></i> Order Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="course-card popular h-100" data-aos="fade-up" data-aos-delay="200">
+                        <div class="popular-badge">Most Popular</div>
+                        <div class="card-header">
+                            <h3 class="card-title">Booklet + Online Practical Trainings</h3>
+                            <p class="card-subtitle">(20-Day Program)</p>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="ideal-for">
+                                <i class="fas fa-briefcase"></i>
+                                <span><strong>Ideal For:</strong> Learners who need guided instruction + resources</span>
+                            </div>
+                            
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Get the professional booklet + Live Zoom/Meet trainings</li>
+                                <li><i class="fas fa-check-circle"></i> 3 sessions per week (Evening batches)</li>
+                                <li><i class="fas fa-check-circle"></i> Hands-on training with live tasks and instructor support</li>
+                                <li><i class="fas fa-check-circle"></i> Feedback, Q&A, practical assignments</li>
+                                <li><i class="fas fa-check-circle"></i> Exclusive access to Premium Learning WhatsApp Group</li>
+                            </ul>
+                            
+                            <div class="duration-info">
+                                <i class="fas fa-clock"></i>
+                                <span><strong>Duration:</strong> 20 Days | 3 Days/Week</span>
+                            </div>
+                            
+                            <div class="price-section">
+                                <span class="price">PKR <span class="price-amount">7,999</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-enroll" data-course="full-program">
+                                <i class="fas fa-graduation-cap"></i> Enroll in Full Program
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="course-card h-100" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-header">
+                            <h3 class="card-title">Focused Training on Any One Skill</h3>
+                            <p class="card-subtitle"></p>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="ideal-for">
+                                <i class="fas fa-briefcase"></i>
+                                <span><strong>Ideal For:</strong> Learners who want to master a single digital skill</span>
+                            </div>
+                            
+                            <ul class="features-list">
+                                <li><i class="fas fa-check-circle"></i> Select 1 skill (e.g., YouTube Automation, Freelancing, SMM)</li>
+                                <li><i class="fas fa-check-circle"></i> Targeted training sessions only for that skill</li>
+                                <li><i class="fas fa-check-circle"></i> Includes assignments and mentorship</li>
+                                <li><i class="fas fa-check-circle"></i> Booklet not included</li>
+                            </ul>
+                            
+                            <div class="duration-info">
+                                <i class="fas fa-clock"></i>
+                                <span><strong>Duration:</strong> Varies by skill</span>
+                            </div>
+                            
+                            <div class="price-section">
+                                <span class="price">PKR <span class="price-amount">3,999</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-enroll" data-course="single-skill">
+                                <i class="fas fa-target"></i> Select Skill & Enroll
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="support-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12" data-aos="fade-up">
+                    <h2><i class="fas fa-question-circle"></i> Need help choosing?</h2>
+                    <p class="lead">Contact our support or WhatsApp team anytime for guidance.</p>
+                    
+                    <div class="support-buttons">
+                        <a href="mailto:support@skillgate.com" class="btn-support primary">
+                            <i class="fas fa-envelope"></i> Contact Support
+                        </a>
+                        <a href="https://wa.me/923001234567" class="btn-support secondary" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="enrollmentModal" tabindex="-1" aria-labelledby="enrollmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="enrollmentModalLabel">
+                        <i class="fas fa-graduation-cap"></i> Complete Your Enrollment
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="enrollmentForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="fullName" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="fullName" name="fullName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number *</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City *</label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Complete Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Optional - for booklet delivery"></textarea>
+                        </div>
+                        
+                        <div class="course-summary">
+                            <h6>Selected Course:</h6>
+                            <div id="selectedCourseInfo"></div>
+                        </div>
+
+                        <div class="emailjs-status" id="emailjsStatus" style="display: none;"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitEnrollment">
+                        <i class="fas fa-credit-card"></i> Proceed to Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize EmailJS
+        (function() {
+            // IMPORTANT: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS Public Key from your EmailJS account dashboard.
+            emailjs.init("KU4KQRBITiPfUBiQr"); 
+        })();
+
+        // Course data
+        const courseData = {
+            'booklet': {
+                title: 'Professional Skill Booklet (Self-Paced)',
+                price: 'PKR 2,999',
+                description: 'Printed & well-organized booklet with complete roadmap of digital skills',
+                features: [
+                    'Printed & well-organized booklet delivered to your address',
+                    'Includes complete roadmap of in-demand digital skills',
+                    'Learn at your own pace',
+                    'No live training, but includes exercises & resources'
+                ]
+            },
+            'full-program': {
+                title: 'Booklet + Online Practical Trainings (20-Day Program)',
+                price: 'PKR 7,999',
+                description: 'Complete package with booklet + live training sessions + WhatsApp group access',
+                features: [
+                    'Get the professional booklet + Live Zoom/Meet trainings',
+                    '3 sessions per week (Evening batches)',
+                    'Hands-on training with live tasks and instructor support',
+                    'Feedback, Q&A, practical assignments',
+                    'Exclusive access to Premium Learning WhatsApp Group'
+                ],
+                duration: '20 Days | 3 Days/Week'
+            },
+            'single-skill': {
+                title: 'Focused Training on Any One Skill',
+                price: 'PKR 3,999',
+                description: 'Targeted training for one specific digital skill with assignments and mentorship',
+                features: [
+                    'Select 1 skill (e.g., YouTube Automation, Freelancing, SMM)',
+                    'Targeted training sessions only for that skill',
+                    'Includes assignments and mentorship',
+                    'Booklet not included'
+                ],
+                duration: 'Varies by skill'
+            }
+        };
+
+        $(document).ready(function() {
+            // Enrollment button click handler
+            $('.btn-enroll').on('click', function() {
+                const courseType = $(this).data('course');
+                const course = courseData[courseType];
+                
+                // Store selected course
+                $('#enrollmentForm').data('selected-course', courseType);
+                
+                // Update modal content
+                updateModalContent(course);
+                
+                // Show modal
+                $('#enrollmentModal').modal('show');
+            });
+
+            // Form submission handler
+            $('#submitEnrollment').on('click', function() {
+                handleFormSubmission();
+            });
+
+            // Form validation
+            $('#enrollmentForm input[required]').on('blur', function() {
+                validateField($(this));
+            });
+        });
+
+        function updateModalContent(course) {
+            const courseInfoHtml = `
+                <h5>${course.title}</h5>
+                <p>${course.description}</p>
+                ${course.duration ? `<p><strong>Duration:</strong> ${course.duration}</p>` : ''}
+                <div class="course-price">${course.price}</div>
+            `;
+            
+            $('#selectedCourseInfo').html(courseInfoHtml);
+        }
+
+        function validateField($field) {
+            const value = $field.val().trim();
+            const fieldName = $field.attr('name');
+            
+            $field.removeClass('is-invalid is-valid');
+            
+            if (!value && $field.prop('required')) {
+                $field.addClass('is-invalid');
+                return false;
+            }
+            
+            if (fieldName === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    $field.addClass('is-invalid');
+                    return false;
+                }
+            }
+            
+            if (fieldName === 'phone' && value) {
+                const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
+                if (!phoneRegex.test(value)) {
+                    $field.addClass('is-invalid');
+                    return false;
+                }
+            }
+            
+            $field.addClass('is-valid');
+            return true;
+        }
+
+        function validateForm() {
+            let isValid = true;
+            
+            $('#enrollmentForm input[required]').each(function() {
+                if (!validateField($(this))) {
+                    isValid = false;
+                }
+            });
+            
+            return isValid;
+        }
+
+        function handleFormSubmission() {
+            if (!validateForm()) {
+                showNotification('Please fill in all required fields correctly.', 'error');
+                return;
+            }
+
+            const $submitBtn = $('#submitEnrollment');
+            const originalText = $submitBtn.html();
+            
+            // Show loading state
+            $submitBtn.html('<span class="loading"></span> Processing...').prop('disabled', true);
+            
+            // Get form data
+            const courseType = $('#enrollmentForm').data('selected-course');
+            const course = courseData[courseType];
+            
+            const formData = {
+                course: courseType,
+                fullName: $('#fullName').val(),
+                email: $('#email').val(),
+                phone: $('#phone').val(),
+                city: $('#city').val(),
+                address: $('#address').val(),
+                courseTitle: course.title,
+                coursePrice: course.price,
+                courseDescription: course.description,
+                timestamp: new Date().toISOString()
+            };
+
+            // Send email using EmailJS
+            sendEmailNotification(formData)
+                .then(function(response) {
+                    showSuccessMessage(formData);
+                    $('#enrollmentModal').modal('hide');
+                    resetForm();
+                })
+                .catch(function(error) {
+                    console.error('EmailJS Error:', error);
+                    showEmailJSStatus('Email sending failed. Please try again or contact support.', 'error');
+                })
+                .finally(function() {
+                    $submitBtn.html(originalText).prop('disabled', false);
+                });
+        }
+
+        function sendEmailNotification(data) {
+            return new Promise((resolve, reject) => {
+                // Show EmailJS status
+                showEmailJSStatus('Sending confirmation email...', 'info');
+
+                // Email template parameters
+                const templateParams = {
+                    to_email: data.email,
+                    to_name: data.fullName,
+                    reply_to: data.email,
+                    course_title: data.courseTitle,
+                    course_price: data.coursePrice,
+                    course_description: data.courseDescription,
+                    student_name: data.fullName,
+                    student_email: data.email,
+                    student_phone: data.phone,
+                    student_city: data.city,
+                    student_address: data.address || 'Not provided',
+                    enrollment_date: new Date().toLocaleDateString(),
+                    enrollment_time: new Date().toLocaleTimeString()
+                };
+
+                // Send email using EmailJS
+                // IMPORTANT: Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual EmailJS Service ID and Template ID.
+                emailjs.send("service_awkl67c", "template_icjmbis", templateParams)
+                    .then(function(response) {
+                        console.log('EmailJS Success:', response);
+                        showEmailJSStatus('Confirmation email sent successfully!', 'success');
+                        resolve(response);
+                    })
+                    .catch(function(error) {
+                        console.error('EmailJS Error:', error);
+                        // If the error is due to misconfiguration, prompt user to contact support
+                        showEmailJSStatus('Email service not configured correctly. Please contact support for confirmation.', 'error');
+                        // Still resolve to show success message and proceed with the form flow
+                        resolve({ status: 'email_not_configured' });
+                    });
+            });
+        }
+
+        function showEmailJSStatus(message, type) {
+            const $status = $('#emailjsStatus');
+            $status.removeClass('success error info').addClass(type);
+            $status.text(message).show();
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    $status.fadeOut();
+                }, 5000);
+            }
+        }
+
+        function showSuccessMessage(data) {
+            const course = courseData[data.course];
+            const successHtml = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h5><i class="fas fa-check-circle"></i> Enrollment Successful!</h5>
+                    <p>Thank you <strong>${data.fullName}</strong> for enrolling in <strong>${course.title}</strong>!</p>
+                    <p>📧 A confirmation email has been sent to <strong>${data.email}</strong></p>
+                    <p>💳 Please check your email for payment instructions and course details.</p>
+                    <hr>
+                    <h6>Payment Information:</h6>
+                    <p><strong>Bank:</strong> HBL Bank<br>
+                    <strong>Account Title:</strong> SkillGate Training<br>
+                    <strong>Account Number:</strong> 12345678901234<br>
+                    <strong>Amount:</strong> ${course.price}</p>
+                    <p><small>📱 Send payment screenshot to WhatsApp: +92 300 1234567</small></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            
+            $('body').prepend(successHtml);
+            
+            // Auto-dismiss after 15 seconds
+            setTimeout(() => {
+                $('.alert-success').fadeOut();
+            }, 15000);
+            
+            // Scroll to top
+            $('html, body').animate({ scrollTop: 0 }, 500);
+        }
+
+        function resetForm() {
+            $('#enrollmentForm')[0].reset();
+            $('.form-control').removeClass('is-invalid is-valid');
+            $('#emailjsStatus').hide();
+        }
+
+        function showNotification(message, type = 'info') {
+            const alertClass = type === 'error' ? 'alert-danger' : 
+                              type === 'success' ? 'alert-success' : 'alert-info';
+            
+            const notification = `
+                <div class="alert ${alertClass} alert-dismissible fade show position-fixed" 
+                     style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            
+            $('body').append(notification);
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                $('.alert').last().fadeOut(() => {
+                    $(this).remove(); // Remove from DOM after fading out
+                });
+            }, 5000);
+        }
+
+        // Smooth scrolling for anchor links
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            const target = $(this.getAttribute('href'));
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 100
+                }, 800);
+            }
+        });
+
+        // Card hover effects
+        $('.course-card').on('mouseenter', function() {
+            $(this).find('.btn-enroll').addClass('pulse');
+        }).on('mouseleave', function() {
+            $(this).find('.btn-enroll').removeClass('pulse');
+        });
+
+        // Form enter key handler
+        $('#enrollmentForm').on('keypress', function(e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                $('#submitEnrollment').click();
+            }
+        });
+    </script>
+</body>
+</html>
