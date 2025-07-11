@@ -17,6 +17,34 @@
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUUN9COE_YHVbxoIb4Cz0SoSwn4-nzObQ",
+            authDomain: "enrollment-data-82506.firebaseapp.com",
+            projectId: "enrollment-data-82506",
+            storageBucket: "enrollment-data-82506.firebasestorage.app",
+            messagingSenderId: "923929486744",
+            appId: "1:923929486744:web:5c4621d068a44e47fc77ed",
+            measurementId: "G-MFEJPVFQJW"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+        
+        // Make db globally available for saving data
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+    </script>
+
     <style>
         /* Reset and Base Styles */
         * {
@@ -771,7 +799,7 @@
             }
             
             if (fieldName === 'email' && value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const emailRegex = /^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
                 if (!emailRegex.test(value)) {
                     $field.addClass('is-invalid');
                     return false;
@@ -802,7 +830,7 @@
             return isValid;
         }
 
-        function handleFormSubmission() {
+        async function handleFormSubmission() {
             if (!validateForm()) {
                 showNotification('Please fill in all required fields correctly.', 'error');
                 return;
@@ -818,6 +846,11 @@
             const courseType = $('#enrollmentForm').data('selected-course');
             const course = courseData[courseType];
             
+            // Get current date and time
+            const now = new Date();
+            const enrollmentDate = now.toLocaleDateString(); // Formatted date (e.g., "7/12/2025")
+            const enrollmentTime = now.toLocaleTimeString(); // Formatted time (e.g., "12:35:55 AM")
+
             const formData = {
                 course: courseType,
                 fullName: $('#fullName').val(),
@@ -828,26 +861,46 @@
                 courseTitle: course.title,
                 coursePrice: course.price,
                 courseDescription: course.description,
-                timestamp: new Date().toISOString()
+                timestamp: now.toISOString(), // ISO string for precise timestamp (e.g., "2025-07-12T07:35:55.000Z")
+                enrollmentDate: enrollmentDate, 
+                enrollmentTime: enrollmentTime 
             };
 
-            // Log the email value right before sending to EmailJS
-            console.log("Email captured from form (formData.email):", formData.email);
+            try {
+                // Save to Firebase Firestore
+                await saveEnrollmentToFirebase(formData);
+                console.log('Enrollment data saved to Firebase!');
 
-            // Send email using EmailJS
-            sendEmailNotification(formData)
-                .then(function(response) {
-                    showSuccessMessage(formData);
-                    $('#enrollmentModal').modal('hide');
-                    resetForm();
-                })
-                .catch(function(error) {
-                    console.error('EmailJS Error:', error);
-                    showEmailJSStatus('Email sending failed. Please try again or contact support.', 'error');
-                })
-                .finally(function() {
-                    $submitBtn.html(originalText).prop('disabled', false);
-                });
+                // Send email using EmailJS
+                await sendEmailNotification(formData);
+                console.log('Email notification sent!');
+
+                showSuccessMessage(formData);
+                $('#enrollmentModal').modal('hide');
+                resetForm();
+            } catch (error) {
+                console.error('Submission Error:', error);
+                showNotification('An error occurred during submission. Please try again.', 'error');
+            } finally {
+                $submitBtn.html(originalText).prop('disabled', false);
+            }
+        }
+
+        async function saveEnrollmentToFirebase(data) {
+            try {
+                // Ensure db, collection, and addDoc are available globally from the Firebase SDK script
+                if (window.db && window.collection && window.addDoc) {
+                    const enrollmentsRef = window.collection(window.db, 'enrollments');
+                    await window.addDoc(enrollmentsRef, data);
+                    console.log('Document successfully written to Firestore!');
+                } else {
+                    console.error('Firebase is not initialized or its functions are not available.');
+                    throw new Error('Firebase not available');
+                }
+            } catch (error) {
+                console.error('Error writing document to Firestore:', error);
+                throw error; // Re-throw to be caught by handleFormSubmission
+            }
         }
 
         function sendEmailNotification(data) {
@@ -868,12 +921,9 @@
                     student_phone: data.phone,
                     student_city: data.city,
                     student_address: data.address || 'Not provided',
-                    enrollment_date: new Date().toLocaleDateString(),
-                    enrollment_time: new Date().toLocaleTimeString()
+                    enrollment_date: data.enrollmentDate, // Use the formatted date from formData
+                    enrollment_time: data.enrollmentTime // Use the formatted time from formData
                 };
-
-                // Log the to_email value right before the EmailJS send call
-                console.log("Template params to_email (before send):", templateParams.to_email);
 
                 // Send email using EmailJS
                 // IMPORTANT: Replace 'service_awkl67c' with your ACTUAL EmailJS Service ID.
