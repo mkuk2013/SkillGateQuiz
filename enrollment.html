@@ -432,6 +432,11 @@
             color: #0c5460;
             border: 1px solid #bee5eb;
         }
+
+        .hero-icon img{
+            height: 230px;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -439,7 +444,7 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content" data-aos="fade-up">
-                <div class="hero-icon">🌐</div>
+                <div class="hero-icon"><img src="SkillGate.png"></div>
                 <h1 class="hero-title">Enroll Now – Start Your Skill Journey Today</h1>
                 <p class="hero-subtitle">🚀 Choose the plan that suits you best and begin learning in the most practical, professional way possible.</p>
             </div>
@@ -651,7 +656,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -672,7 +677,7 @@
         // Initialize EmailJS
         (function() {
             // IMPORTANT: Replace 'KU4KQRBITiPfUBiQr' with your ACTUAL EmailJS Public Key from your EmailJS account dashboard.
-            // Using placeholder values will cause the email sending to fail.
+            // You can find this in your EmailJS account under Account -> API Keys.
             emailjs.init("KU4KQRBITiPfUBiQr"); 
         })();
 
@@ -871,8 +876,10 @@
                 console.log("Template params to_email (before send):", templateParams.to_email);
 
                 // Send email using EmailJS
-                // IMPORTANT: Replace 'service_awkl67c' and 'template_icjmbis' with your ACTUAL EmailJS Service ID and Template ID.
-                // Using placeholder values will cause the email sending to fail.
+                // IMPORTANT: Replace 'service_awkl67c' with your ACTUAL EmailJS Service ID.
+                // You can find this in your EmailJS account under Email Services.
+                // IMPORTANT: Replace 'template_icjmbis' with your ACTUAL EmailJS Template ID.
+                // You can find this in your EmailJS account under Email Templates.
                 emailjs.send("service_awkl67c", "template_icjmbis", templateParams)
                     .then(function(response) {
                         console.log('EmailJS Success:', response);
@@ -905,28 +912,28 @@
             const course = courseData[data.course];
             const successHtml = `
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h5><i class="fas fa-check-circle"></i> Final Enrollment Step!</h5>
+                    <h5><i class="fas fa-check-circle"></i> Final Enrollment Step!</h5>
                     <p>Thank you <strong>${data.fullName}</strong> for enrolling in <strong>${course.title}</strong>!</p>
                     <p>📧 A confirmation email has been sent to <strong>${data.email}</strong></p>
                     <p>💳 Please check your email for payment instructions and course details.</p>
                     <hr>
                     <h6>Payment Information:</h6>
-                    <p><strong>Bank:</strong> HBL Bank<br>
-                    <strong>Account Title:</strong> SkillGate Training<br>
-                    <strong>Account Number:</strong> 12345678901234<br>
-                    <strong>Amount:</strong> ${course.price}</p>
-                    <p><small>📱 Send payment screenshot to WhatsApp: +92 300 1234567</small></p>
+                    <p><strong>Bank:</strong> EasyPaisa<br>
+                    <strong>Account#:</strong> 03454839888<br>
+                    <strong>Title:</strong> Shehzad Hussain</p>
+                    <p><strong>Bank:</strong> JazzCash<br>
+                    <strong>Account#:</strong> 03000359675<br>
+                    <strong>Title:</strong> Shehzad Hussain</p>
+                    <p><strong>Bank:</strong> UBL<br>
+                    <strong>IBAN:</strong> PK41UNIL0109000253770578<br>
+                    <strong>Account#:</strong> 253770578<br>
+                    <strong>Title:</strong> Shehzad Hussain</p>
+                    <p><small>📱 Send payment screenshot to WhatsApp: +92 3454839888</small></p>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             `;
             
             $('body').prepend(successHtml);
-            
-            // Yahan se setTimeout ko hata diya gaya hai taake popup gayab na ho.
-            // User ko ab manually close button par click karna hoga.
-            // setTimeout(() => {
-            //     $('.alert-success').fadeOut();
-            // }, 15000); 
             
             // Scroll to top
             $('html, body').animate({ scrollTop: 0 }, 500);
