@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillGate - Enroll Now</title>
     
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
+    <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <style>
@@ -431,6 +435,7 @@
     </style>
 </head>
 <body>
+    <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
             <div class="hero-content" data-aos="fade-up">
@@ -441,9 +446,11 @@
         </div>
     </section>
 
+    <!-- Courses Section -->
     <section class="courses-section">
         <div class="container">
             <div class="row g-4">
+                <!-- Course Option 1 -->
                 <div class="col-lg-4 col-md-6">
                     <div class="course-card h-100" data-aos="fade-up" data-aos-delay="100">
                         <div class="card-header">
@@ -477,6 +484,7 @@
                     </div>
                 </div>
 
+                <!-- Course Option 2 -->
                 <div class="col-lg-4 col-md-6">
                     <div class="course-card popular h-100" data-aos="fade-up" data-aos-delay="200">
                         <div class="popular-badge">Most Popular</div>
@@ -517,6 +525,7 @@
                     </div>
                 </div>
 
+                <!-- Course Option 3 -->
                 <div class="col-lg-4 col-md-6">
                     <div class="course-card h-100" data-aos="fade-up" data-aos-delay="300">
                         <div class="card-header">
@@ -558,6 +567,7 @@
         </div>
     </section>
 
+    <!-- Support Section -->
     <section class="support-section">
         <div class="container">
             <div class="row">
@@ -578,6 +588,7 @@
         </div>
     </section>
 
+    <!-- Enrollment Modal -->
     <div class="modal fade" id="enrollmentModal" tabindex="-1" aria-labelledby="enrollmentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -642,10 +653,13 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     
+    <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
@@ -657,7 +671,8 @@
 
         // Initialize EmailJS
         (function() {
-            // IMPORTANT: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS Public Key from your EmailJS account dashboard.
+            // IMPORTANT: Replace 'KU4KQRBITiPfUBiQr' with your ACTUAL EmailJS Public Key from your EmailJS account dashboard.
+            // Using placeholder values will cause the email sending to fail.
             emailjs.init("KU4KQRBITiPfUBiQr"); 
         })();
 
@@ -811,6 +826,9 @@
                 timestamp: new Date().toISOString()
             };
 
+            // Log the email value right before sending to EmailJS
+            console.log("Email captured from form (formData.email):", formData.email);
+
             // Send email using EmailJS
             sendEmailNotification(formData)
                 .then(function(response) {
@@ -834,7 +852,7 @@
 
                 // Email template parameters
                 const templateParams = {
-                    to_email: data.email,
+                    to_email: data.email, // This is the recipient email variable
                     to_name: data.fullName,
                     reply_to: data.email,
                     course_title: data.courseTitle,
@@ -849,8 +867,12 @@
                     enrollment_time: new Date().toLocaleTimeString()
                 };
 
+                // Log the to_email value right before the EmailJS send call
+                console.log("Template params to_email (before send):", templateParams.to_email);
+
                 // Send email using EmailJS
-                // IMPORTANT: Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual EmailJS Service ID and Template ID.
+                // IMPORTANT: Replace 'service_awkl67c' and 'template_icjmbis' with your ACTUAL EmailJS Service ID and Template ID.
+                // Using placeholder values will cause the email sending to fail.
                 emailjs.send("service_awkl67c", "template_icjmbis", templateParams)
                     .then(function(response) {
                         console.log('EmailJS Success:', response);
@@ -883,7 +905,7 @@
             const course = courseData[data.course];
             const successHtml = `
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h5><i class="fas fa-check-circle"></i> Enrollment Successful!</h5>
+                    <h5><i class="fas fa-check-circle"></i> Final Enrollment Step!</h5>
                     <p>Thank you <strong>${data.fullName}</strong> for enrolling in <strong>${course.title}</strong>!</p>
                     <p>📧 A confirmation email has been sent to <strong>${data.email}</strong></p>
                     <p>💳 Please check your email for payment instructions and course details.</p>
@@ -900,10 +922,11 @@
             
             $('body').prepend(successHtml);
             
-            // Auto-dismiss after 15 seconds
-            setTimeout(() => {
-                $('.alert-success').fadeOut();
-            }, 15000);
+            // Yahan se setTimeout ko hata diya gaya hai taake popup gayab na ho.
+            // User ko ab manually close button par click karna hoga.
+            // setTimeout(() => {
+            //     $('.alert-success').fadeOut();
+            // }, 15000); 
             
             // Scroll to top
             $('html, body').animate({ scrollTop: 0 }, 500);
