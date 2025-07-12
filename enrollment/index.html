@@ -785,6 +785,16 @@
             `;
             
             $('#selectedCourseInfo').html(courseInfoHtml);
+
+            // Conditionally hide/show address field
+            const $addressField = $('#address').closest('.mb-3');
+            if (course.title.includes('Focused Training on Any One Skill')) {
+                $addressField.hide();
+                $('#address').prop('required', false); // Make it not required if hidden
+            } else {
+                $addressField.show();
+                $('#address').prop('required', false); // It's optional by default, keep it false
+            }
         }
 
         function validateField($field) {
