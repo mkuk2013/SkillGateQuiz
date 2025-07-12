@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillGate Admin Dashboard - Modern</title>
     
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <style>
         :root {
@@ -594,24 +591,33 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* Status Badges */
+        /* Status Badge Styles */
         .status-badge {
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 1px solid transparent;
         }
 
-        .status-active {
+        .status-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .status-badge.status-active {
             background: rgba(16, 185, 129, 0.1);
             color: var(--secondary-color);
+            border-color: var(--secondary-color);
         }
 
-        .status-inactive {
+        .status-badge.status-inactive {
             background: rgba(239, 68, 68, 0.1);
             color: var(--danger-color);
+            border-color: var(--danger-color);
         }
 
         /* Responsive Design */
@@ -681,28 +687,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Additional Modern Elements */
-        .gradient-text {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .glass-effect {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
         /* Message Display */
         .message-alert {
             position: fixed;
@@ -737,7 +721,6 @@
     </style>
 </head>
 <body>
-    <!-- Login Page -->
     <div id="loginPage" class="login-container">
         <div class="login-card">
             <h2 class="login-title">Welcome Back</h2>
@@ -752,9 +735,7 @@
         </div>
     </div>
 
-    <!-- Dashboard -->
     <div id="dashboardPage" class="dashboard-container">
-        <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
                 <h3><i class="fas fa-graduation-cap me-2"></i>SkillGate</h3>
@@ -778,31 +759,25 @@
             </nav>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
-            <!-- Top Navbar -->
             <div class="top-navbar">
                 <h1 id="pageTitle">Dashboard Overview</h1>
                 <div class="user-info">
                     <span id="userEmail">admin@skillgate.com</span>
-                    <button class="btn-logout" onclick="logout()">
+                    <button class="btn-logout">
                         <i class="fas fa-sign-out-alt me-1"></i>Logout
                     </button>
                 </div>
             </div>
 
-            <!-- Content Wrapper -->
             <div class="content-wrapper">
-                <!-- Message Display Area -->
                 <div id="messageAlert" class="message-alert"></div>
 
-                <!-- Dashboard Section -->
                 <div id="dashboard" class="content-section active">
                     <div class="section-title">
                         <i class="fas fa-chart-line"></i>Dashboard Overview
                     </div>
                     
-                    <!-- Stats Cards -->
                     <div class="row stats-row">
                         <div class="col-lg-3 col-md-6 mb-4">
                             <div class="stat-card primary">
@@ -842,7 +817,6 @@
                         </div>
                     </div>
 
-                    <!-- Recent Enrollments -->
                     <div class="table-card">
                         <h3 class="table-title">Recent Enrollments</h3>
                         <div id="recentEnrollmentsTable">
@@ -853,7 +827,6 @@
                     </div>
                 </div>
 
-                <!-- Enrollments Section -->
                 <div id="enrollments" class="content-section">
                     <div class="section-title">
                         <i class="fas fa-users"></i>Student Enrollments
@@ -870,7 +843,7 @@
                                 <select id="filterCity" class="filter-select">
                                     <option value="">All Cities</option>
                                 </select>
-                                <button class="btn-export" onclick="exportData('csv')">
+                                <button class="btn-export" data-format="csv">
                                     <i class="fas fa-file-csv me-1"></i>Export CSV
                                 </button>
                             </div>
@@ -885,25 +858,18 @@
                                         <th>City</th>
                                         <th>Course</th>
                                         <th>Price</th>
-                                        <th>Date & Time</th> <!-- Combined Date and Time column -->
+                                        <th>Date & Time</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td colspan="8" class="text-center"> <!-- Updated colspan from 9 to 8 -->
-                                            <div class="loading">
-                                                <div class="spinner"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                    </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Analytics Section -->
                 <div id="analytics" class="content-section">
                     <div class="section-title">
                         <i class="fas fa-chart-pie"></i>Course Analytics
@@ -929,7 +895,6 @@
                     </div>
                 </div>
 
-                <!-- Settings Section -->
                 <div id="settings" class="content-section">
                     <div class="section-title">
                         <i class="fas fa-cog"></i>Settings
@@ -952,7 +917,6 @@
                     </div>
                 </div>
 
-                <!-- Export Section -->
                 <div id="export" class="content-section">
                     <div class="section-title">
                         <i class="fas fa-download"></i>Export Data
@@ -994,16 +958,16 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button class="btn btn-primary me-2" onclick="exportData('csv')">
+                            <button class="btn btn-primary me-2 btn-export" data-format="csv">
                                 <i class="fas fa-file-csv me-1"></i>Export as CSV
                             </button>
-                            <button class="btn btn-success me-2" onclick="exportData('excel')">
+                            <button class="btn btn-success me-2 btn-export" data-format="excel">
                                 <i class="fas fa-file-excel me-1"></i>Export as Excel
                             </button>
-                            <button class="btn btn-info me-2" onclick="exportData('json')">
+                            <button class="btn btn-info me-2 btn-export" data-format="json">
                                 <i class="fas fa-file-code me-1"></i>Export as JSON
                             </button>
-                            <button class="btn btn-warning" onclick="generateReport()">
+                            <button class="btn btn-warning" id="generateReportBtn">
                                 <i class="fas fa-file-pdf me-1"></i>Generate Report
                             </button>
                         </div>
@@ -1013,7 +977,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1048,13 +1011,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveEdit()">Save Changes</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">Save Changes</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1068,19 +1030,19 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
-    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
@@ -1104,144 +1066,37 @@
         const db = getFirestore(app);
         const analytics = getAnalytics(app);
 
-        // Make Firebase services globally available
-        window.auth = auth;
-        window.db = db;
-        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-        window.signOut = signOut;
-        window.onAuthStateChanged = onAuthStateChanged;
-        window.collection = collection;
-        window.getDocs = getDocs;
-        window.doc = doc;
-        window.updateDoc = updateDoc;
-        window.deleteDoc = deleteDoc;
-        window.query = query;
-        window.orderBy = orderBy;
+        // --- EMAILJS SETUP ---
+        const EMAILJS_USER_ID = "KU4KQRBITiPfUBiQr"; 
+        const EMAILJS_SERVICE_ID = "service_awkl67c";
+        const EMAILJS_TEMPLATE_ID = "template_jbq1bxm";
+        emailjs.init(EMAILJS_USER_ID);
 
-        // Initialize app
+        // App State
         let enrollmentsData = [];
         let enrollmentsTable = null;
 
         // Utility function to display messages
         function showMessage(message, type) {
-            const messageAlert = document.getElementById('messageAlert');
-            messageAlert.textContent = message;
-            messageAlert.className = `message-alert show ${type}`; // Add 'show' class to make it visible
+            const messageAlert = $('#messageAlert');
+            messageAlert.text(message).removeClass('success error').addClass(type).addClass('show');
             setTimeout(() => {
-                messageAlert.classList.remove('show'); // Hide after 3 seconds
+                messageAlert.removeClass('show');
             }, 3000);
         }
-        window.showMessage = showMessage; // Make it globally accessible
 
-        // Initialize Admin Panel
-        function initializeAdmin() {
-            // Check authentication state
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    showDashboard();
-                    document.getElementById("userEmail").textContent = user.email;
-                    loadEnrollments();
-                } else {
-                    showLogin();
-                }
-            });
+        // --- Core Functions ---
 
-            // Setup event listeners
-            setupEventListeners();
-        }
-
-        function setupEventListeners() {
-            // Login form
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-
-            // Navigation
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const section = e.target.closest('.nav-link').dataset.section;
-                    showSection(section);
-                });
-            });
-
-            // Search and filters
-            document.getElementById('searchStudents').addEventListener('input', filterTable);
-            document.getElementById('filterCourse').addEventListener('change', filterTable);
-            document.getElementById('filterCity').addEventListener('change', filterTable);
-        }
-
-        // Authentication
-        async function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-            } catch (error) {
-                const errorMessage = 'Login failed: ' + error.message;
-                console.error(errorMessage);
-                showMessage(errorMessage, 'error');
-            }
-        }
-
-        function logout() {
-            signOut(auth);
-        }
-
-        function showLogin() {
-            document.getElementById('loginPage').style.display = 'flex';
-            document.getElementById('dashboardPage').style.display = 'none';
-        }
-
-        function showDashboard() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('dashboardPage').style.display = 'block';
-        }
-
-        // Navigation
-        function showSection(sectionName) {
-            // Update navigation
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
-
-            // Update content
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionName).classList.add('active');
-
-            // Update page title
-            const titles = {
-                dashboard: 'Dashboard Overview',
-                enrollments: 'Student Enrollments',
-                analytics: 'Course Analytics',
-                settings: 'Settings',
-                export: 'Export Data'
-            };
-            document.getElementById('pageTitle').textContent = titles[sectionName];
-
-            // Load section-specific data
-            if (sectionName === 'analytics') {
-                loadCharts();
-            }
-        }
-
-        // Data Loading
         async function loadEnrollments() {
             try {
-                // Order by timestamp to get the latest enrollments first
                 const q = query(collection(db, 'enrollments'), orderBy('timestamp', 'desc'));
                 const querySnapshot = await getDocs(q);
                 
-                enrollmentsData = [];
-                querySnapshot.forEach((doc) => {
-                    enrollmentsData.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
-                });
+                enrollmentsData = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    status: doc.data().status || 'inactive',
+                    ...doc.data()
+                }));
 
                 updateStats();
                 updateEnrollmentsTable();
@@ -1254,314 +1109,162 @@
             }
         }
 
-        function updateStats() {
-            const total = enrollmentsData.length;
-            const today = new Date().toLocaleDateString(); // Use toLocaleDateString for comparison
-
-            // Filter enrollments for today based on enrollmentDate
-            const todayCount = enrollmentsData.filter(item => 
-                item.enrollmentDate === today
-            ).length;
-
-            const courses = [...new Set(enrollmentsData.map(item => item.courseTitle))].filter(Boolean);
-            const totalRevenue = enrollmentsData.reduce((sum, item) => 
-                sum + (parseFloat(item.coursePrice?.replace(/[PKR,]/g, '')) || 0), 0
-            );
-
-            document.getElementById('totalEnrollments').textContent = total;
-            document.getElementById('todayEnrollments').textContent = todayCount;
-            document.getElementById('totalCourses').textContent = courses.length;
-            document.getElementById('totalRevenue').textContent = `PKR ${totalRevenue.toLocaleString()}`; // Changed to PKR
-        }
-
         function updateEnrollmentsTable() {
             if (enrollmentsTable) {
                 enrollmentsTable.destroy();
             }
 
-            const tbody = document.querySelector('#enrollmentsTable tbody');
-            tbody.innerHTML = '';
+            const tbody = $('#enrollmentsTable tbody');
+            tbody.empty(); // Clear existing rows
+
+            if (enrollmentsData.length === 0) {
+                tbody.html('<tr><td colspan="9" class="text-center">No enrollments found.</td></tr>');
+                return;
+            }
 
             enrollmentsData.forEach(item => {
-                const row = tbody.insertRow();
-                // Combine date and time into one column
-                const dateTime = (item.enrollmentDate && item.enrollmentTime) ? 
-                                 `${item.enrollmentDate} ${item.enrollmentTime}` : 
-                                 (item.enrollmentDate || item.enrollmentTime || 'N/A');
+                const dateTime = (item.enrollmentDate && item.enrollmentTime) ? `${item.enrollmentDate} ${item.enrollmentTime}` : (item.enrollmentDate || item.enrollmentTime || 'N/A');
                 
-                row.innerHTML = `
-                    <td>${item.fullName || 'N/A'}</td>
-                    <td>${item.email || 'N/A'}</td>
-                    <td>${item.phone || 'N/A'}</td>
-                    <td>${item.city || 'N/A'}</td>
-                    <td>${item.courseTitle || 'N/A'}</td>
-                    <td>${item.coursePrice || 'N/A'}</td>
-                    <td>${dateTime}</td> <!-- Combined Date & Time -->
-                    <td>
-                        <button class="btn-action btn-edit" onclick="editStudent('${item.id}')">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" onclick="showDeleteConfirm('${item.id}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
+                const row = `
+                    <tr>
+                        <td>${item.fullName || 'N/A'}</td>
+                        <td>${item.email || 'N/A'}</td>
+                        <td>${item.phone || 'N/A'}</td>
+                        <td>${item.city || 'N/A'}</td>
+                        <td>${item.courseTitle || 'N/A'}</td>
+                        <td>${item.coursePrice || 'N/A'}</td>
+                        <td>${dateTime}</td>
+                        <td>
+                            <span 
+                                class="status-badge status-${item.status}" 
+                                data-id="${item.id}" 
+                                data-email="${item.email}" 
+                                data-name="${item.fullName}"
+                                data-status="${item.status}">
+                                ${item.status}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn-action btn-edit" data-id="${item.id}"><i class="fas fa-edit"></i></button>
+                            <button class="btn-action btn-delete" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
                 `;
+                tbody.append(row);
             });
 
             enrollmentsTable = $('#enrollmentsTable').DataTable({
                 responsive: true,
                 pageLength: 10,
-                // Order by the combined Date & Time column (now at index 6)
-                order: [[6, 'desc']], 
-                language: {
-                    search: "",
-                    searchPlaceholder: "Search enrollments..."
-                }
+                order: [[6, 'desc']],
+                language: { search: "", searchPlaceholder: "Search enrollments..." }
+            });
+        }
+        
+        // --- Event Handlers ---
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = $('#email').val();
+            const password = $('#password').val();
+            signInWithEmailAndPassword(auth, email, password).catch(error => {
+                const errorMessage = 'Login failed: ' + error.message;
+                console.error(errorMessage);
+                showMessage(errorMessage, 'error');
             });
         }
 
-        function updateRecentEnrollments() {
-            const recent = enrollmentsData.slice(0, 5); // Get the 5 most recent enrollments
-            const container = document.getElementById('recentEnrollmentsTable');
+        function logout() {
+            signOut(auth);
+        }
+
+        function showSection(sectionName) {
+            $('.nav-link').removeClass('active');
+            $(`.nav-link[data-section="${sectionName}"]`).addClass('active');
+            $('.content-section').removeClass('active');
+            $(`#${sectionName}`).addClass('active');
             
-            if (recent.length === 0) {
-                container.innerHTML = '<p class="text-center text-muted">No recent enrollments found</p>';
-                return;
+            const titles = {
+                dashboard: 'Dashboard Overview',
+                enrollments: 'Student Enrollments',
+                analytics: 'Course Analytics',
+                settings: 'Settings',
+                export: 'Export Data'
+            };
+            $('#pageTitle').text(titles[sectionName]);
+            
+            if (sectionName === 'analytics') {
+                loadCharts();
             }
-
-            let html = `
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Course</th>
-                                <th>Date & Time</th> <!-- Combined Date and Time column for recent enrollments -->
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            `;
-
-            recent.forEach(item => {
-                // Combine date and time for recent enrollments
-                const dateTime = (item.enrollmentDate && item.enrollmentTime) ? 
-                                 `${item.enrollmentDate} ${item.enrollmentTime}` : 
-                                 (item.enrollmentDate || item.enrollmentTime || 'N/A');
-                html += `
-                    <tr>
-                        <td>${item.fullName || 'N/A'}</td>
-                        <td>${item.courseTitle || 'N/A'}</td>
-                        <td>${dateTime}</td> <!-- Combined Date & Time -->
-                        <td>${item.coursePrice || 'N/A'}</td>
-                    </tr>
-                `;
-            });
-
-            html += '</tbody></table></div>';
-            container.innerHTML = html;
-        }
-
-        function populateFilters() {
-            const courses = [...new Set(enrollmentsData.map(item => item.courseTitle))].filter(Boolean);
-            const cities = [...new Set(enrollmentsData.map(item => item.city))].filter(Boolean);
-
-            const courseSelect = document.getElementById('filterCourse');
-            const citySelect = document.getElementById('filterCity');
-
-            courseSelect.innerHTML = '<option value="">All Courses</option>';
-            citySelect.innerHTML = '<option value="">All Cities</option>';
-
-            courses.forEach(course => {
-                courseSelect.innerHTML += `<option value="${course}">${course}</option>`;
-            });
-
-            cities.forEach(city => {
-                citySelect.innerHTML += `<option value="${city}">${city}</option>`;
-            });
         }
 
         function filterTable() {
             if (!enrollmentsTable) return;
+            const searchTerm = $('#searchStudents').val();
+            const courseFilter = $('#filterCourse').val();
+            const cityFilter = $('#filterCity').val();
 
-            const searchTerm = document.getElementById('searchStudents').value;
-            const courseFilter = document.getElementById('filterCourse').value;
-            const cityFilter = document.getElementById('filterCity').value;
-
-            // Apply search to all columns
             enrollmentsTable.search(searchTerm);
-
-            // Apply specific column filters
-            // Column 4 is 'Course'
-            if (courseFilter) {
-                enrollmentsTable.column(4).search(courseFilter);
-            } else {
-                enrollmentsTable.column(4).search('');
-            }
-
-            // Column 3 is 'City'
-            if (cityFilter) {
-                enrollmentsTable.column(3).search(cityFilter);
-            } else {
-                enrollmentsTable.column(3).search('');
-            }
-
+            enrollmentsTable.column(4).search(courseFilter ? `^${courseFilter}$` : '', true, false);
+            enrollmentsTable.column(3).search(cityFilter ? `^${cityFilter}$` : '', true, false);
             enrollmentsTable.draw();
         }
 
-        // Charts
-        function loadCharts() {
-            // Destroy existing charts to prevent re-initialization errors
-            const existingCourseChart = Chart.getChart('courseChart');
-            if (existingCourseChart) existingCourseChart.destroy();
-            const existingMonthlyChart = Chart.getChart('monthlyChart');
-            if (existingMonthlyChart) existingMonthlyChart.destroy();
+        async function changeStatus(id, newStatus, userEmail, userName) {
+            const userDocRef = doc(db, 'enrollments', id);
+            try {
+                await updateDoc(userDocRef, { status: newStatus });
+                showMessage(`Status updated to ${newStatus}`, 'success');
+                
+                // Find the specific data item and update its status locally
+                const item = enrollmentsData.find(d => d.id === id);
+                if(item) item.status = newStatus;
 
-            loadCourseChart();
-            loadMonthlyChart();
+                // Redraw the table to reflect the change without a full reload
+                updateEnrollmentsTable();
+
+                if (newStatus === 'active') {
+                    // Find the enrollment data to get course name and date
+                    const enrollment = enrollmentsData.find(enrollment => enrollment.id === id);
+                    const courseName = enrollment ? enrollment.courseTitle : 'N/A';
+                    const enrollmentDate = enrollment ? enrollment.enrollmentDate : 'N/A';
+                    sendActivationEmail(userEmail, userName, courseName, enrollmentDate);
+                }
+                
+
+            } catch (error) {
+                console.error("Error updating status:", error);
+                showMessage('Failed to update status: ' + error.message, 'error');
+            }
         }
 
-        function loadCourseChart() {
-            const ctx = document.getElementById('courseChart').getContext('2d');
-            
-            const courseCounts = {};
-            enrollmentsData.forEach(item => {
-                const course = item.courseTitle || 'Unknown';
-                courseCounts[course] = (courseCounts[course] || 0) + 1;
-            });
-
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(courseCounts),
-                    datasets: [{
-                        data: Object.values(courseCounts),
-                        backgroundColor: [
-                            '#3B82F6',
-                            '#10B981',
-                            '#F59E0B',
-                            '#EF4444',
-                            '#8B5CF6',
-                            '#EC4899'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#1E293B',
-                                font: {
-                                    family: 'Inter'
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function loadMonthlyChart() {
-            const ctx = document.getElementById('monthlyChart').getContext('2d');
-            
-            const monthCounts = {};
-            enrollmentsData.forEach(item => {
-                if (item.timestamp) {
-                    // Use the timestamp to get the month for charting
-                    const month = new Date(item.timestamp).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'short' 
-                    });
-                    monthCounts[month] = (monthCounts[month] || 0) + 1;
-                }
-            });
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: Object.keys(monthCounts),
-                    datasets: [{
-                        label: 'Enrollments',
-                        data: Object.values(monthCounts),
-                        borderColor: '#3B82F6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1,
-                                color: '#64748B',
-                                font: {
-                                    family: 'Inter'
-                                }
-                            },
-                            grid: {
-                                color: '#E2E8F0'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#64748B',
-                                font: {
-                                    family: 'Inter'
-                                }
-                            },
-                            grid: {
-                                color: '#E2E8F0'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-        }
-
-        // CRUD Operations
         function editStudent(id) {
             const student = enrollmentsData.find(item => item.id === id);
             if (!student) {
                 showMessage('Student not found for editing.', 'error');
                 return;
             }
-
-            document.getElementById('editId').value = id;
-            document.getElementById('editName').value = student.fullName || '';
-            document.getElementById('editEmail').value = student.email || '';
-            document.getElementById('editPhone').value = student.phone || '';
-            document.getElementById('editCity').value = student.city || '';
-            document.getElementById('editCourse').value = student.courseTitle || '';
-
-            new bootstrap.Modal(document.getElementById('editModal')).show();
+            $('#editId').val(id);
+            $('#editName').val(student.fullName || '');
+            $('#editEmail').val(student.email || '');
+            $('#editPhone').val(student.phone || '');
+            $('#editCity').val(student.city || '');
+            $('#editCourse').val(student.courseTitle || '');
+            new bootstrap.Modal($('#editModal')).show();
         }
-        window.editStudent = editStudent; // Make editStudent globally accessible
 
         async function saveEdit() {
-            const id = document.getElementById('editId').value;
+            const id = $('#editId').val();
             const updatedData = {
-                fullName: document.getElementById('editName').value,
-                email: document.getElementById('editEmail').value,
-                phone: document.getElementById('editPhone').value,
-                city: document.getElementById('editCity').value,
-                courseTitle: document.getElementById('editCourse').value
+                fullName: $('#editName').val(),
+                email: $('#editEmail').val(),
+                phone: $('#editPhone').val(),
+                city: $('#editCity').val(),
+                courseTitle: $('#editCourse').val()
             };
-
             try {
                 await updateDoc(doc(db, 'enrollments', id), updatedData);
-                bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+                bootstrap.Modal.getInstance($('#editModal')).hide();
                 loadEnrollments();
                 showMessage('Student updated successfully!', 'success');
             } catch (error) {
@@ -1569,21 +1272,17 @@
                 showMessage('Error updating student: ' + error.message, 'error');
             }
         }
-        window.saveEdit = saveEdit; // Make saveEdit globally accessible
 
-        // Function to show the delete confirmation modal
         function showDeleteConfirm(id) {
-            document.getElementById('deleteId').value = id;
-            new bootstrap.Modal(document.getElementById('deleteConfirmModal')).show();
+            $('#deleteId').val(id);
+            new bootstrap.Modal($('#deleteConfirmModal')).show();
         }
-        window.showDeleteConfirm = showDeleteConfirm; // Make it globally accessible
 
-        // Function to handle the actual deletion after confirmation
         async function confirmDelete() {
-            const id = document.getElementById('deleteId').value;
+            const id = $('#deleteId').val();
             try {
                 await deleteDoc(doc(db, 'enrollments', id));
-                bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal')).hide();
+                bootstrap.Modal.getInstance($('#deleteConfirmModal')).hide();
                 loadEnrollments();
                 showMessage('Student deleted successfully!', 'success');
             } catch (error) {
@@ -1591,46 +1290,117 @@
                 showMessage('Error deleting student: ' + error.message, 'error');
             }
         }
-        window.confirmDelete = confirmDelete; // Make it globally accessible
 
-
-        // Export Functions
         function exportData(format) {
-            if (enrollmentsData.length === 0) {
-                showMessage('No data to export', 'warning');
+            if (enrollmentsData.length === 0) { showMessage('No data to export', 'warning'); return; }
+            const data = enrollmentsData.map(item => ({
+                Name: item.fullName || '', Email: item.email || '', Phone: item.phone || '', City: item.city || '', Course: item.courseTitle || '', Price: item.coursePrice || '',
+                'Date & Time': (item.enrollmentDate && item.enrollmentTime) ? `${item.enrollmentDate} ${item.enrollmentTime}` : (item.enrollmentDate || item.enrollmentTime || ''),
+                Status: item.status || 'inactive', Timestamp_ISO: item.timestamp || ''
+            }));
+            if (format === 'csv') exportToCSV(data);
+            else if (format === 'json') exportToJSON(data);
+            else if (format === 'excel') showMessage('Excel export feature coming soon!', 'info');
+        }
+
+        // --- Helper Functions (unchanged logic) ---
+        function updateStats() {
+             const total = enrollmentsData.length;
+            const today = new Date().toLocaleDateString();
+            const todayCount = enrollmentsData.filter(item => item.enrollmentDate === today).length;
+            const courses = [...new Set(enrollmentsData.map(item => item.courseTitle))].filter(Boolean);
+            const totalRevenue = enrollmentsData.reduce((sum, item) => sum + (parseFloat(item.coursePrice?.replace(/[PKR,]/g, '')) || 0), 0);
+            $('#totalEnrollments').text(total);
+            $('#todayEnrollments').text(todayCount);
+            $('#totalCourses').text(courses.length);
+            $('#totalRevenue').text(`PKR ${totalRevenue.toLocaleString()}`);
+        }
+
+        function updateRecentEnrollments() {
+            const recent = enrollmentsData.slice(0, 5);
+            const container = $('#recentEnrollmentsTable');
+            container.empty();
+            if (recent.length === 0) {
+                container.html('<p class="text-center text-muted">No recent enrollments found</p>');
                 return;
             }
+            let html = `<div class="table-responsive"><table class="table table-striped"><thead><tr><th>Name</th><th>Course</th><th>Date & Time</th><th>Price</th></tr></thead><tbody>`;
+            recent.forEach(item => {
+                const dateTime = (item.enrollmentDate && item.enrollmentTime) ? `${item.enrollmentDate} ${item.enrollmentTime}` : (item.enrollmentDate || item.enrollmentTime || 'N/A');
+                html += `<tr><td>${item.fullName || 'N/A'}</td><td>${item.courseTitle || 'N/A'}</td><td>${dateTime}</td><td>${item.coursePrice || 'N/A'}</td></tr>`;
+            });
+            html += '</tbody></table></div>';
+            container.html(html);
+        }
 
-            const data = enrollmentsData.map(item => ({
-                Name: item.fullName || '',
-                Email: item.email || '',
-                Phone: item.phone || '',
-                City: item.city || '',
-                Course: item.courseTitle || '',
-                Price: item.coursePrice || '',
-                // Combine Date and Time for export
-                'Date & Time': (item.enrollmentDate && item.enrollmentTime) ? 
-                               `${item.enrollmentDate} ${item.enrollmentTime}` : 
-                               (item.enrollmentDate || item.enrollmentTime || ''),
-                Timestamp_ISO: item.timestamp || '' // Keep ISO timestamp for reference if needed
-            }));
+        function populateFilters() {
+            const courses = [...new Set(enrollmentsData.map(item => item.courseTitle))].filter(Boolean);
+            const cities = [...new Set(enrollmentsData.map(item => item.city))].filter(Boolean);
+            const courseSelect = $('#filterCourse');
+            const citySelect = $('#filterCity');
+            courseSelect.html('<option value="">All Courses</option>');
+            citySelect.html('<option value="">All Cities</option>');
+            courses.forEach(course => courseSelect.append(`<option value="${course}">${course}</option>`));
+            cities.forEach(city => citySelect.append(`<option value="${city}">${city}</option>`));
+        }
 
-            if (format === 'csv') {
-                exportToCSV(data);
-            } else if (format === 'json') {
-                exportToJSON(data);
-            } else if (format === 'excel') {
-                showMessage('Excel export feature coming soon!', 'info');
+        function sendActivationEmail(userEmail, userName, courseName, enrollmentDate) {
+            if (!EMAILJS_USER_ID || EMAILJS_USER_ID === "YOUR_USER_ID") {
+                console.warn("EmailJS is not configured. Skipping email.");
+                showMessage("Email not sent: EmailJS is not configured.", "error");
+                return;
             }
+            const templateParams = {
+                to_email: userEmail,
+                to_name: userName,
+                from_name: "SkillGate Admin",
+                course_name: courseName, // Add this line
+                enrollment_date: enrollmentDate // Add this line
+            };
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                .then(response => {
+                   console.log('SUCCESS!', response.status, response.text);
+                   showMessage(`Activation email sent to ${userEmail}`, 'success');
+                }, error => {
+                   console.log('FAILED...', error);
+                   showMessage(`Failed to send email: ${error.text}`, 'error');
+                });
+        }
+
+        function loadCharts() {
+            const existingCourseChart = Chart.getChart('courseChart');
+            if (existingCourseChart) existingCourseChart.destroy();
+            const existingMonthlyChart = Chart.getChart('monthlyChart');
+            if (existingMonthlyChart) existingMonthlyChart.destroy();
+            loadCourseChart();
+            loadMonthlyChart();
+        }
+
+        function loadCourseChart() {
+            const ctx = document.getElementById('courseChart').getContext('2d');
+            const courseCounts = {};
+            enrollmentsData.forEach(item => {
+                const course = item.courseTitle || 'Unknown';
+                courseCounts[course] = (courseCounts[course] || 0) + 1;
+            });
+            new Chart(ctx, { type: 'doughnut', data: { labels: Object.keys(courseCounts), datasets: [{ data: Object.values(courseCounts), backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#1E293B', font: { family: 'Inter' } } } } } });
+        }
+
+        function loadMonthlyChart() {
+            const ctx = document.getElementById('monthlyChart').getContext('2d');
+            const monthCounts = {};
+            enrollmentsData.forEach(item => {
+                if (item.timestamp) {
+                    const month = new Date(item.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+                    monthCounts[month] = (monthCounts[month] || 0) + 1;
+                }
+            });
+            new Chart(ctx, { type: 'line', data: { labels: Object.keys(monthCounts), datasets: [{ label: 'Enrollments', data: Object.values(monthCounts), borderColor: '#3B82F6', backgroundColor: 'rgba(59, 130, 246, 0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#64748B', font: { family: 'Inter' } }, grid: { color: '#E2E8F0' } }, x: { ticks: { color: '#64748B', font: { family: 'Inter' } }, grid: { color: '#E2E8F0' } } }, plugins: { legend: { display: false } } } });
         }
 
         function exportToCSV(data) {
             const headers = Object.keys(data[0]);
-            const csvContent = [
-                headers.join(','),
-                ...data.map(row => headers.map(header => `"${row[header]}"`).join(','))
-            ].join('\n');
-
+            const csvContent = [ headers.join(','), ...data.map(row => headers.map(header => `"${row[header]}"`).join(',')) ].join('\n');
             downloadFile(csvContent, 'enrollments.csv', 'text/csv');
         }
 
@@ -1652,11 +1422,135 @@
         }
 
         function generateReport() {
-            showMessage('PDF report generation feature coming soon!', 'info');
+            if (enrollmentsData.length === 0) {
+                showMessage('No data to generate report', 'warning');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const columns = [
+                { header: 'Name', dataKey: 'fullName' },
+                { header: 'Email', dataKey: 'email' },
+                { header: 'Phone', dataKey: 'phone' },
+                { header: 'City', dataKey: 'city' },
+                { header: 'Course', dataKey: 'courseTitle' },
+                { header: 'Price', dataKey: 'coursePrice' },
+                { header: 'Date & Time', dataKey: 'dateTime' },
+                { header: 'Status', dataKey: 'status' }
+            ];
+
+            const rows = enrollmentsData.map(item => ({
+                fullName: item.fullName || 'N/A',
+                email: item.email || 'N/A',
+                phone: item.phone || 'N/A',
+                city: item.city || 'N/A',
+                courseTitle: item.courseTitle || 'N/A',
+                coursePrice: item.coursePrice || 'N/A',
+                dateTime: (item.enrollmentDate && item.enrollmentTime) ? `${item.enrollmentDate} ${item.enrollmentTime}` : (item.enrollmentDate || item.enrollmentTime || 'N/A'),
+                status: item.status || 'inactive'
+            }));
+
+            doc.text("SkillGate Enrollment Report", 14, 20);
+            doc.autoTable({
+                startY: 30,
+                head: [columns.map(col => col.header)],
+                body: rows.map(row => columns.map(col => row[col.dataKey])),
+                theme: 'striped',
+                headStyles: { fillColor: [16, 185, 129] }, // Green header
+                styles: { fontSize: 8, cellPadding: 3 },
+                columnStyles: {
+                    fullName: { cellWidth: 30 },
+                    email: { cellWidth: 40 },
+                    phone: { cellWidth: 25 },
+                    city: { cellWidth: 20 },
+                    courseTitle: { cellWidth: 30 },
+                    coursePrice: { cellWidth: 20 },
+                    dateTime: { cellWidth: 30 },
+                    status: { cellWidth: 20 }
+                },
+                didDrawPage: function(data) {
+                    // Footer
+                    let str = "Page " + doc.internal.getNumberOfPages();
+                    doc.setFontSize(10);
+                    doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+                }
+            });
+
+            doc.save('enrollment_report.pdf');
+            showMessage('PDF report generated successfully!', 'success');
         }
 
-        // Initialize the admin panel
-        initializeAdmin();
+
+        // --- App Initialization ---
+        
+        function setupEventListeners() {
+            // Login
+            $('#loginForm').on('submit', handleLogin);
+            
+            // Logout
+            $('.btn-logout').on('click', logout);
+
+            // Navigation
+            $('.sidebar-nav').on('click', '.nav-link', function(e) {
+                e.preventDefault();
+                showSection($(this).data('section'));
+            });
+
+            // Table Filters
+            $('#searchStudents, #filterCourse, #filterCity').on('input change', filterTable);
+
+            // Export and Report Buttons
+            $('.content-wrapper').on('click', '.btn-export', function() {
+                exportData($(this).data('format'));
+            });
+            $('#generateReportBtn').on('click', generateReport);
+
+            // --- Dynamic Event Delegation for Table Actions ---
+            $('#enrollmentsTable tbody').on('click', '.btn-edit', function() {
+                editStudent($(this).data('id'));
+            });
+
+            $('#enrollmentsTable tbody').on('click', '.btn-delete', function() {
+                showDeleteConfirm($(this).data('id'));
+            });
+
+            $('#enrollmentsTable tbody').on('click', '.status-badge', function() {
+                const $badge = $(this);
+                const id = $badge.data('id');
+                const currentStatus = $badge.data('status');
+                const email = $badge.data('email');
+                const name = $badge.data('name');
+                const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+                changeStatus(id, newStatus, email, name);
+            });
+
+            // Modal Buttons
+            $('#saveEditBtn').on('click', saveEdit);
+            $('#confirmDeleteBtn').on('click', confirmDelete);
+        }
+
+        function initializeAdmin() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    $('#loginPage').hide();
+                    $('#dashboardPage').show();
+                    $('#userEmail').text(user.email);
+                    loadEnrollments();
+                } else {
+                    $('#loginPage').show();
+                    $('#dashboardPage').hide();
+                }
+            });
+            setupEventListeners();
+        }
+
+        // Run on document ready
+        $(document).ready(function() {
+            initializeAdmin();
+        });
+
     </script>
 </body>
 </html>
